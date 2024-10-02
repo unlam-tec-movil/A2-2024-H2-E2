@@ -70,7 +70,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    //Coil
+    // Coil
     implementation(libs.io.coil.kt)
 
     // Dagger + Hilt
