@@ -6,5 +6,4 @@ import kotlinx.coroutines.flow.Flow
 interface TuitRepository {
     suspend fun crearTuit(content: String): Tuit
     fun getTuits(): Flow<List<Tuit>>
-    
 }
