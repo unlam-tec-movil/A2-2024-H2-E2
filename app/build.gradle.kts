@@ -70,6 +70,16 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+
+    // Retrofit
+    implementation(libs.retrofit2.retrofit)
+
+    //GSON
+    implementation(libs.retrofit2.converter.gson)
+
+    // Coil
+    implementation(libs.io.coil.kt)
+
     // Dagger + Hilt
     implementation(libs.google.dagger.hilt.android)
     ksp(libs.google.dagger.hilt.android.compiler)
