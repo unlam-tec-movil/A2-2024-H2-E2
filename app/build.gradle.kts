@@ -76,6 +76,9 @@ dependencies {
     //GSON
     implementation(libs.retrofit2.converter.gson)
 
+    // Coil
+    implementation(libs.io.coil.kt)
+
     // Dagger + Hilt
     implementation(libs.google.dagger.hilt.android)
     ksp(libs.google.dagger.hilt.android.compiler)
