@@ -6,5 +6,4 @@ import retrofit2.http.GET
 interface TuitApiService {
     @GET("/v1/tuits")
     suspend fun getTuits(): List<Tuit>
-
 }
