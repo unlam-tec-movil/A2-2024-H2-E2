@@ -11,14 +11,12 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-
     @Provides
     @Singleton
-    fun provideRetrofit(): Retrofit {
-        return Retrofit.Builder()
+    fun provideRetrofit(): Retrofit =
+        Retrofit
+            .Builder()
             .baseUrl("https://tuiter-back-xcdb34ok6q-tl.a.run.app/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-    }
-
 }

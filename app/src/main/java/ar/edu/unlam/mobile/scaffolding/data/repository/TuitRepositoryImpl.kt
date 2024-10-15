@@ -1,4 +1,5 @@
 package ar.edu.unlam.mobile.scaffolding.data.repository
+
 import ar.edu.unlam.mobile.scaffolding.data.network.TuitApiService
 import ar.edu.unlam.mobile.scaffolding.domain.tuit.models.Tuit
 import ar.edu.unlam.mobile.scaffolding.domain.tuit.repository.TuitRepository
@@ -14,7 +15,7 @@ class TuitRepositoryImpl(
             emit(tuits)
         }
 
-    override suspend fun crearTuit(content: String): Tuit {
+    override suspend fun createTuit(content: String): Tuit {
         TODO("Not yet implemented")
     }
 }
