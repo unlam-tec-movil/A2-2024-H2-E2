@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface TuitRepository {
     suspend fun crearTuit(content: String): Tuit
-    suspend fun getTuits(): Flow<List<Tuit>>
+    fun getTuits(): Flow<List<Tuit>>
 }
