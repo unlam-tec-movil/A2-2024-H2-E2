@@ -70,11 +70,10 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-
     // Retrofit
     implementation(libs.retrofit2.retrofit)
 
-    //GSON
+    // GSON
     implementation(libs.retrofit2.converter.gson)
 
     // Coil
