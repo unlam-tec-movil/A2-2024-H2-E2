@@ -41,6 +41,6 @@ class HomeViewModel
         val uiState = _uiState.asStateFlow()
 
         init {
-            _uiState.value = HomeUIState(HelloMessageUIState.Success("2b"))
+            _uiState.value = HomeUIState(HelloMessageUIState.Success("Iniciando registro"))
         }
     }
