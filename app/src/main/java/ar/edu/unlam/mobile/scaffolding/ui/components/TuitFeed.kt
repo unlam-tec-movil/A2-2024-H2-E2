@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import ar.edu.unlam.mobile.scaffolding.domain.tuit.models.Tuit
+import ar.edu.unlam.mobile.scaffolding.domain.model.Tuit
 
 @Composable
 fun TuitFeed(tuits: List<Tuit>) {
