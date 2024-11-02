@@ -8,13 +8,9 @@ interface UserRepository {
         password: String,
     ): User
 
-    suspend fun createUser(
-        user: User,
-    ): User
+    suspend fun createUser(user: User,): User
 
-    suspend fun getUserByID(
-        userId: String,
-    ): User
+    suspend fun getUserByID(userId: String,): User
 
     // Ver si faltan métodos
 }
