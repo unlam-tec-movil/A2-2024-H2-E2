@@ -1,3 +1,5 @@
 package ar.edu.unlam.mobile.scaffolding.domain.port.usecase.tuit.interaction
 
-// TODO: TBD
+interface CreateReply {
+    // TODO: Definir si va a seguir siendo una interfaz
+}

@@ -1,3 +1,5 @@
 package ar.edu.unlam.mobile.scaffolding.domain.model
 
-// TODO: TBD
+data class Reply(
+    // TODO: definir si va a seguir siendo una data class
+)
