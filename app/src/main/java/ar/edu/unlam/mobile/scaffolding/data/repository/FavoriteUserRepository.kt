@@ -7,5 +7,4 @@ class FavoriteUserRepository @Inject constructor(
     private val localUserDao: LocalUserDao
 ) {
     // TODO: Implementar métodos para usuarios favoritos
-
 }

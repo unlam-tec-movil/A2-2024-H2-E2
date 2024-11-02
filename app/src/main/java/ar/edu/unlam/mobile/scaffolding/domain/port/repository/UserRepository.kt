@@ -11,5 +11,4 @@ interface UserRepository {
     suspend fun getUserByID (userId: String): User
 
     // Ver si faltan métodos
-
 }

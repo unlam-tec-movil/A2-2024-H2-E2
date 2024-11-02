@@ -7,5 +7,4 @@ class StoredTuitRepository @Inject constructor(
     private val localTuitDao: LocalTuitDao
 ) {
     // TODO: Implementar métodos para borradores locales
-
 }

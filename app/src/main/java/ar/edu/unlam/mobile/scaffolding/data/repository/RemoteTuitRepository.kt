@@ -7,5 +7,4 @@ class RemoteTuitRepository @Inject constructor(
     private val tuitApi: TuitApi
 ) {
     // TODO: Implementar métodos para tuits desde API
-
 }

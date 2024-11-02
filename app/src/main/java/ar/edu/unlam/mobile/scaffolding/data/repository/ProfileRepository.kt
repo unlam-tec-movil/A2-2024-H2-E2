@@ -7,5 +7,4 @@ class ProfileRepository @Inject constructor(
     private val profileApi: ProfileApi
 ) {
     // TODO: Implementar métodos de perfil
-
 }

@@ -16,11 +16,7 @@ object ApiModule {
     fun provideRetrofit(): Retrofit =
         Retrofit
             .Builder()
-            .baseUrl("https://tuiter-back-xcdb34ok6q-tl.a.run.app/")
+            .baseUrl("https://tuiter.fragua.com.ar/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-
-}
-
-// TODO: Se deben agregar providers para cada API
-
+} // TODO: Se deben agregar providers para cada API
