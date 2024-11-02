@@ -8,5 +8,5 @@ class FavoriteUserRepository
     constructor(
         private val localUserDao: LocalUserDao,
     ) {
-    // TODO: Implementar métodos para usuarios favoritos
-}
+        // TODO: Implementar métodos para usuarios favoritos
+    }

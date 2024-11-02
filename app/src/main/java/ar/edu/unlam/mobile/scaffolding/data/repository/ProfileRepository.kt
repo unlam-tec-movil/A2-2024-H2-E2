@@ -8,5 +8,5 @@ class ProfileRepository
     constructor(
         private val profileApi: ProfileApi,
     ) {
-    // TODO: Implementar métodos de perfil
-}
+        // TODO: Implementar métodos de perfil
+    }

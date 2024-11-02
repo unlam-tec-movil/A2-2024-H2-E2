@@ -8,5 +8,5 @@ class AuthenticationRepository
     constructor(
         private val authApi: AuthApi,
     ) {
-    // TODO: Implementar métodos de autenticación
-}
+        // TODO: Implementar métodos de autenticación
+    }

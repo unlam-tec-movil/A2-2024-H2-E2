@@ -8,5 +8,5 @@ class StoredTuitRepository
     constructor(
         private val localTuitDao: LocalTuitDao,
     ) {
-    // TODO: Implementar métodos para borradores locales
-}
+        // TODO: Implementar métodos para borradores locales
+    }
