@@ -2,11 +2,12 @@ package ar.edu.unlam.mobile.scaffolding.domain.model
 
 data class Tuit(
     val id: Int,
-    val authorName: String,
-    val content: String,
-    val avatar: String,
+    val message: String,
+    val parentId: Int,
+    val author: String,
+    val avatarUrl: String,
     val likes: Int,
     val liked: Boolean,
-    val replies: Int,
-    val reply: (id: Int) -> Unit,
+    val date: String,
+    val replies: Int = 0
 )
