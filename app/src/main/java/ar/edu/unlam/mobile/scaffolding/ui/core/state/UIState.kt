@@ -7,14 +7,14 @@ sealed class UIState<out T> {
 }
 
 fun <T> UIState<T>.onSuccess(action: (T) -> Unit): UIState<T> {
-    if (this is UIState.Success){
+    if (this is UIState.Success) {
         action(data)
     }
     return this
 }
 
 fun <T> UIState<T>.onError(action: (String) -> Unit): UIState<T> {
-    if (this is UIState.Error){
+    if (this is UIState.Error) {
         action(message)
     }
     return this
