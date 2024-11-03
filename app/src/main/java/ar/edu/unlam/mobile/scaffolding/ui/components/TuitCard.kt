@@ -60,13 +60,14 @@ fun TuitCardPreview() {
     val tuit =
         Tuit(
             id = 1,
-            authorName = "John Doe",
-            content = "Esto es un tuit de prueba!",
-            avatar = "https://ih1.redbubble.net/image.1221593566.8336/mwo,x1000,ipad_2_snap-pad,750x1000,f8f8f8.jpg",
-            likes = 0,
+            message = "Esto es un tuit de prueba!",
+            parentId = 0,
+            author = "John Doe",
+            avatarUrl = "https://ui-avatars.com/api/?name=John+Doe",
+            likes = 5,
             liked = false,
-            replies = 0,
-            reply = { id -> },
+            date = "2024-11-03T10:00:00Z",
+            replies = 2
         )
     TuitCard(tuit)
 }
