@@ -31,7 +31,7 @@ fun TuitCard(
                 Row {
                     Column {
                         AsyncImage(
-                            model = tuit.avatar,
+                            model = tuit.avatarUrl,
                             contentDescription = "Android Picture",
                             modifier = Modifier.size(50.dp),
                         )
@@ -43,11 +43,11 @@ fun TuitCard(
                                 .fillMaxWidth()
                                 .height(50.dp),
                     ) {
-                        Text(tuit.authorName, fontSize = 16.sp)
+                        Text(tuit.author, fontSize = 16.sp)
                     }
                 }
                 Row {
-                    Text(tuit.content, fontSize = 24.sp)
+                    Text(tuit.message, fontSize = 24.sp)
                 }
             }
         }
@@ -67,7 +67,7 @@ fun TuitCardPreview() {
             likes = 5,
             liked = false,
             date = "2024-11-03T10:00:00Z",
-            replies = 2
+            replies = 2,
         )
     TuitCard(tuit)
 }

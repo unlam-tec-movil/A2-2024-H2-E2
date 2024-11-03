@@ -32,7 +32,7 @@ fun TuitFeedPreview() {
                 likes = 5,
                 liked = false,
                 date = "2024-11-03T10:00:00Z",
-                replies = 2
+                replies = 2,
             ),
             Tuit(
                 id = 2,
@@ -43,7 +43,7 @@ fun TuitFeedPreview() {
                 likes = 3,
                 liked = true,
                 date = "2024-11-03T11:30:00Z",
-                replies = 0
+                replies = 0,
             ),
         )
     TuitFeed(tuits = tuits)
