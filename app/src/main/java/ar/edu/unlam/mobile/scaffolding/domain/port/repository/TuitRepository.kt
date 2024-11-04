@@ -4,9 +4,14 @@ import ar.edu.unlam.mobile.scaffolding.domain.model.Tuit
 import kotlinx.coroutines.flow.Flow
 
 interface TuitRepository {
-    suspend fun createTuit(content: String): Tuit
+    fun getFeed(): Flow<List<Tuit>>
 
-    suspend fun getTuits(): Flow<List<Tuit>>
+    suspend fun getTuitById(id: String): Tuit
 
-    // Ver si faltan métodos
+    suspend fun createTuit(message: String): Tuit
+
+    suspend fun likeTuit(tuitId: String)
+
+    suspend fun unlikeTuit(tuitId: String)
+
 }
