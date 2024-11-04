@@ -5,7 +5,6 @@ import ar.edu.unlam.mobile.scaffolding.domain.model.Tuit
 import javax.inject.Inject
 
 class TuitMapper @Inject constructor() {
-
     private fun toDomain(response: TuitResponse): Tuit {
         return Tuit(
             id = response.id,
@@ -16,7 +15,7 @@ class TuitMapper @Inject constructor() {
             parentId = 0,
             avatarUrl = "https://ui-avatars.com/api/?name=${response.author.replace(" ", "+")}",
             date = System.currentTimeMillis().toString(),
-            replies = 0
+            replies = 0,
         )
     }
 
