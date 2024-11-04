@@ -13,5 +13,4 @@ interface TuitRepository {
     suspend fun likeTuit(tuitId: String)
 
     suspend fun unlikeTuit(tuitId: String)
-
 }
