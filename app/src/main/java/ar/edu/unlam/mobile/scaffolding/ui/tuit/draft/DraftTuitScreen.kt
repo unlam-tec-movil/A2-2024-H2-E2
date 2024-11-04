@@ -1,4 +1,4 @@
-package ar.edu.unlam.mobile.scaffolding.ui.tuit.local
+package ar.edu.unlam.mobile.scaffolding.ui.tuit.draft
 
 import androidx.compose.runtime.Composable
 

@@ -4,6 +4,6 @@ package ar.edu.unlam.mobile.scaffolding.domain.model
     // TODO: Implementar para usuarios favoritos
 )*/
 
-class LocalUser {
+class FavoriteUser {
     // TODO: borrar esta clase y usar la de arriba cuando se implemente
 }
