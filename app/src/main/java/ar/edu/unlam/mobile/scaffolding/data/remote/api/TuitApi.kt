@@ -12,15 +12,22 @@ interface TuitApi {
     suspend fun getFeed(): List<TuitResponse>
 
     @GET("/api/v1/me/tuits/{id}")
-    suspend fun getTuitById(@Path("id") id: String): TuitResponse
+    suspend fun getTuitById(
+        @Path("id") id: String
+    ): TuitResponse
 
     @POST("/api/v1/me/tuits")
-    suspend fun createTuit(@Body message: String): TuitResponse
+    suspend fun createTuit(
+        @Body message: String
+    ): TuitResponse
 
     @POST("/api/v1/me/tuits/{id}/likes")
-    suspend fun likeTuit(@Path("id") tuitId: String)
+    suspend fun likeTuit(
+        @Path("id") tuitId: String
+    )
 
     @DELETE("/api/v1/me/tuits/{id}/likes")
-    suspend fun unlikeTuit(@Path("id") tuitId: String)
-
+    suspend fun unlikeTuit(
+        @Path("id") tuitId: String
+    )
 }
