@@ -33,7 +33,7 @@ fun ErrorView(
             .fillMaxWidth(),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.errorContainer,
-        )
+        ),
     ) {
         Column(
             modifier = Modifier
