@@ -13,7 +13,7 @@ interface TuitApi {
 
     @GET("/api/v1/me/tuits/{id}")
     suspend fun getTuitById(
-        @Path("id") id: String,
+        @Path("id") id: Int,
     ): TuitResponse
 
     @POST("/api/v1/me/tuits")
@@ -23,11 +23,11 @@ interface TuitApi {
 
     @POST("/api/v1/me/tuits/{id}/likes")
     suspend fun likeTuit(
-        @Path("id") tuitId: String,
+        @Path("id") tuitId: Int,
     )
 
     @DELETE("/api/v1/me/tuits/{id}/likes")
     suspend fun unlikeTuit(
-        @Path("id") tuitId: String,
+        @Path("id") tuitId: Int,
     )
 }
