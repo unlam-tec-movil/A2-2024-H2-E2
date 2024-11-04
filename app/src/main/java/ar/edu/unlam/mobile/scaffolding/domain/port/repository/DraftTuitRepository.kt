@@ -1,6 +1,6 @@
 package ar.edu.unlam.mobile.scaffolding.domain.port.repository
 
-interface LocalTuitRepository {
+interface DraftTuitRepository {
     // TODO: Métodos para:
     // - Guardar borrador
     // - Obtener borradores
