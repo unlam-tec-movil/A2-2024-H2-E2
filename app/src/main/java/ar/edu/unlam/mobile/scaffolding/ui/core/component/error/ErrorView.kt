@@ -28,8 +28,7 @@ fun ErrorView(
     isRetrying: Boolean = false,
 ) {
     Card(
-        modifier =
-        Modifier
+        modifier = Modifier
             .padding(16.dp)
             .fillMaxWidth(),
         colors = CardDefaults.cardColors(
@@ -37,8 +36,7 @@ fun ErrorView(
         ),
     ) {
         Column(
-            modifier =
-            Modifier
+            modifier = Modifier
                 .padding(16.dp)
                 .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
