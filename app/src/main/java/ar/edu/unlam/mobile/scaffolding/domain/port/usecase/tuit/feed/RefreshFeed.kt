@@ -6,7 +6,7 @@ import javax.inject.Inject
 class RefreshFeed
     @Inject
     constructor(
-        private val tuitRepository: TuitRepository
+        private val tuitRepository: TuitRepository,
     ) {
         operator fun invoke() = tuitRepository.getFeed()
     }
