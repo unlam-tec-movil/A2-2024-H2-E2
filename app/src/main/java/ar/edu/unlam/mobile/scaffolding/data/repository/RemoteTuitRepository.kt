@@ -1,6 +1,7 @@
 package ar.edu.unlam.mobile.scaffolding.data.repository
 
 import ar.edu.unlam.mobile.scaffolding.data.remote.api.TuitApi
+import ar.edu.unlam.mobile.scaffolding.data.remote.mapper.TuitMapper
 import ar.edu.unlam.mobile.scaffolding.domain.model.Tuit
 import ar.edu.unlam.mobile.scaffolding.domain.port.repository.TuitRepository
 import kotlinx.coroutines.flow.Flow
