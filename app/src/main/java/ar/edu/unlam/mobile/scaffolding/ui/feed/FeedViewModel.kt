@@ -29,15 +29,18 @@ class FeedViewModel
             viewModelScope.launch {
                 try {
                     getFeed().collect { tuits ->
-                        _state.value = _state.value.copy(
-                            tuitsState = UIState.Success(tuits),
-                        )
+                        _state.value =
+                            _state.value.copy(
+                                tuitsState = UIState.Success(tuits),
+                            )
                     }
                 } catch (e: Exception) {
-                    _state.value = _state.value.copy(
-                        tuitsState = UIState.Error(e.message ?: "Error al cargar los tuits"
-                        ),
-                    )
+                    _state.value =
+                        _state.value.copy(
+                            tuitsState = UIState.Error(
+                                e.message ?: "Error al cargar los tuits"
+                            ),
+                        )
                 }
             }
         }
@@ -45,18 +48,23 @@ class FeedViewModel
         fun onRefresh() {
             viewModelScope.launch {
                 try {
-                    _state.value = _state.value.copy(
-                        isRefreshing = true,
-                    )
+                    _state.value =
+                        _state.value.copy(
+                            isRefreshing = true,
+                        )
                     refreshFeed()
                 } catch (e: Exception) {
-                    _state.value = _state.value.copy(
-                        tuitsState = UIState.Error(e.message ?: "Error al actualizar los tuits")
-                    )
+                    _state.value =
+                        _state.value.copy(
+                            tuitsState = UIState.Error(
+                                e.message ?: "Error al actualizar los tuits"
+                            ),
+                        )
                 } finally {
-                    _state.value = _state.value.copy(
-                        isRefreshing = false,
-                    )
+                    _state.value =
+                        _state.value.copy(
+                            isRefreshing = false,
+                        )
                 }
             }
         }
