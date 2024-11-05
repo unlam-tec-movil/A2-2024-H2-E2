@@ -14,9 +14,9 @@ class TuitMapper
                 author = response.author,
                 likes = response.likes,
                 liked = response.liked,
-                parentId = 0,
-                avatarUrl = "https://ui-avatars.com/api/?name=${response.author.replace(" ", "+")}",
-                date = System.currentTimeMillis().toString(),
+                parentId = response.parentId,
+                avatarUrl = response.avatarUrl,
+                date = response.date,
                 replies = 0,
             )
         }
