@@ -1,9 +1,9 @@
 package ar.edu.unlam.mobile.scaffolding.data.remote.dto.response
 
-/*data class ProfileResponse(
-    // TODO: Implementar campos
-)*/
+import com.google.gson.annotations.SerializedName
 
-class ProfileResponse {
-    // TODO: borrar esta clase y usar la de arriba cuando se implemente
-}
+data class ProfileResponse(
+    @SerializedName("name") val id: String,
+    @SerializedName("avatar_url") val message: String,
+    @SerializedName("email") val parentId: String,
+)
