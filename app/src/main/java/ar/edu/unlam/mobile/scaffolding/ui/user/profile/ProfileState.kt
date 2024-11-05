@@ -1,9 +1,8 @@
 package ar.edu.unlam.mobile.scaffolding.ui.user.profile
 
-/*data class ProfileState(
-    // TODO: Implementar estado de perfil
-)*/
+import ar.edu.unlam.mobile.scaffolding.domain.model.Profile
+import ar.edu.unlam.mobile.scaffolding.ui.core.state.UIState
 
-class ProfileState {
-    // TODO: borrar esta clase y usar la de arriba cuando se implemente
-}
+data class ProfileState(
+    val profileState: UIState<Profile> = UIState.Loading,
+)
