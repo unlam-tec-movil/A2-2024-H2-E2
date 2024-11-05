@@ -1,6 +1,7 @@
 package ar.edu.unlam.mobile.scaffolding.di
 
 import ar.edu.unlam.mobile.scaffolding.data.remote.api.TuitApi
+import ar.edu.unlam.mobile.scaffolding.data.remote.mapper.TuitMapper
 import ar.edu.unlam.mobile.scaffolding.data.repository.RemoteTuitRepository
 import ar.edu.unlam.mobile.scaffolding.domain.port.repository.TuitRepository
 import dagger.Module
