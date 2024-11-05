@@ -7,7 +7,7 @@ import javax.inject.Inject
 class TuitMapper
     @Inject
     constructor() {
-        private fun toDomain(response: TuitResponse): Tuit {
+        fun toDomain(response: TuitResponse): Tuit {
             return Tuit(
                 id = response.id,
                 message = response.message,
