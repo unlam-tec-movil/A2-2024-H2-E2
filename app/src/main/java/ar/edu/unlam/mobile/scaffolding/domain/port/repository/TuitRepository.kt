@@ -6,11 +6,11 @@ import kotlinx.coroutines.flow.Flow
 interface TuitRepository {
     fun getFeed(): Flow<List<Tuit>>
 
-    suspend fun getTuitById(id: String): Tuit
+    suspend fun getTuitById(id: Int): Tuit
 
     suspend fun createTuit(message: String): Tuit
 
-    suspend fun likeTuit(tuitId: String)
+    suspend fun likeTuit(tuitId: Int)
 
-    suspend fun unlikeTuit(tuitId: String)
+    suspend fun unlikeTuit(tuitId: Int)
 }

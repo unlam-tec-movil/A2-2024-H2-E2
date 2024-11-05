@@ -1,9 +1,9 @@
 package ar.edu.unlam.mobile.scaffolding.ui.feed
 
-/*data class FeedState(
-    // TODO: Implementar estado del feed
-)*/
+import ar.edu.unlam.mobile.scaffolding.domain.model.Tuit
+import ar.edu.unlam.mobile.scaffolding.ui.core.state.UIState
 
-class FeedState {
-    // TODO: borrar esta clase y usar la de arriba cuando se implemente
-}
+data class FeedState(
+    val tuitsState: UIState<List<Tuit>> = UIState.Loading,
+    val isRefreshing: Boolean = false,
+)
