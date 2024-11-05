@@ -8,7 +8,7 @@ import javax.inject.Inject
 class GetFeed
     @Inject
     constructor(
-    private val tuitRepository: TuitRepository,
-) {
-    operator fun invoke(): Flow<List<Tuit>> = tuitRepository.getFeed()
-}
+        private val tuitRepository: TuitRepository,
+    ) {
+        operator fun invoke(): Flow<List<Tuit>> = tuitRepository.getFeed()
+    }
