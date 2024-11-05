@@ -39,7 +39,7 @@ class FeedViewModel
                         _state.value.copy(
                             tuitsState =
                                 UIState.Error(
-                                    e.message ?: "Error al cargar los tuits"
+                                    e.message ?: "Error al cargar los tuits",
                                 ),
                         )
                 }
@@ -59,7 +59,7 @@ class FeedViewModel
                         _state.value.copy(
                             tuitsState =
                                 UIState.Error(
-                                    e.message ?: "Error al actualizar los tuits"
+                                    e.message ?: "Error al actualizar los tuits",
                                 ),
                         )
                 } finally {
