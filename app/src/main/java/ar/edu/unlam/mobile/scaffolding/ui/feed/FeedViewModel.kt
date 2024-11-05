@@ -37,9 +37,10 @@ class FeedViewModel
                 } catch (e: Exception) {
                     _state.value =
                         _state.value.copy(
-                            tuitsState = UIState.Error(
-                                e.message ?: "Error al cargar los tuits"
-                            ),
+                            tuitsState =
+                                UIState.Error(
+                                    e.message ?: "Error al cargar los tuits"
+                                ),
                         )
                 }
             }
@@ -56,9 +57,10 @@ class FeedViewModel
                 } catch (e: Exception) {
                     _state.value =
                         _state.value.copy(
-                            tuitsState = UIState.Error(
-                                e.message ?: "Error al actualizar los tuits"
-                            ),
+                            tuitsState =
+                                UIState.Error(
+                                    e.message ?: "Error al actualizar los tuits"
+                                ),
                         )
                 } finally {
                     _state.value =
