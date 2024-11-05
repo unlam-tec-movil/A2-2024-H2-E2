@@ -5,7 +5,8 @@ import ar.edu.unlam.mobile.scaffolding.domain.model.Tuit
 import javax.inject.Inject
 
 class TuitMapper
-    @Inject constructor() {
+    @Inject
+    constructor() {
         private fun toDomain(response: TuitResponse): Tuit {
             return Tuit(
                 id = response.id,
