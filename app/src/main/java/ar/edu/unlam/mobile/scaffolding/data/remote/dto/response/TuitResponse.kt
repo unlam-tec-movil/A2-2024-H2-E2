@@ -1,9 +1,11 @@
 package ar.edu.unlam.mobile.scaffolding.data.remote.dto.response
 
-/*data class TuitResponse(
-    // TODO: Implementar campos
-)*/
+import com.google.gson.annotations.SerializedName
 
-class TuitResponse {
-    // TODO: borrar esta clase y usar la de arriba cuando se implemente
-}
+data class TuitResponse(
+    @SerializedName("id") val id: Int,
+    @SerializedName("message") val message: String,
+    @SerializedName("author") val author: String,
+    @SerializedName("likes") val likes: Int,
+    @SerializedName("liked") val liked: Boolean,
+)
