@@ -11,13 +11,13 @@ class RemoteTuitRepository
     @Inject
     constructor(
         private val api: TuitApi,
-        private val mapper: TuitMapper
+        private val mapper: TuitMapper,
     ) : TuitRepository {
-
-        override fun getFeed(): Flow<List<Tuit>> = flow {
-            val response = api.getFeed()
-            emit(mapper.toDomainList(response))
-        }
+        override fun getFeed(): Flow<List<Tuit>> =
+            flow {
+                val response = api.getFeed()
+                emit(mapper.toDomainList(response))
+            }
 
         override suspend fun getTuitById(id: Int): Tuit {
             val response = api.getTuitById(id)
