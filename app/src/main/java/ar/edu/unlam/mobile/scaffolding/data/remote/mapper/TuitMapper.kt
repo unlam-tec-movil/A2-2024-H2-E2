@@ -21,7 +21,7 @@ class TuitMapper
             )
         }
 
-    fun toDomainList(responses: List<TuitResponse>): List<Tuit> {
-        return responses.map { toDomain(it) }
+        fun toDomainList(responses: List<TuitResponse>): List<Tuit> {
+            return responses.map { toDomain(it) }
+        }
     }
-}
