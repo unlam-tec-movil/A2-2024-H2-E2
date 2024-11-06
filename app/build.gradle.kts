@@ -62,6 +62,8 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.compose.material)
+    implementation(libs.androidx.compose.foundation)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -78,9 +80,6 @@ dependencies {
 
     // Coil
     implementation(libs.io.coil.kt)
-
-    // Swipe Refresh
-    implementation(libs.accompanist.swiperefresh)
 
     // Dagger + Hilt
     implementation(libs.google.dagger.hilt.android)
