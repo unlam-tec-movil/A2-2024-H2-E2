@@ -23,6 +23,5 @@ object ApiModule {
 
     @Provides
     @Singleton
-    fun provideTuitApi(retrofit: Retrofit): TuitApi =
-        retrofit.create(TuitApi::class.java)
+    fun provideTuitApi(retrofit: Retrofit): TuitApi = retrofit.create(TuitApi::class.java)
 } // TODO: Se deben agregar providers para cada API
