@@ -1,9 +1,7 @@
 package ar.edu.unlam.mobile.scaffolding.ui.user.auth.login
 
-/*data class LoginState(
-    // TODO: Implementar estado de login
-)*/
+import ar.edu.unlam.mobile.scaffolding.ui.core.state.UIState
 
-class LoginState {
-    // TODO: borrar esta clase y usar la de arriba cuando se implemente
-}
+data class LoginState(
+    val loginState: UIState<Unit> = UIState.Loading,
+)
