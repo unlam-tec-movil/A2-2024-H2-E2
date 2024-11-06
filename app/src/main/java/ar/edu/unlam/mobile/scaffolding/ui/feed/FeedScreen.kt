@@ -32,7 +32,8 @@ fun FeedScreen(
     val pullRefreshState =
         rememberPullRefreshState(
             refreshing = state.isRefreshing,
-            onRefresh = { viewModel.onRefresh() },)
+            onRefresh = { viewModel.onRefresh() },
+        )
 
     Box(
         modifier =
