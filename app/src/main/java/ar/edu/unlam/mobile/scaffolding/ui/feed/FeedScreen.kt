@@ -19,14 +19,14 @@ import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 @Composable
 fun FeedScreen(
     modifier: Modifier = Modifier,
-    viewModel: FeedViewModel = hiltViewModel()
+    viewModel: FeedViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsState()
 
     SwipeRefresh(
         modifier = modifier,
         state = rememberSwipeRefreshState(state.isRefreshing),
-        onRefresh = { viewModel.onRefresh() }
+        onRefresh = { viewModel.onRefresh() },
     ) {
         FeedContent(
             state = state,
