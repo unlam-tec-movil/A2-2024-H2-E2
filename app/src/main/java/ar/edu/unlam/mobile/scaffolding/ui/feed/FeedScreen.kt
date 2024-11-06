@@ -3,9 +3,9 @@ package ar.edu.unlam.mobile.scaffolding.ui.feed
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
-import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -30,10 +30,9 @@ fun FeedScreen(
     val state by viewModel.state.collectAsState()
 
     val pullRefreshState =
-            rememberPullRefreshState(
-                refreshing = state.isRefreshing,
-                onRefresh = { viewModel.onRefresh() },
-            )
+        rememberPullRefreshState(
+            refreshing = state.isRefreshing,
+            onRefresh = { viewModel.onRefresh() },)
 
     Box(
         modifier =
