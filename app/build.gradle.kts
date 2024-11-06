@@ -79,6 +79,9 @@ dependencies {
     // Coil
     implementation(libs.io.coil.kt)
 
+    // Swipe Refresh
+    implementation(libs.accompanist.swiperefresh)
+
     // Dagger + Hilt
     implementation(libs.google.dagger.hilt.android)
     ksp(libs.google.dagger.hilt.android.compiler)
