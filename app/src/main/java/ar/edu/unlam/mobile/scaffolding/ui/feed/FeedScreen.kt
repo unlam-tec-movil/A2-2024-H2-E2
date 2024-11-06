@@ -25,29 +25,31 @@ import ar.edu.unlam.mobile.scaffolding.ui.core.state.onSuccess
 @Composable
 fun FeedScreen(
     modifier: Modifier = Modifier,
-    viewModel: FeedViewModel = hiltViewModel()
+    viewModel: FeedViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsState()
 
-    val pullRefreshState = rememberPullRefreshState(
-        refreshing = state.isRefreshing,
-        onRefresh = { viewModel.onRefresh() }
-    )
+    val pullRefreshState =
+            rememberPullRefreshState(
+                refreshing = state.isRefreshing,
+                onRefresh = { viewModel.onRefresh() },
+            )
 
     Box(
-        modifier = modifier
-            .fillMaxSize()
-            .pullRefresh(pullRefreshState)
+        modifier =
+            modifier
+                .fillMaxSize()
+                .pullRefresh(pullRefreshState),
     ) {
         FeedContent(
             state = state.tuitsState,
             onRetry = { viewModel.onRefresh() },
-            modifier = modifier
+            modifier = modifier,
         )
         PullRefreshIndicator(
             refreshing = state.isRefreshing,
             state = pullRefreshState,
-            modifier = Modifier.align(Alignment.TopCenter)
+            modifier = Modifier.align(Alignment.TopCenter),
         )
     }
 }
@@ -65,7 +67,7 @@ private fun FeedContent(
             .onError { message ->
                 ErrorView(
                     message = message,
-                    onRetry = onRetry
+                    onRetry = onRetry,
                 )
             }
             .onLoading {
