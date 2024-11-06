@@ -1,9 +1,7 @@
 package ar.edu.unlam.mobile.scaffolding.ui.tuit.create
 
-/*data class CreateTuitState(
-    // TODO: Implementar estado de creación
-)*/
+import ar.edu.unlam.mobile.scaffolding.ui.core.state.UIState
 
-class CreateTuitState {
-    // TODO: borrar esta clase y usar la de arriba cuando se implemente
-}
+data class CreateTuitState(
+    val createTuitState: UIState<Unit> = UIState.Loading,
+)
