@@ -1,9 +1,7 @@
 package ar.edu.unlam.mobile.scaffolding.ui.user.auth.register
 
-/*data class RegisterState(
-    // TODO: Implementar estado de registro
-)*/
+import ar.edu.unlam.mobile.scaffolding.ui.core.state.UIState
 
-class RegisterState {
-    // TODO: borrar esta clase y usar la de arriba cuando se implemente
-}
+data class RegisterState(
+    val registerState: UIState<Unit> = UIState.Loading,
+)
