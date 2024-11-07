@@ -1,9 +1,7 @@
 package ar.edu.unlam.mobile.scaffolding.domain.model
 
-/*data class LocalUser(
-    // TODO: Implementar para usuarios favoritos
-)*/
+data class LocalUser(
+    val name: String,
+    val avatarUrl: String
+)
 
-class FavoriteUser {
-    // TODO: borrar esta clase y usar la de arriba cuando se implemente
-}
