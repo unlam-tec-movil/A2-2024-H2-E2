@@ -8,7 +8,6 @@ import ar.edu.unlam.mobile.scaffolding.data.local.entity.FavoriteUserEntity
 
 @Dao
 interface FavoriteUserDao {
-
     @Insert
     suspend fun saveFavoriteUser(user: FavoriteUserEntity)
 
