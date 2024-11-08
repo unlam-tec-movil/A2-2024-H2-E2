@@ -11,14 +11,14 @@ class FavoriteUserMapper
             return FavoriteUser(
                 name = favoriteUserEntity.name,
                 avatarUrl = favoriteUserEntity.avatarUrl,
-                )
+            )
         }
 
         fun mapToEntity(favoriteUser: FavoriteUser): FavoriteUserEntity {
             return FavoriteUserEntity(
                 name = favoriteUser.name,
                 avatarUrl = favoriteUser.avatarUrl,
-                )
+            )
         }
 
         fun mapToDomainList(favoriteUserEntities: List<FavoriteUserEntity>): List<FavoriteUser> {
@@ -28,4 +28,4 @@ class FavoriteUserMapper
         fun mapToEntityList(favoriteUsers: List<FavoriteUser>): List<FavoriteUserEntity> {
             return favoriteUsers.map { mapToEntity(it) }
         }
-}
+    }

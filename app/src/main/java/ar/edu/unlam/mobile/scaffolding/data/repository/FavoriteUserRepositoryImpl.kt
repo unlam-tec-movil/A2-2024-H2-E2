@@ -10,16 +10,20 @@ class FavoriteUserRepositoryImpl
     @Inject
     constructor(
         private val favoriteUserDao: FavoriteUserDao,
+        private val favoriteUserMapper: FavoriteUserMapper,
     ) : FavoriteUserRepository{
     override suspend fun savefavoriteUser(user: FavoriteUser) {
-        favoriteUserDao.saveFavoriteUser(FavoriteUserMapper.mapToEntity(user))
+        val entity = favoriteUserMapper.mapToEntity(user)
+        favoriteUserDao.saveFavoriteUser(entity)
     }
 
     override suspend fun getFavoriteUsers(): List<FavoriteUser> {
-        return FavoriteUserMapper.mapToDomainList(favoriteUserDao.getFavoriteUsers())
+        val entities = favoriteUserDao.getFavoriteUsers()
+        return favoriteUserMapper.mapToDomainList(entities)
     }
 
     override suspend fun deleteFavoriteUser(user: FavoriteUser) {
-        favoriteUserDao.deleteFavoriteUser(FavoriteUserMapper.mapToEntity(user))
+        val entity = favoriteUserMapper.mapToEntity(user)
+        favoriteUserDao.deleteFavoriteUser(entity)
     }
     }
