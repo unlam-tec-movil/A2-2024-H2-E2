@@ -11,6 +11,6 @@ class ProfileMapper
             Profile(
                 name = response.id,
                 avatarUrl = response.message,
-                email = response.parentId,
+                email = response.email,
             )
     }
