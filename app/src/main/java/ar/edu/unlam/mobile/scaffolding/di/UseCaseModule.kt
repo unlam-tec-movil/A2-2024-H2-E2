@@ -13,23 +13,17 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 object UseCaseModule {
     @Provides
-    fun provideSaveFavoriteUser(
-        favoriteUserRepository: FavoriteUserRepository
-    ): SaveFavoriteUser {
+    fun provideSaveFavoriteUser(favoriteUserRepository: FavoriteUserRepository): SaveFavoriteUser {
         return SaveFavoriteUser(favoriteUserRepository)
     }
 
     @Provides
-    fun provideRemoveFavoriteUser(
-        favoriteUserRepository: FavoriteUserRepository
-    ): RemoveFavoriteUser {
+    fun provideRemoveFavoriteUser(favoriteUserRepository: FavoriteUserRepository): RemoveFavoriteUser {
         return RemoveFavoriteUser(favoriteUserRepository)
     }
 
     @Provides
-    fun provideGetFavoriteUsers(
-        favoriteUserRepository: FavoriteUserRepository
-    ): GetFavoriteUsers {
+    fun provideGetFavoriteUsers(favoriteUserRepository: FavoriteUserRepository): GetFavoriteUsers {
         return GetFavoriteUsers(favoriteUserRepository)
     }
 }
