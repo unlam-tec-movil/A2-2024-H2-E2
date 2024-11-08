@@ -1,6 +1,6 @@
-import java.util.Properties
 import java.io.File
 import java.io.FileInputStream
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.androidApplication)
@@ -37,7 +37,7 @@ android {
         buildConfigField(
             "String",
             "API_TOKEN",
-            "\"${properties.getProperty("API_TOKEN", "default_key")}\""
+            "\"${properties.getProperty("API_TOKEN", "default_key")}\"",
         )
     }
 
