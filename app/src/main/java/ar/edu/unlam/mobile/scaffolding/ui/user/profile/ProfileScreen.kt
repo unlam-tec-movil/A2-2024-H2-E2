@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,6 +17,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ar.edu.unlam.mobile.scaffolding.domain.model.Profile
 import ar.edu.unlam.mobile.scaffolding.ui.core.component.error.ErrorView
 import ar.edu.unlam.mobile.scaffolding.ui.core.component.loading.LoadingIndicator
@@ -28,7 +28,7 @@ import coil.compose.AsyncImage
 
 @Composable
 fun ProfileScreen(viewModel: ProfileViewModel = hiltViewModel()) {
-    val state by viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsStateWithLifecycle()
 
     state.profileState
         .onLoading {
@@ -36,7 +36,10 @@ fun ProfileScreen(viewModel: ProfileViewModel = hiltViewModel()) {
         }.onSuccess { profile ->
             ProfileContent(profile)
         }.onError { message ->
-            ErrorView(message)
+            ErrorView(
+                message = message,
+                onRetry = { viewModel.retryLoadUserProfile() },
+            )
         }
 }
 
