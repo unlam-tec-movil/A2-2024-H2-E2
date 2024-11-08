@@ -1,9 +1,11 @@
 package ar.edu.unlam.mobile.scaffolding.data.local.entity
 
-/*data class LocalUserEntity(
-    // TODO: Implementar campos
-)*/
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-class FavoriteUserEntity {
-    // TODO: borrar esta clase y usar la de arriba cuando se implemente
-}
+@Entity(tableName = "favorite_users")
+data class FavoriteUserEntity(
+    @PrimaryKey(autoGenerate = true) val userId: Int = 0,
+    val name: String,
+    val avatarUrl: String,
+)
