@@ -18,6 +18,7 @@ class ProfileViewModel
     ) : ViewModel() {
         private val _state = MutableStateFlow(ProfileState())
         val state = _state.asStateFlow()
+        private var isRetrying = false
 
         init {
             loadUserProfile()
@@ -31,12 +32,20 @@ class ProfileViewModel
                         _state.value.copy(
                             profileState = UIState.Success(profile),
                         )
+                    isRetrying = false
                 } catch (e: Exception) {
                     _state.value =
                         _state.value.copy(
                             profileState = UIState.Error(e.message ?: "Error al cargar el perfil"),
                         )
                 }
+            }
+        }
+
+        fun retryLoadUserProfile() {
+            if (!isRetrying) {
+                isRetrying = true
+                loadUserProfile()
             }
         }
     }
