@@ -5,5 +5,5 @@ import com.google.gson.annotations.SerializedName
 data class ProfileResponse(
     @SerializedName("name") val id: String,
     @SerializedName("avatar_url") val message: String,
-    @SerializedName("email") val parentId: String,
+    @SerializedName("email") val email: String,
 )
