@@ -11,19 +11,19 @@ class FavoriteUserRepositoryImpl
     constructor(
         private val favoriteUserDao: FavoriteUserDao,
         private val favoriteUserMapper: FavoriteUserMapper,
-    ) : FavoriteUserRepository{
-    override suspend fun savefavoriteUser(user: FavoriteUser) {
-        val entity = favoriteUserMapper.mapToEntity(user)
-        favoriteUserDao.saveFavoriteUser(entity)
-    }
+    ) : FavoriteUserRepository {
+        override suspend fun savefavoriteUser(user: FavoriteUser) {
+            val entity = favoriteUserMapper.mapToEntity(user)
+            favoriteUserDao.saveFavoriteUser(entity)
+        }
 
-    override suspend fun getFavoriteUsers(): List<FavoriteUser> {
-        val entities = favoriteUserDao.getFavoriteUsers()
-        return favoriteUserMapper.mapToDomainList(entities)
-    }
+        override suspend fun getFavoriteUsers(): List<FavoriteUser> {
+            val entities = favoriteUserDao.getFavoriteUsers()
+            return favoriteUserMapper.mapToDomainList(entities)
+        }
 
-    override suspend fun deleteFavoriteUser(user: FavoriteUser) {
-        val entity = favoriteUserMapper.mapToEntity(user)
-        favoriteUserDao.deleteFavoriteUser(entity)
-    }
+        override suspend fun deleteFavoriteUser(user: FavoriteUser) {
+            val entity = favoriteUserMapper.mapToEntity(user)
+            favoriteUserDao.deleteFavoriteUser(entity)
+        }
     }
