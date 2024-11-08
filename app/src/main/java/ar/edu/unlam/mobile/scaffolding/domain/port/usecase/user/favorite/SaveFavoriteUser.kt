@@ -1,5 +1,10 @@
 package ar.edu.unlam.mobile.scaffolding.domain.port.usecase.user.favorite
 
-interface SaveFavoriteUser {
-    // TODO: Método para guardar usuario favorito
+import ar.edu.unlam.mobile.scaffolding.domain.model.FavoriteUser
+import ar.edu.unlam.mobile.scaffolding.domain.port.repository.FavoriteUserRepository
+
+data class SaveFavoriteUser (private val favoriteUserRepository: FavoriteUserRepository){
+    suspend operator fun invoke(user: FavoriteUser){
+        favoriteUserRepository.savefavoriteUser(user)
+    }
 }
