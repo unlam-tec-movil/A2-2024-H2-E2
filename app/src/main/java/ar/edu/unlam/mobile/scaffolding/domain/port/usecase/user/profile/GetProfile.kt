@@ -1,6 +1,6 @@
 package ar.edu.unlam.mobile.scaffolding.domain.port.usecase.user.profile
 
-import ar.edu.unlam.mobile.scaffolding.data.repository.ProfileRepository
+import ar.edu.unlam.mobile.scaffolding.domain.port.repository.ProfileRepository
 import javax.inject.Inject
 
 class GetProfile
