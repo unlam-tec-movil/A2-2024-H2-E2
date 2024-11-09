@@ -52,25 +52,25 @@ fun ProfileContent(
         modifier =
             modifier
                 .fillMaxSize()
-                .padding(16.dp),
-        verticalArrangement = Arrangement.Center,
+                .padding(30.dp),
+        verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         AsyncImage(
             model = profile.avatarUrl,
             contentDescription = "Avatar",
-            modifier = Modifier.size(128.dp),
+            modifier = Modifier.size(100.dp),
         )
         Spacer(modifier = Modifier.height(10.dp))
         Text(
             text = profile.name,
-            style = MaterialTheme.typography.headlineMedium,
+            style = MaterialTheme.typography.headlineSmall,
             textAlign = TextAlign.Center,
         )
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(6.dp))
         Text(
             text = profile.email,
-            style = MaterialTheme.typography.bodyMedium,
+            style = MaterialTheme.typography.bodyLarge,
             textAlign = TextAlign.Center,
         )
     }
@@ -83,7 +83,7 @@ fun ProfileScreenPreview() {
         profile =
             Profile(
                 name = "Jane Doe",
-                avatarUrl = "https://ui-avatars.com/api/?name=Jane+Doe",
+                avatarUrl = "https://ui-avatars.com/api/?name=Usuario+2",
                 email = "jdprueba@gmail.com",
             ),
     )
