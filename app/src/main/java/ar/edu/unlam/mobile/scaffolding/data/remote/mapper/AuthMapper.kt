@@ -15,11 +15,13 @@ class AuthMapper
                 avatarUrl = response.avatarUrl,
             )
 
-        fun toAuthToken(response: UserResponse) = AuthToken(
+        fun toAuthToken(response: UserResponse) =
+            AuthToken(
                 token = response.token,
-        )
+            )
 
-        fun toLoginCredentials(email: String, password: String) = LoginCredentials(
+        fun toLoginCredentials(email: String, password: String) =
+            LoginCredentials(
                 email = email,
                 password = password,
         )
