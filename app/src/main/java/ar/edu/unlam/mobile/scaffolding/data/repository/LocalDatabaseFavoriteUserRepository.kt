@@ -6,7 +6,7 @@ import ar.edu.unlam.mobile.scaffolding.domain.model.FavoriteUser
 import ar.edu.unlam.mobile.scaffolding.domain.port.repository.FavoriteUserRepository
 import javax.inject.Inject
 
-class FavoriteUserRepositoryImpl
+class LocalDatabaseFavoriteUserRepository
     @Inject
     constructor(
         private val favoriteUserDao: FavoriteUserDao,
