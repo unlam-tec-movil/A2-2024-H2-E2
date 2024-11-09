@@ -1,14 +1,15 @@
 package ar.edu.unlam.mobile.scaffolding.di
 
+import ar.edu.unlam.mobile.scaffolding.domain.port.repository.ProfileRepository
+import ar.edu.unlam.mobile.scaffolding.domain.port.usecase.user.profile.GetProfile
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
 object UseCaseModule {
-    // TODO: Proveer casos de uso de tuits
-    // TODO: Proveer casos de uso de autenticación
-    // TODO: Proveer casos de uso de perfil
-    // TODO: Proveer casos de uso de favoritos
+    @Provides
+    fun provideGetProfile(profileRepository: ProfileRepository): GetProfile = GetProfile(profileRepository)
 }

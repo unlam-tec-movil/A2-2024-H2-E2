@@ -1,5 +1,7 @@
 package ar.edu.unlam.mobile.scaffolding.di
 
+import ar.edu.unlam.mobile.scaffolding.data.remote.api.ProfileApi
+import ar.edu.unlam.mobile.scaffolding.data.remote.api.TuitApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,4 +21,12 @@ object ApiModule {
             .baseUrl("https://tuiter.fragua.com.ar/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+
+    @Provides
+    @Singleton
+    fun provideTuitApi(retrofit: Retrofit): TuitApi = retrofit.create(TuitApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideProfileApi(retrofit: Retrofit): ProfileApi = retrofit.create(ProfileApi::class.java)
 } // TODO: Se deben agregar providers para cada API
