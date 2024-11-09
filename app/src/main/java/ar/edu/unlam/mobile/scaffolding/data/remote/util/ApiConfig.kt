@@ -12,6 +12,6 @@ object ApiConfig {
         const val REGISTER = "api/v1/users"
         const val PROFILE = "api/v1/me/profile"
         const val FEED = "api/v1/me/feed"
-        const val TUITS = "api/v1/me/tuits"
+        const val CREATE_TUIT= "api/v1/me/tuits"
     }
 }
