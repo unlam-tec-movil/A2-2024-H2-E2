@@ -8,7 +8,7 @@ interface TuitRepository {
 
     suspend fun getTuitById(id: Int): Tuit
 
-    suspend fun createTuit(message: String): Tuit
+    suspend fun createTuit(message: String): Boolean
 
     suspend fun likeTuit(tuitId: Int)
 
