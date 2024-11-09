@@ -1,9 +1,9 @@
 package ar.edu.unlam.mobile.scaffolding.data.remote.dto.response
 
-/*data class UserResponse(
-    // TODO: Implementar campos
-)*/
+import com.google.gson.annotations.SerializedName
 
-class UserResponse {
-    // TODO: borrar esta clase y usar la de arriba cuando se implemente
-}
+data class UserResponse(
+    @SerializedName("name") val name: String,
+    @SerializedName("email") val email: String,
+    @SerializedName("token") val token: String,
+)
