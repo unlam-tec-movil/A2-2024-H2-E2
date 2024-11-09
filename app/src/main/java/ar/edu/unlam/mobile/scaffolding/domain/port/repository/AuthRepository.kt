@@ -1,7 +1,8 @@
 package ar.edu.unlam.mobile.scaffolding.domain.port.repository
 
 interface AuthRepository {
-    // TODO: Métodos para:
-    // - Login
-    // - Registro
+    suspend fun login(credentials: LoginCredentials): Result<AuthToken>
+    fun saveToken(token: AuthToken)
+    fun getToken(): AuthToken?
+    fun clearToken()
 }
