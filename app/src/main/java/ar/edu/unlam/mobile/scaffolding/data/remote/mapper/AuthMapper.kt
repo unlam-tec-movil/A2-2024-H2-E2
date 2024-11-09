@@ -24,5 +24,5 @@ class AuthMapper
             LoginCredentials(
                 email = email,
                 password = password,
-        )
+            )
     }
