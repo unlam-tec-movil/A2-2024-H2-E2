@@ -6,7 +6,7 @@ import ar.edu.unlam.mobile.scaffolding.domain.model.Profile
 import ar.edu.unlam.mobile.scaffolding.domain.port.repository.ProfileRepository
 import javax.inject.Inject
 
-class ProfileRepository
+class RemoteProfileRepository
     @Inject
     constructor(
         private val api: ProfileApi,
