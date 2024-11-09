@@ -1,8 +1,12 @@
 package ar.edu.unlam.mobile.scaffolding.di
 
+import ar.edu.unlam.mobile.scaffolding.data.remote.api.ProfileApi
 import ar.edu.unlam.mobile.scaffolding.data.remote.api.TuitApi
+import ar.edu.unlam.mobile.scaffolding.data.remote.mapper.ProfileMapper
 import ar.edu.unlam.mobile.scaffolding.data.remote.mapper.TuitMapper
+import ar.edu.unlam.mobile.scaffolding.data.repository.RemoteProfileRepository
 import ar.edu.unlam.mobile.scaffolding.data.repository.RemoteTuitRepository
+import ar.edu.unlam.mobile.scaffolding.domain.port.repository.ProfileRepository
 import ar.edu.unlam.mobile.scaffolding.domain.port.repository.TuitRepository
 import dagger.Module
 import dagger.Provides
@@ -18,7 +22,12 @@ object RepositoryModule {
     fun provideTuitRepository(
         api: TuitApi,
         mapper: TuitMapper,
-    ): TuitRepository {
-        return RemoteTuitRepository(api, mapper)
-    }
+    ): TuitRepository = RemoteTuitRepository(api, mapper)
+
+    @Provides
+    @Singleton
+    fun provideProfileRepository(
+        api: ProfileApi,
+        mapper: ProfileMapper,
+    ): ProfileRepository = RemoteProfileRepository(api, mapper)
 }
