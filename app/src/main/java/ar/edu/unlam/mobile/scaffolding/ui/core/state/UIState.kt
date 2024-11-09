@@ -1,5 +1,7 @@
 package ar.edu.unlam.mobile.scaffolding.ui.core.state
 
+import androidx.compose.runtime.Composable
+
 sealed class UIState<out T> {
     data object Loading : UIState<Nothing>()
 
@@ -8,21 +10,24 @@ sealed class UIState<out T> {
     data class Error(val message: String) : UIState<Nothing>()
 }
 
-fun <T> UIState<T>.onSuccess(action: (T) -> Unit): UIState<T> {
+@Composable
+fun <T> UIState<T>.onSuccess(action: @Composable (T) -> Unit): UIState<T> {
     if (this is UIState.Success) {
         action(data)
     }
     return this
 }
 
-fun <T> UIState<T>.onError(action: (String) -> Unit): UIState<T> {
+@Composable
+fun <T> UIState<T>.onError(action: @Composable (String) -> Unit): UIState<T> {
     if (this is UIState.Error) {
         action(message)
     }
     return this
 }
 
-fun <T> UIState<T>.onLoading(action: () -> Unit): UIState<T> {
+@Composable
+fun <T> UIState<T>.onLoading(action: @Composable () -> Unit): UIState<T> {
     if (this is UIState.Loading) {
         action()
     }
