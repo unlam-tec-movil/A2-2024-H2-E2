@@ -20,8 +20,10 @@ class AuthMapper
                 token = response.token,
             )
 
-        fun toLoginCredentials(email: String, password: String) =
-            LoginCredentials(
+        fun toLoginCredentials(
+            email: String,
+            password: String
+        ) = LoginCredentials(
                 email = email,
                 password = password,
             )
