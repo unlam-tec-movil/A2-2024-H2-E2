@@ -9,8 +9,8 @@ class ProfileMapper
     constructor() {
         fun toDomain(response: ProfileResponse): Profile =
             Profile(
-                name = response.id,
-                avatarUrl = response.message,
+                name = response.name,
+                avatarUrl = response.avatarUrl,
                 email = response.email,
             )
     }
