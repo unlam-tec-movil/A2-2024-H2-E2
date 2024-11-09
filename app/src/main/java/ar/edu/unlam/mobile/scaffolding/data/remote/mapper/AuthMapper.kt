@@ -22,9 +22,9 @@ class AuthMapper
 
         fun toLoginCredentials(
             email: String,
-            password: String
+            password: String,
         ) = LoginCredentials(
-                email = email,
-                password = password,
-            )
+            email = email,
+            password = password,
+        )
     }
