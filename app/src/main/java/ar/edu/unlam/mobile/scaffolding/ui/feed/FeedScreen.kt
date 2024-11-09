@@ -7,11 +7,11 @@ import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ar.edu.unlam.mobile.scaffolding.domain.model.Tuit
 import ar.edu.unlam.mobile.scaffolding.ui.components.TuitFeed
 import ar.edu.unlam.mobile.scaffolding.ui.core.component.error.ErrorView
