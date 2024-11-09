@@ -1,15 +1,15 @@
 package ar.edu.unlam.mobile.scaffolding.di
 
-import javax.inject.Singleton
+import ar.edu.unlam.mobile.scaffolding.data.remote.api.ProfileApi
+import ar.edu.unlam.mobile.scaffolding.data.remote.api.TuitApi
+import ar.edu.unlam.mobile.scaffolding.data.remote.util.ApiConfig.API_BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import ar.edu.unlam.mobile.scaffolding.data.remote.api.ProfileApi
-import ar.edu.unlam.mobile.scaffolding.data.remote.api.TuitApi
-import ar.edu.unlam.mobile.scaffolding.data.remote.util.ApiConfig.API_BASE_URL
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
