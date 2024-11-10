@@ -33,11 +33,12 @@ class CreateTuitViewModel
                         _uiState
                             .value
                             .copy(
-                                createTuitState = if (result) {
-                                    UIState.Success(Unit)
-                                } else {
-                                    UIState.Error("Error al crear el tuit")
-                                },
+                                createTuitState =
+                                    if (result) {
+                                        UIState.Success(Unit)
+                                    } else {
+                                        UIState.Error("Error al crear el tuit")
+                                    },
                             )
                 } catch (e: Exception) {
                     _uiState.value =
