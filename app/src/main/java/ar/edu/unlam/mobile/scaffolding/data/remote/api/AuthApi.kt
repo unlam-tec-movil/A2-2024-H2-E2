@@ -11,13 +11,11 @@ import retrofit2.http.POST
 interface AuthApi {
     @POST(ApiConfig.Endpoints.LOGIN)
     suspend fun login(
-        @Header(ApiConfig.APPLICATION_TOKEN_HEADER) appToken: String = ApiConfig.APPLICATION_TOKEN_VALUE,
         @Body request: LoginRequest
     ): UserResponse
 
     @POST(ApiConfig.Endpoints.REGISTER)
     suspend fun register(
-        @Header(ApiConfig.APPLICATION_TOKEN_HEADER) appToken: String = ApiConfig.APPLICATION_TOKEN_VALUE,
         @Body request: RegisterRequest
     ): UserResponse
 }
