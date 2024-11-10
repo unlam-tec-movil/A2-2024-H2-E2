@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">ScaffoldingV2</string>
+    <string name="create_tuit_title">Crear tuit</string>
+    <string name="close">Cerrar</string>
+    <string name="publish">Publicar</string>
+    <string name="create_tuit_hint">¿Que estas pensando?</string>
+    <string name="dismiss">Descartar</string>
+    <string name="tuit_created">Tuit Creado</string>
+
 </resources>
