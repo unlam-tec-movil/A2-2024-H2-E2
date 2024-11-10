@@ -15,7 +15,7 @@ object SharedPreferencesModule {
     @Provides
     @Singleton
     fun provideSharedPreferences(
-        @ApplicationContext context: Context
+        @ApplicationContext context: Context,
     ): SharedPreferences {
         return context.getSharedPreferences("unlam_twitter_clone_prefs", Context.MODE_PRIVATE)
     }

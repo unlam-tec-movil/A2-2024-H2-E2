@@ -5,26 +5,33 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class TokenManager @Inject constructor(
+class TokenManager
+    @Inject
+    constructor(
     private val sharedPreferences: SharedPreferences
-) {
-    companion object {
-        private const val KEY_TOKEN = "user_token"
-    }
+    ) {
+        companion object {
+            private const val KEY_TOKEN = "user_token"
+        }
 
-    fun saveToken(token: String) {
-        sharedPreferences.edit()
-            .putString(KEY_TOKEN, token)
-            .apply()
-    }
+        fun saveToken(token: String) {
+            sharedPreferences
+                .edit()
+                .putString(KEY_TOKEN, token)
+                .apply()
+        }
 
-    fun getToken(): String? {
-        return sharedPreferences.getString(KEY_TOKEN, null)
-    }
+        fun getToken(): String? {
+        return sharedPreferences
+                .getString(
+                KEY_TOKEN, null
+                )
+        }
 
-    fun clearToken() {
-        sharedPreferences.edit()
-            .remove(KEY_TOKEN)
-            .apply()
+        fun clearToken() {
+            sharedPreferences
+                .edit()
+                .remove(KEY_TOKEN)
+                .apply()
+        }
     }
-}
