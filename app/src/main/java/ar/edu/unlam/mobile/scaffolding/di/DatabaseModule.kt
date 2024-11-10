@@ -15,16 +15,14 @@ import javax.inject.Singleton
 object DatabaseModule {
     @Provides
     @Singleton
-    fun provideAppDatabase(context: Context): AppDatabase {
-        return Room.databaseBuilder(
-            context,
-            AppDatabase::class.java,
-            "app_database",
-        ).build()
-    }
+    fun provideAppDatabase(context: Context): AppDatabase =
+        Room
+            .databaseBuilder(
+                context,
+                AppDatabase::class.java,
+                "app_database",
+            ).build()
 
     @Provides
-    fun provideFavoriteUserDao(appDatabase: AppDatabase): FavoriteUserDao {
-        return appDatabase.favoriteUserDao()
-    }
+    fun provideFavoriteUserDao(appDatabase: AppDatabase): FavoriteUserDao = appDatabase.favoriteUserDao()
 }
