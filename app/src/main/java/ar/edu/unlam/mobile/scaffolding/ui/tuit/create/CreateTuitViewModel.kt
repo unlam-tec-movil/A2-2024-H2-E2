@@ -25,27 +25,27 @@ class CreateTuitViewModel
                     _uiState
                         .value
                         .copy(
-                    createTuitState = UIState.Loading,
-                )
+                            createTuitState = UIState.Loading,
+                        )
                 try {
                     val result = createTuitUseCase(message)
                     _uiState.value =
                         _uiState
                             .value
                             .copy(
-                        createTuitState = if (result) {
-                            UIState.Success(Unit)
-                        } else {
-                            UIState.Error("Error al crear el tuit")
-                        },
-                    )
+                                createTuitState = if (result) {
+                                    UIState.Success(Unit)
+                                } else {
+                                    UIState.Error("Error al crear el tuit")
+                                },
+                            )
                 } catch (e: Exception) {
                     _uiState.value =
                         _uiState
                             .value
                             .copy(
-                        createTuitState = UIState.Error(e.message ?: "Error desconocido"),
-                    )
+                                createTuitState = UIState.Error(e.message ?: "Error desconocido"),
+                            )
                 }
             }
         }
