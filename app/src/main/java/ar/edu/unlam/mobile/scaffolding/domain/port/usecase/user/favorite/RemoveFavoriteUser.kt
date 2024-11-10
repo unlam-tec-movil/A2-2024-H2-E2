@@ -5,9 +5,9 @@ import ar.edu.unlam.mobile.scaffolding.domain.port.repository.FavoriteUserReposi
 import javax.inject.Inject
 
 class RemoveFavoriteUser
-@Inject
-constructor(
-    private val favoriteUserRepository: FavoriteUserRepository,
-) {
-    suspend operator fun invoke(user: FavoriteUser) = favoriteUserRepository.deleteFavoriteUser(user)
-}
+    @Inject
+    constructor(
+        private val favoriteUserRepository: FavoriteUserRepository,
+    ) {
+        suspend operator fun invoke(user: FavoriteUser) = favoriteUserRepository.deleteFavoriteUser(user)
+    }

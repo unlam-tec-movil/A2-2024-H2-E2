@@ -22,7 +22,8 @@ object UseCaseModule {
 
     @Provides
     fun provideRemoveFavoriteUser(favoriteUserRepository: FavoriteUserRepository):
-            RemoveFavoriteUser = RemoveFavoriteUser(favoriteUserRepository)
+
+        RemoveFavoriteUser = RemoveFavoriteUser(favoriteUserRepository)
 
     @Provides
     fun provideGetFavoriteUser(favoriteUserRepository: FavoriteUserRepository): GetFavoriteUsers = GetFavoriteUsers(favoriteUserRepository)
