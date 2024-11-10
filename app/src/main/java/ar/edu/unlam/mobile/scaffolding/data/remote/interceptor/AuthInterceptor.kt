@@ -19,14 +19,14 @@ class AuthInterceptor
                     ApiConfig.APPLICATION_TOKEN_VALUE,
                 )
 
-        tokenManager.getToken()?.let { token ->
-            if (
-            !request.url.encodedPath.contains(ApiConfig.Endpoints.LOGIN) &&
-            !request.url.encodedPath.contains(ApiConfig.Endpoints.REGISTER)
-            ) {
-                requestBuilder.header(ApiConfig.USER_TOKEN_HEADER, token)
-              }
-        }
-        return chain.proceed(requestBuilder.build())
+            tokenManager.getToken()?.let { token ->
+                if (
+                    !request.url.encodedPath.contains(ApiConfig.Endpoints.LOGIN) &&
+                    !request.url.encodedPath.contains(ApiConfig.Endpoints.REGISTER)
+                ) {
+                    requestBuilder.header(ApiConfig.USER_TOKEN_HEADER, token)
+                }
+            }
+            return chain.proceed(requestBuilder.build())
     }
 }
