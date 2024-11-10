@@ -37,7 +37,7 @@ class AuthMapper
             email: String,
             password: String,
         ) = RegisterCredentials(
-            name: String,
+            name = name,
             email = email,
             password = password,
         )
