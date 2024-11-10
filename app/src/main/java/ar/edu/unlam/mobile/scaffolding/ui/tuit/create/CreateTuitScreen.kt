@@ -54,7 +54,8 @@ fun CreateTuitScreen(
         },
     ) { paddingValues ->
         Box(
-            modifier = Modifier
+            modifier =
+                Modifier
                 .padding(paddingValues)
                 .fillMaxSize(),
         ) {
@@ -64,7 +65,8 @@ fun CreateTuitScreen(
                 OutlinedTextField(
                     value = tuitText,
                     onValueChange = { tuitText = it },
-                    modifier = Modifier
+                    modifier =
+                        Modifier
                         .fillMaxWidth()
                         .weight(1f),
                     placeholder = { Text(stringResource(R.string.create_tuit_hint)) },

@@ -11,23 +11,31 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CreateTuitViewModel @Inject constructor(
-    private val createTuitUseCase: CreateTuit
+class CreateTuitViewModel
+@Inject constructor(
+    private val createTuitUseCase: CreateTuit,
 ) : ViewModel() {
-
     private val _uiState = mutableStateOf(CreateTuitState())
     val uiState: State<CreateTuitState> = _uiState
 
     fun createTuit(message: String) {
         viewModelScope.launch {
-            _uiState.value = _uiState.value.copy(createTuitState = UIState.Loading)
+            _uiState.value = _uiState.value.copy(
+                createTuitState = UIState.Loading,
+            )
             try {
                 val result = createTuitUseCase(message)
                 _uiState.value = _uiState.value.copy(
-                    createTuitState = if (result) UIState.Success(Unit) else UIState.Error("Error al crear el tuit")
+                    createTuitState = if (result) {
+                        UIState.Success(Unit)
+                    } else {
+                        UIState.Error("Error al crear el tuit")
+                    },
                 )
             } catch (e: Exception) {
-                _uiState.value = _uiState.value.copy(createTuitState = UIState.Error(e.message ?: "Error desconocido"))
+                _uiState.value = _uiState.value.copy(
+                    createTuitState = UIState.Error(e.message ?: "Error desconocido"),
+                )
             }
         }
     }
