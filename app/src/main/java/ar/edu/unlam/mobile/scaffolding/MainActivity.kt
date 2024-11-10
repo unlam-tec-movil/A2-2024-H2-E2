@@ -21,6 +21,8 @@ import ar.edu.unlam.mobile.scaffolding.ui.components.BottomBar
 import ar.edu.unlam.mobile.scaffolding.ui.login.ui.RegisterScreenViewModel
 import ar.edu.unlam.mobile.scaffolding.ui.login.ui.loginScreen
 import ar.edu.unlam.mobile.scaffolding.ui.screens.HomeScreen
+import ar.edu.unlam.mobile.scaffolding.ui.components.BottomNavigationBar
+import ar.edu.unlam.mobile.scaffolding.ui.feed.FeedScreen
 import ar.edu.unlam.mobile.scaffolding.ui.theme.ScaffoldingV2Theme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -51,7 +53,7 @@ fun MainScreen() {
     // a través del back stack
     val controller = rememberNavController()
     Scaffold(
-        bottomBar = { BottomBar(controller = controller) },
+        bottomBar = { BottomNavigationBar(controller = controller) },
         floatingActionButton = {
             IconButton(onClick = { controller.navigate("home") }) {
                 Icon(Icons.Filled.Home, contentDescription = "Home")
@@ -65,7 +67,7 @@ fun MainScreen() {
             // Por parámetro recibe la ruta que se utilizará para navegar a dicho destino.
             composable("home") {
                 // Home es el componente en sí que es el destino de navegación.
-                HomeScreen(modifier = Modifier.padding(paddingValue))
+                FeedScreen(modifier = Modifier.padding(paddingValue))
             }
         }
     }

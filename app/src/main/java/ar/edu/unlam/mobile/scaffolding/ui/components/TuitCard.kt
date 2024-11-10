@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import ar.edu.unlam.mobile.scaffolding.domain.tuit.models.Tuit
+import ar.edu.unlam.mobile.scaffolding.domain.model.Tuit
 import coil.compose.AsyncImage
 
 @Composable
@@ -31,7 +31,7 @@ fun TuitCard(
                 Row {
                     Column {
                         AsyncImage(
-                            model = tuit.avatar,
+                            model = tuit.avatarUrl,
                             contentDescription = "Android Picture",
                             modifier = Modifier.size(50.dp),
                         )
@@ -43,11 +43,11 @@ fun TuitCard(
                                 .fillMaxWidth()
                                 .height(50.dp),
                     ) {
-                        Text(tuit.authorName, fontSize = 16.sp)
+                        Text(tuit.author, fontSize = 16.sp)
                     }
                 }
                 Row {
-                    Text(tuit.content, fontSize = 24.sp)
+                    Text(tuit.message, fontSize = 24.sp)
                 }
             }
         }
@@ -60,13 +60,14 @@ fun TuitCardPreview() {
     val tuit =
         Tuit(
             id = 1,
-            authorName = "John Doe",
-            content = "Esto es un tuit de prueba!",
-            avatar = "https://ih1.redbubble.net/image.1221593566.8336/mwo,x1000,ipad_2_snap-pad,750x1000,f8f8f8.jpg",
-            likes = 0,
+            message = "Esto es un tuit de prueba!",
+            parentId = 0,
+            author = "John Doe",
+            avatarUrl = "https://ui-avatars.com/api/?name=John+Doe",
+            likes = 5,
             liked = false,
-            replies = 0,
-            reply = { id -> },
+            date = "2024-11-03T10:00:00Z",
+            replies = 2,
         )
     TuitCard(tuit)
 }
