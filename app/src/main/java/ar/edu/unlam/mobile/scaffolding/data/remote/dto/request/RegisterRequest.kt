@@ -1,9 +1,9 @@
 package ar.edu.unlam.mobile.scaffolding.data.remote.dto.request
 
-/*data class RegisterRequest(
-    // TODO: Implementar campos
-)*/
+import com.google.gson.annotations.SerializedName
 
-class RegisterRequest {
-    // TODO: borrar esta clase y usar la de arriba cuando se implemente
-}
+data class RegisterRequest(
+    @SerializedName("name") val name: String,
+    @SerializedName("email") val email: String,
+    @SerializedName("password") val password: String
+)
