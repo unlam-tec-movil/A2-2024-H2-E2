@@ -8,7 +8,6 @@ import ar.edu.unlam.mobile.scaffolding.domain.model.RegisterCredentials
 import ar.edu.unlam.mobile.scaffolding.domain.model.User
 import javax.inject.Inject
 
-
 class AuthMapper
     @Inject
     constructor() {
