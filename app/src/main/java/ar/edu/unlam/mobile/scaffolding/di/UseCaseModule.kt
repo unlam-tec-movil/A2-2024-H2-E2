@@ -18,17 +18,12 @@ object UseCaseModule {
     fun provideGetProfile(profileRepository: ProfileRepository): GetProfile = GetProfile(profileRepository)
 
     @Provides
-    fun provideSaveFavoriteUser(
-        favoriteUserRepository: FavoriteUserRepository
-    ): SaveFavoriteUser = SaveFavoriteUser(favoriteUserRepository)
+    fun provideSaveFavoriteUser(favoriteUserRepository: FavoriteUserRepository): SaveFavoriteUser = SaveFavoriteUser(favoriteUserRepository)
 
     @Provides
-    fun provideRemoveFavoriteUser(
-        favoriteUserRepository: FavoriteUserRepository
-    ): RemoveFavoriteUser = RemoveFavoriteUser(favoriteUserRepository)
+    fun provideRemoveFavoriteUser(favoriteUserRepository: FavoriteUserRepository):
+            RemoveFavoriteUser = RemoveFavoriteUser(favoriteUserRepository)
 
     @Provides
-    fun provideGetFavoriteUser(
-        favoriteUserRepository: FavoriteUserRepository
-    ): GetFavoriteUsers = GetFavoriteUsers(favoriteUserRepository)
+    fun provideGetFavoriteUser(favoriteUserRepository: FavoriteUserRepository): GetFavoriteUsers = GetFavoriteUsers(favoriteUserRepository)
 }
