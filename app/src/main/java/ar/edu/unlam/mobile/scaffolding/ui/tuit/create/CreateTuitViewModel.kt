@@ -12,7 +12,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CreateTuitViewModel
-    @Inject constructor(
+    @Inject
+    constructor(
         private val createTuitUseCase: CreateTuit,
     ) : ViewModel() {
         private val _uiState = mutableStateOf(CreateTuitState())
@@ -20,12 +21,18 @@ class CreateTuitViewModel
 
         fun createTuit(message: String) {
             viewModelScope.launch {
-                _uiState.value = _uiState.value.copy(
+                _uiState.value =
+                    _uiState
+                        .value
+                        .copy(
                     createTuitState = UIState.Loading,
                 )
                 try {
                     val result = createTuitUseCase(message)
-                    _uiState.value = _uiState.value.copy(
+                    _uiState.value =
+                        _uiState
+                            .value
+                            .copy(
                         createTuitState = if (result) {
                             UIState.Success(Unit)
                         } else {
@@ -33,7 +40,10 @@ class CreateTuitViewModel
                         },
                     )
                 } catch (e: Exception) {
-                    _uiState.value = _uiState.value.copy(
+                    _uiState.value =
+                        _uiState
+                            .value
+                            .copy(
                         createTuitState = UIState.Error(e.message ?: "Error desconocido"),
                     )
                 }
