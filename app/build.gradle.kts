@@ -100,6 +100,10 @@ dependencies {
     // Coil
     implementation(libs.io.coil.kt)
 
+    // OkHttp
+    implementation(libs.okhttp3.okhttp)
+    implementation(libs.okhttp3.logging)
+
     // Dagger + Hilt
     implementation(libs.google.dagger.hilt.android)
     ksp(libs.google.dagger.hilt.android.compiler)
