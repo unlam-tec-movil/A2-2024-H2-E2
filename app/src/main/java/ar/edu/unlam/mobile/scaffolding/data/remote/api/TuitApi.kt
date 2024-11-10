@@ -1,6 +1,7 @@
 package ar.edu.unlam.mobile.scaffolding.data.remote.api
 
 import ar.edu.unlam.mobile.scaffolding.data.remote.dto.response.TuitResponse
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -19,7 +20,7 @@ interface TuitApi {
     @POST("/api/v1/me/tuits")
     suspend fun createTuit(
         @Body message: String,
-    ): TuitResponse
+    ): Response<Unit>
 
     @POST("/api/v1/me/tuits/{id}/likes")
     suspend fun likeTuit(

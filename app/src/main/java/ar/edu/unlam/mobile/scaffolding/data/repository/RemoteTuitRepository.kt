@@ -25,9 +25,9 @@ class RemoteTuitRepository
             return mapper.toDomain(response)
         }
 
-        override suspend fun createTuit(message: String): Tuit {
+        override suspend fun createTuit(message: String): Boolean {
             val response = api.createTuit(message)
-            return mapper.toDomain(response)
+            return response.isSuccessful
         }
 
         override suspend fun likeTuit(tuitId: Int) {
