@@ -8,7 +8,7 @@ import javax.inject.Singleton
 class TokenManager
     @Inject
     constructor(
-    private val sharedPreferences: SharedPreferences
+        private val sharedPreferences: SharedPreferences,
     ) {
         companion object {
             private const val KEY_TOKEN = "user_token"
@@ -22,9 +22,10 @@ class TokenManager
         }
 
         fun getToken(): String? {
-        return sharedPreferences
+            return sharedPreferences
                 .getString(
-                KEY_TOKEN, null
+                    KEY_TOKEN,
+                    null,
                 )
         }
 
