@@ -20,7 +20,7 @@ import ar.edu.unlam.mobile.scaffolding.ui.core.state.onSuccess
 @Composable
 fun CreateTuitScreen(
     viewModel: CreateTuitViewModel = hiltViewModel(),
-    onDismissRequest: () -> Unit
+    onDismissRequest: () -> Unit,
 ) {
     val uiState = viewModel.uiState.value
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -45,21 +45,21 @@ fun CreateTuitScreen(
                         onClick = {
                             viewModel.createTuit(tuitText)
                         },
-                        enabled = tuitText.isNotBlank() && tuitText.length <= 280
+                        enabled = tuitText.isNotBlank() && tuitText.length <= 280,
                     ) {
                         Text(stringResource(R.string.publish))
                     }
-                }
+                },
             )
-        }
+        },
     ) { paddingValues ->
         Box(
             modifier = Modifier
                 .padding(paddingValues)
-                .fillMaxSize()
+                .fillMaxSize(),
         ) {
             Column(
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier.fillMaxSize(),
             ) {
                 OutlinedTextField(
                     value = tuitText,
@@ -67,19 +67,21 @@ fun CreateTuitScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(1f),
-                    placeholder = { Text(stringResource(R.string.create_tuit_hint)) }
+                    placeholder = { Text(stringResource(R.string.create_tuit_hint)) },
                 )
             }
 
             uiState.createTuitState
                 .onLoading {
                     LoadingIndicator()
-                }.onSuccess {
+                }
+                .onSuccess {
                     showSuccessSnackbar = true
-                }.onError { message ->
+                }
+                .onError { message ->
                     ErrorView(
                         message = message,
-                        onRetry = { viewModel.createTuit(tuitText) }
+                        onRetry = { viewModel.createTuit(tuitText) },
                     )
                 }
         }
@@ -92,7 +94,7 @@ fun CreateTuitScreen(
                 TextButton(onClick = { showSuccessSnackbar = false }) {
                     Text(stringResource(R.string.dismiss))
                 }
-            }
+            },
         ) {
             Text(stringResource(R.string.tuit_created))
         }
