@@ -1,5 +1,6 @@
 package ar.edu.unlam.mobile.scaffolding.data.remote.interceptor
 
+import ar.edu.unlam.mobile.scaffolding.BuildConfig
 import ar.edu.unlam.mobile.scaffolding.data.remote.util.ApiConfig
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -17,7 +18,7 @@ class AuthInterceptor
                     .newBuilder()
                     .header(
                         ApiConfig.APPLICATION_TOKEN_HEADER,
-                        ApiConfig.APPLICATION_TOKEN_VALUE,
+                        BuildConfig.API_TOKEN,
                     )
 
             tokenManager.getToken()?.let { token ->
