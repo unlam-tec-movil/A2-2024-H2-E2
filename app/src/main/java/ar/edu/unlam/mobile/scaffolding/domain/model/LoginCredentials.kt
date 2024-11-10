@@ -1,7 +1,6 @@
 package ar.edu.unlam.mobile.scaffolding.domain.model
 
-data class User(
+data class LoginCredentials(
     val email: String,
-    val name: String,
-    val avatarUrl: String,
+    val password: String,
 )
