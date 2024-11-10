@@ -56,8 +56,8 @@ fun CreateTuitScreen(
         Box(
             modifier =
                 Modifier
-                .padding(paddingValues)
-                .fillMaxSize(),
+                    .padding(paddingValues)
+                    .fillMaxSize(),
         ) {
             Column(
                 modifier = Modifier.fillMaxSize(),
@@ -67,8 +67,8 @@ fun CreateTuitScreen(
                     onValueChange = { tuitText = it },
                     modifier =
                         Modifier
-                        .fillMaxWidth()
-                        .weight(1f),
+                            .fillMaxWidth()
+                            .weight(1f),
                     placeholder = { Text(stringResource(R.string.create_tuit_hint)) },
                 )
             }
