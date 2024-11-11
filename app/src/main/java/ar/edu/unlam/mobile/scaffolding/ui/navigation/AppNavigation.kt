@@ -100,12 +100,12 @@ fun AppNavigation(navController: NavHostController) {
             )
         }
 
-        composable(Screen.DraftTuit.route) {
+        /*composable(Screen.DraftTuit.route) {
             DrafTuitScreen(
                 onDisMissRequest = {
                     navController.navigateUp()
                 },
             )
-        }
+        }*/
     }
 }
