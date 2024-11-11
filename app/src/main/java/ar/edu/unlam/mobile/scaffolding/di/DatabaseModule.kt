@@ -16,10 +16,8 @@ import javax.inject.Singleton
 object DatabaseModule {
     @Provides
     fun provideAppContext(
-        @ApplicationContext context: Context
-    ): Context {
-        return context
-    }
+        @ApplicationContext context: Context,
+    ): Context = context
 
     @Provides
     @Singleton

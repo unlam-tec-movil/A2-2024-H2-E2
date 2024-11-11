@@ -46,7 +46,7 @@ class FavoriteUsersViewModel
             }
         }
 
-        fun saveFavoriteUsers(user: FavoriteUser)  {
+        fun saveFavoriteUsers(user: FavoriteUser) {
             viewModelScope.launch {
                 try {
                     saveFavoriteUser(user)
@@ -60,7 +60,7 @@ class FavoriteUsersViewModel
             }
         }
 
-        fun removeFavoriteUsers(user: FavoriteUser)  {
+        fun removeFavoriteUsers(user: FavoriteUser) {
             viewModelScope.launch {
                 try {
                     removeFavoriteUser(user)
