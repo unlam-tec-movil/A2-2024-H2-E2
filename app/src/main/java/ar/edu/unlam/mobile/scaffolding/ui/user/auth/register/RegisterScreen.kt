@@ -7,8 +7,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -60,7 +62,7 @@ fun RegisterScreen(
         password = viewModel.getPassword(),
         onPasswordChange = viewModel::onPasswordChange,
         onRegisterClick = viewModel::register,
-        onLoginClick = {
+        onBackClick = {
             navController.navigate("login")
         },
     )
@@ -75,7 +77,7 @@ fun RegisterForm(
     password: String,
     onPasswordChange: (String) -> Unit,
     onRegisterClick: () -> Unit,
-    onLoginClick: () -> Unit,
+    onBackClick: () -> Unit,
 ) {
     Column(
         modifier =
@@ -122,10 +124,20 @@ fun RegisterForm(
         }
         Spacer(modifier = Modifier.height(8.dp))
         Button(
-            onClick = onLoginClick,
+            onClick = onBackClick,
             modifier = Modifier.fillMaxWidth(),
+            colors =
+                androidx.compose.material3.ButtonDefaults.buttonColors(
+                    containerColor = androidx.compose.material3.MaterialTheme.colorScheme.secondary,
+                ),
         ) {
-            Text("Iniciar Sesión")
+            Icon(
+                imageVector = Icons.Default.ArrowBack,
+                contentDescription = "Back Icon",
+                modifier = Modifier.size(24.dp),
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Text("Volver")
         }
     }
 }
@@ -141,6 +153,6 @@ fun RegisterScreenPreview() {
         password = "zzz123",
         onPasswordChange = {},
         onRegisterClick = {},
-        onLoginClick = {},
+        onBackClick = {},
     )
 }

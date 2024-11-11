@@ -2,7 +2,9 @@ package ar.edu.unlam.mobile.scaffolding.ui.user.auth.register
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import ar.edu.unlam.mobile.scaffolding.domain.model.LoginCredentials
 import ar.edu.unlam.mobile.scaffolding.domain.model.RegisterCredentials
+import ar.edu.unlam.mobile.scaffolding.domain.port.usecase.user.auth.LoginUser
 import ar.edu.unlam.mobile.scaffolding.domain.port.usecase.user.auth.RegisterUser
 import ar.edu.unlam.mobile.scaffolding.ui.core.state.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,6 +19,7 @@ class RegisterViewModel
     @Inject
     constructor(
         private val registerUser: RegisterUser,
+        private val loginUser: LoginUser,
     ) : ViewModel() {
         private val _state = MutableStateFlow(RegisterState())
         val state = _state.asStateFlow()
@@ -52,6 +55,7 @@ class RegisterViewModel
             }
             viewModelScope.launch {
                 val userCredentials = RegisterCredentials(name, email, password)
+                val loginCredentials = LoginCredentials(email, password)
                 val result = registerUser(userCredentials)
                 if (result.isSuccess) {
                     _state.update {
@@ -59,6 +63,7 @@ class RegisterViewModel
                             registerState = UIState.Success(Unit),
                         )
                     }
+                    loginUser(loginCredentials)
                 } else {
                     _state.update {
                         it.copy(
