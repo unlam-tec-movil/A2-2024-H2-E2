@@ -13,64 +13,66 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class AuthenticationRepository @Inject constructor(
-    private val api: AuthApi,
-    private val authMapper: AuthMapper,
-    private val tokenManager: TokenManager
-) : AuthRepository {
-    override suspend fun login(credentials: LoginCredentials): Result<AuthToken> {
-        return try {
-            val request = LoginRequest(
-                email = credentials.email,
-                password = credentials.password,
-            )
+class AuthenticationRepository
+    @Inject
+    constructor(
+        private val api: AuthApi,
+        private val authMapper: AuthMapper,
+        private val tokenManager: TokenManager,
+    ) : AuthRepository {
+        override suspend fun login(credentials: LoginCredentials): Result<AuthToken> {
+            return try {
+                val request = LoginRequest(
+                    email = credentials.email,
+                    password = credentials.password,
+                )
 
-            val response = api.login(request)
+                val response = api.login(request)
 
-            val token = authMapper.toAuthToken(response)
+                val token = authMapper.toAuthToken(response)
 
+                tokenManager.saveToken(token.token)
+
+                Result.success(token)
+            } catch (e: Exception) {
+                Result.failure(e)
+            }
+        }
+
+        override suspend fun register(credentials: RegisterCredentials): Result<AuthToken> {
+            return try {
+                val request = RegisterRequest(
+                    name = credentials.name,
+                    email = credentials.email,
+                    password = credentials.password,
+                )
+
+                val response = api.register(request)
+
+                val token = authMapper.toAuthToken(response)
+
+                tokenManager.saveToken(token.token)
+
+                Result.success(token)
+            } catch (e: Exception) {
+                Result.failure(e)
+            }
+        }
+
+        override fun getToken(): AuthToken? {
+            val savedToken = tokenManager.getToken()
+            return if (savedToken != null) {
+                AuthToken(savedToken)
+            } else {
+                null
+            }
+        }
+
+        override fun saveToken(token: AuthToken) {
             tokenManager.saveToken(token.token)
+        }
 
-            Result.success(token)
-        } catch (e: Exception) {
-            Result.failure(e)
+        override fun clearToken() {
+            tokenManager.clearToken()
         }
     }
-
-    override suspend fun register(credentials: RegisterCredentials): Result<AuthToken> {
-        return try {
-            val request = RegisterRequest(
-                name = credentials.name,
-                email = credentials.email,
-                password = credentials.password,
-            )
-
-            val response = api.register(request)
-
-            val token = authMapper.toAuthToken(response)
-
-            tokenManager.saveToken(token.token)
-
-            Result.success(token)
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
-    }
-
-    override fun getToken(): AuthToken? {
-        val savedToken = tokenManager.getToken()
-        return if (savedToken != null) {
-            AuthToken(savedToken)
-        } else {
-            null
-        }
-    }
-
-    override fun saveToken(token: AuthToken) {
-        tokenManager.saveToken(token.token)
-    }
-
-    override fun clearToken() {
-        tokenManager.clearToken()
-    }
-}

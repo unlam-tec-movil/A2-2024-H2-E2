@@ -10,6 +10,7 @@ class RegisterUser
     constructor(
         private val authRepository: AuthRepository,
     ) {
-        suspend operator fun invoke(credentials: RegisterCredentials): Result<AuthToken> =
-            authRepository.register(credentials)
+        suspend operator fun invoke(credentials: RegisterCredentials): Result<AuthToken> {
+            return authRepository.register(credentials)
+        }
     }

@@ -10,6 +10,7 @@ class LoginUser
     constructor(
         private val authRepository: AuthRepository,
     ) {
-        suspend operator fun invoke(credentials: LoginCredentials): Result<AuthToken> =
-            authRepository.login(credentials)
+        suspend operator fun invoke(credentials: LoginCredentials): Result<AuthToken> {
+            return authRepository.login(credentials)
+        }
     }
