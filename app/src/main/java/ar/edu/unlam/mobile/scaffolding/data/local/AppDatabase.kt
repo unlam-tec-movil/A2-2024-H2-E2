@@ -10,9 +10,10 @@ import ar.edu.unlam.mobile.scaffolding.data.local.entity.FavoriteUserEntity
 @Database(
     entities = [FavoriteUserEntity::class, DraftTuitEntity::class],
     version = 2,
-    exportSchema = false
+    exportSchema = false,
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun favoriteUserDao(): FavoriteUserDao
+
     abstract fun draftTuitDao(): DraftTuitDao
 }
