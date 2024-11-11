@@ -13,19 +13,18 @@ class LocalDatabaseDraftTuitRepository
         private val draftTuitDao: DraftTuitDao,
         private val draftTuitMapper: DraftTuitMapper,
     ) : DraftTuitRepository {
+        override suspend fun getDrafts(): Flow<List<DraftTuit>> {
+            val entities = draftTuitDao.getDraftTuits()
+            return draftTuitMapper.mapToDomainList(entities)
+        }
 
-    override suspend fun getDrafts(): Flow<List<DraftTuit>> {
-        val entities = draftTuitDao.getDraftTuits()
-        return draftTuitMapper.mapToDomainList(entities)
-    }
+        override suspend fun saveDraft(draftTuit: DraftTuit) {
+            val entity = draftTuitMapper.mapToEntity(draftTuit)
+            draftTuitDao.saveDraftTuit(entity)
+        }
 
-    override suspend fun saveDraft(draftTuit: DraftTuit) {
-        val entity = draftTuitMapper.mapToEntity(draftTuit)
-        draftTuitDao.saveDraftTuit(entity)
+        override suspend fun deleteDraft(draftTuit: DraftTuit) {
+            val entity = draftTuitMapper.mapToEntity(draftTuit)
+            draftTuitDao.deleteDraftTuit(entity)
+        }
     }
-
-    override suspend fun deleteDraft(draftTuit: DraftTuit) {
-        val entity = draftTuitMapper.mapToEntity(draftTuit)
-        draftTuitDao.deleteDraftTuit(entity)
-    }
-}
