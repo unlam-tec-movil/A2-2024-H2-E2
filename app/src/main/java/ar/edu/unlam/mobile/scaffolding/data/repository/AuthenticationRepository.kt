@@ -22,10 +22,11 @@ class AuthenticationRepository
     ) : AuthRepository {
         override suspend fun login(credentials: LoginCredentials): Result<AuthToken> {
             return try {
-                val request = LoginRequest(
-                    email = credentials.email,
-                    password = credentials.password,
-                )
+                val request =
+                    LoginRequest(
+                        email = credentials.email,
+                        password = credentials.password,
+                    )
 
                 val response = api.login(request)
 
@@ -41,11 +42,12 @@ class AuthenticationRepository
 
         override suspend fun register(credentials: RegisterCredentials): Result<AuthToken> {
             return try {
-                val request = RegisterRequest(
-                    name = credentials.name,
-                    email = credentials.email,
-                    password = credentials.password,
-                )
+                val request =
+                    RegisterRequest(
+                        name = credentials.name,
+                        email = credentials.email,
+                        password = credentials.password,
+                    )
 
                 val response = api.register(request)
 
