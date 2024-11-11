@@ -46,7 +46,8 @@ fun ProfileScreen(
         },
     ) { paddingValues ->
         Column(
-            modifier = Modifier
+            modifier =
+            Modifier
                 .padding(paddingValues)
                 .fillMaxSize(),
         ) {
