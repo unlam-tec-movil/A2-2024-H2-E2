@@ -24,7 +24,7 @@ fun MainTopAppBar(
                 IconButton(onClick = it) {
                     Icon(
                         imageVector = Icons.Default.Edit,
-                        contentDescription = stringResource(R.string.drafts)
+                        contentDescription = stringResource(R.string.drafts),
                     )
                 }
             }
@@ -32,9 +32,9 @@ fun MainTopAppBar(
             IconButton(onClick = onLogout) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ExitToApp,
-                    contentDescription = stringResource(R.string.logout)
+                    contentDescription = stringResource(R.string.logout),
                 )
             }
-        }
+        },
     )
 }

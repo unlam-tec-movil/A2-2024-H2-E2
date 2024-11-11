@@ -58,10 +58,10 @@ fun BottomNavigationBar(controller: NavHostController) {
             selected = navBackStackEntry?.destination?.hierarchy?.any { it.route == Screen.FavoriteUsers.route } == true,
             onClick = {
                 controller.navigate(Screen.FavoriteUsers.route)
-                {
-                    launchSingleTop = true
-                    restoreState = true
-                }
+                    {
+                        launchSingleTop = true
+                        restoreState = true
+                    }
             },
             icon = {
                 Icon(
