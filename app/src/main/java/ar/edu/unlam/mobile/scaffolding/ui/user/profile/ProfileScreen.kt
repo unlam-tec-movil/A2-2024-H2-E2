@@ -34,7 +34,7 @@ import coil.compose.AsyncImage
 fun ProfileScreen(
     viewModel: ProfileViewModel = hiltViewModel(),
     onLogout: () -> Unit,
-    ) {
+) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     Scaffold(

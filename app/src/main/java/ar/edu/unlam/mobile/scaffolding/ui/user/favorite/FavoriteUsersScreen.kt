@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import ar.edu.unlam.mobile.scaffolding.R
 import ar.edu.unlam.mobile.scaffolding.domain.model.FavoriteUser
 import ar.edu.unlam.mobile.scaffolding.ui.components.FavoriteUsersList
 import ar.edu.unlam.mobile.scaffolding.ui.components.MainTopAppBar
@@ -20,15 +21,14 @@ import ar.edu.unlam.mobile.scaffolding.ui.core.component.loading.LoadingIndicato
 import ar.edu.unlam.mobile.scaffolding.ui.core.state.onError
 import ar.edu.unlam.mobile.scaffolding.ui.core.state.onLoading
 import ar.edu.unlam.mobile.scaffolding.ui.core.state.onSuccess
-import ar.edu.unlam.mobile.scaffolding.R
 
 @Composable
 fun FavoriteUsersScreen(
     viewModel: FavoriteUsersViewModel = hiltViewModel(),
-    onLogout: () -> Unit
-    ) {
-        val state by viewModel.state.collectAsStateWithLifecycle()
-        var userToDelete by remember { mutableStateOf<FavoriteUser?>(null) }
+    onLogout: () -> Unit,
+) {
+    val state by viewModel.state.collectAsStateWithLifecycle()
+    var userToDelete by remember { mutableStateOf<FavoriteUser?>(null) }
 
     Scaffold(
         topBar = {
@@ -36,7 +36,7 @@ fun FavoriteUsersScreen(
                 title = stringResource(R.string.favorite_users_title),
                 onLogout = onLogout,
             )
-        }
+        },
     ) { paddingValues ->
         Box(modifier = Modifier.padding((paddingValues))) {
             state.favoriteUserState
@@ -86,7 +86,7 @@ fun ConfirmDelete(
                 stringResource(
                     R.string.delete_user_confirmation,
                     user.name,
-                )
+                ),
             )
         },
         confirmButton = {
