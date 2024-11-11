@@ -9,28 +9,34 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ar.edu.unlam.mobile.scaffolding.domain.model.FavoriteUser
 import ar.edu.unlam.mobile.scaffolding.ui.components.FavoriteUsersList
+import ar.edu.unlam.mobile.scaffolding.ui.components.MainTopAppBar
 import ar.edu.unlam.mobile.scaffolding.ui.core.component.error.ErrorView
 import ar.edu.unlam.mobile.scaffolding.ui.core.component.loading.LoadingIndicator
 import ar.edu.unlam.mobile.scaffolding.ui.core.state.onError
 import ar.edu.unlam.mobile.scaffolding.ui.core.state.onLoading
 import ar.edu.unlam.mobile.scaffolding.ui.core.state.onSuccess
+import ar.edu.unlam.mobile.scaffolding.R
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FavoriteUsersScreen(viewModel: FavoriteUsersViewModel = hiltViewModel()) {
-    val state by viewModel.state.collectAsStateWithLifecycle()
-    var userToDelete by remember { mutableStateOf<FavoriteUser?>(null) }
+fun FavoriteUsersScreen(
+    viewModel: FavoriteUsersViewModel = hiltViewModel(),
+    onLogout: () -> Unit
+    ) {
+        val state by viewModel.state.collectAsStateWithLifecycle()
+        var userToDelete by remember { mutableStateOf<FavoriteUser?>(null) }
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text("Usuarios favoritos") },
+            MainTopAppBar(
+                title = stringResource(R.string.favorite_users_title),
+                onLogout = onLogout,
             )
-        },
+        }
     ) { paddingValues ->
         Box(modifier = Modifier.padding((paddingValues))) {
             state.favoriteUserState
@@ -74,16 +80,23 @@ fun ConfirmDelete(
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Elimminar Usuario") },
-        text = { Text("¿Estás seguro de que quieres eliminar a ${user.name} de favoritos?") },
+        title = { Text(stringResource(R.string.delete_user_title)) },
+        text = {
+            Text(
+                stringResource(
+                    R.string.delete_user_confirmation,
+                    user.name,
+                )
+            )
+        },
         confirmButton = {
             TextButton(onClick = onConfirm) {
-                Text("Eliminar")
+                Text(stringResource(R.string.delete))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("Cancelar")
+                Text(stringResource(R.string.cancel))
             }
         },
     )
