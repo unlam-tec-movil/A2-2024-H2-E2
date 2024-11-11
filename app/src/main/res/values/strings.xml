@@ -7,4 +7,10 @@
     <string name="dismiss">Descartar</string>
     <string name="tuit_created">Tuit Creado</string>
 
+    <string name="error_invalid_credentials">Email o contraseña incorrectos. Por favor, verifica tus datos.</string>
+    <string name="error_connection">Error de conexión. Verifica tu conexión a Internet.</string>
+    <string name="error_server">Error en el servidor. Intenta nuevamente más tarde.</string>
+    <string name="error_unknown">Ocurrió un error desconocido. Intenta nuevamente.</string>
+    <string name="error_email_already_registered">El email ya está registrado o los datos son incorrectos.</string>
+
 </resources>
