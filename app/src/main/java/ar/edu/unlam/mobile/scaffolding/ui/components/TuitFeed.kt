@@ -12,7 +12,7 @@ import ar.edu.unlam.mobile.scaffolding.domain.model.Tuit
 @Composable
 fun TuitFeed(
     tuits: List<Tuit>,
-    likeAction: (tuitId: Int, isLiked: Boolean) -> Unit = { _, _ -> }
+    likeAction: (tuitId: Int, isLiked: Boolean) -> Unit = { _, _ -> },
 ) {
     LazyColumn {
         items(tuits) { tuit ->
@@ -22,7 +22,7 @@ fun TuitFeed(
                 likeAction = {
                     likeAction(tuit.id, tuit.liked)
                     tuit.liked = !tuit.liked
-                }
+                },
             )
         }
     }
