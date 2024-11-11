@@ -73,7 +73,10 @@ class FeedViewModel
             }
         }
 
-        fun toggleTuitLike(tuitId: Int, isLiked: Boolean) {
+        fun toggleTuitLike(
+            tuitId: Int,
+            isLiked: Boolean,
+        ) {
             if (isLiked) {
                 unlikeTuit(tuitId)
             } else {

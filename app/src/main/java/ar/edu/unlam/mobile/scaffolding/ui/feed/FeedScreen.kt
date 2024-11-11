@@ -47,7 +47,7 @@ fun FeedScreen(
             modifier = modifier,
             likeAction = { tuitId, isLiked ->
                 viewModel.toggleTuitLike(tuitId, isLiked)
-            }
+            },
         )
         PullRefreshIndicator(
             refreshing = state.isRefreshing,
@@ -68,17 +68,15 @@ private fun FeedContent(
         state.onSuccess { tuits ->
             TuitFeed(
                 tuits = tuits,
-                likeAction = likeAction
+                likeAction = likeAction,
             )
+        }.onError { message ->
+            ErrorView(
+                message = message,
+                onRetry = onRetry,
+            )
+        }.onLoading {
+            LoadingIndicator()
         }
-            .onError { message ->
-                ErrorView(
-                    message = message,
-                    onRetry = onRetry,
-                )
-            }
-            .onLoading {
-                LoadingIndicator()
-            }
     }
 }
