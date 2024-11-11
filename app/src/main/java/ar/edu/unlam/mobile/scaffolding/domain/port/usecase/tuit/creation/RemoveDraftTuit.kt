@@ -4,12 +4,10 @@ import ar.edu.unlam.mobile.scaffolding.domain.model.DraftTuit
 import ar.edu.unlam.mobile.scaffolding.domain.port.repository.DraftTuitRepository
 import javax.inject.Inject
 
-class SaveDraftTuit
+class RemoveDraftTuit
     @Inject
     constructor(
         private val draftTuitRepository: DraftTuitRepository,
     ) {
-        suspend operator fun invoke(draftTuit: DraftTuit) {
-            return draftTuitRepository.saveDraft(draftTuit)
-        }
+        suspend operator fun invoke(draft: DraftTuit) = draftTuitRepository.deleteDraft(draft)
     }
