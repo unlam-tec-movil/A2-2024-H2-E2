@@ -36,9 +36,9 @@ fun TuitDraftCard(
                     ) {
                         Text(tuitDraft.lastModified, fontSize = 16.sp)
                     }
-                    }
-                    Row {
-                        Text(tuitDraft.message, fontSize = 24.sp)
+                }
+                Row {
+                    Text(tuitDraft.message, fontSize = 24.sp)
                 }
             }
         }
