@@ -9,23 +9,20 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ar.edu.unlam.mobile.scaffolding.domain.model.FavoriteUser
 import ar.edu.unlam.mobile.scaffolding.ui.components.FavoriteUsersList
 import ar.edu.unlam.mobile.scaffolding.ui.core.component.error.ErrorView
 import ar.edu.unlam.mobile.scaffolding.ui.core.component.loading.LoadingIndicator
-import ar.edu.unlam.mobile.scaffolding.ui.core.state.UIState
 import ar.edu.unlam.mobile.scaffolding.ui.core.state.onError
 import ar.edu.unlam.mobile.scaffolding.ui.core.state.onLoading
 import ar.edu.unlam.mobile.scaffolding.ui.core.state.onSuccess
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FavoriteUsersScreen(
-    state: FavoriteUsersState,
-    onDeleteUser: (FavoriteUser) -> Unit,
-    onRetry: () -> Unit,
-) {
+fun FavoriteUsersScreen(viewModel: FavoriteUsersViewModel = hiltViewModel()) {
+    val state by viewModel.state.collectAsStateWithLifecycle()
     var userToDelete by remember { mutableStateOf<FavoriteUser?>(null) }
 
     Scaffold(
@@ -49,7 +46,7 @@ fun FavoriteUsersScreen(
                 }.onError { message ->
                     ErrorView(
                         message = message,
-                        onRetry = onRetry,
+                        onRetry = { viewModel.retryLoadFavoriteUsers() },
                     )
                 }
 
@@ -57,7 +54,7 @@ fun FavoriteUsersScreen(
                 ConfirmDelete(
                     user = user,
                     onConfirm = {
-                        onDeleteUser(user)
+                        viewModel.removeFavoriteUsers(user)
                         userToDelete = null
                     },
                     onDismiss = {
@@ -89,36 +86,5 @@ fun ConfirmDelete(
                 Text("Cancelar")
             }
         },
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun FavoriteUserScreenPreview() {
-    val users =
-        listOf(
-            FavoriteUser(
-                name = "Usuario 1",
-                avatarUrl = "https://static-00.iconduck.com/assets.00/profile-default-icon-512x511-v4sw4m29.png",
-            ),
-            FavoriteUser(
-                name = "Usuario 2",
-                avatarUrl = "https://static-00.iconduck.com/assets.00/profile-default-icon-512x511-v4sw4m29.png",
-            ),
-            FavoriteUser(
-                name = "Usuario 3",
-                avatarUrl = "https://static-00.iconduck.com/assets.00/profile-default-icon-512x511-v4sw4m29.png",
-            ),
-            FavoriteUser(
-                name = "Usuario con nombre largo a ver como queda",
-                avatarUrl = "https://static-00.iconduck.com/assets.00/profile-default-icon-512x511-v4sw4m29.png",
-            ),
-        )
-    FavoriteUsersScreen(
-        state = FavoriteUsersState(
-            favoriteUserState = UIState.Success(users)
-        ),
-        onRetry = {},
-        onDeleteUser = {}
     )
 }
