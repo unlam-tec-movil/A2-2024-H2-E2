@@ -60,6 +60,9 @@ fun RegisterScreen(
         password = viewModel.getPassword(),
         onPasswordChange = viewModel::onPasswordChange,
         onRegisterClick = viewModel::register,
+        onLoginClick = {
+            navController.navigate("login")
+        },
     )
 }
 
@@ -72,6 +75,7 @@ fun RegisterForm(
     password: String,
     onPasswordChange: (String) -> Unit,
     onRegisterClick: () -> Unit,
+    onLoginClick: () -> Unit,
 ) {
     Column(
         modifier =
@@ -100,12 +104,14 @@ fun RegisterForm(
             value = email,
             onValueChange = onEmailChange,
             label = { Text("Email") },
+            modifier = Modifier.fillMaxWidth(),
         )
         Spacer(modifier = Modifier.height(8.dp))
         TextField(
             value = password,
             onValueChange = onPasswordChange,
             label = { Text("Contraseña") },
+            modifier = Modifier.fillMaxWidth(),
         )
         Spacer(modifier = Modifier.height(16.dp))
         Button(
@@ -113,6 +119,13 @@ fun RegisterForm(
             modifier = Modifier.fillMaxWidth(),
         ) {
             Text("Registrarse")
+        }
+        Spacer(modifier = Modifier.height(8.dp))
+        Button(
+            onClick = onLoginClick,
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Text("Iniciar Sesión")
         }
     }
 }
@@ -128,5 +141,6 @@ fun RegisterScreenPreview() {
         password = "zzz123",
         onPasswordChange = {},
         onRegisterClick = {},
+        onLoginClick = {},
     )
 }
