@@ -15,7 +15,7 @@ import ar.edu.unlam.mobile.scaffolding.ui.user.profile.ProfileScreen
 fun AppNavigation(navController: NavHostController) {
     NavHost(
         navController = navController,
-        startDestination = Screen.Login.route
+        startDestination = Screen.Login.route,
     ) {
         composable(Screen.Login.route) {
             LoginScreen(
@@ -28,7 +28,7 @@ fun AppNavigation(navController: NavHostController) {
                             inclusive = true
                         }
                     }
-                }
+                },
             )
         }
 
@@ -43,7 +43,7 @@ fun AppNavigation(navController: NavHostController) {
                             inclusive = true
                         }
                     }
-                }
+                },
             )
         }
 
@@ -61,7 +61,7 @@ fun AppNavigation(navController: NavHostController) {
                 },
                 onNavigateToDrafts = {
                     navController.navigate(Screen.DraftTuit.route)
-                }
+                },
             )
         }
 
@@ -73,7 +73,7 @@ fun AppNavigation(navController: NavHostController) {
                             inclusive = true
                         }
                     }
-                }
+                },
             )
         }
 
@@ -85,7 +85,7 @@ fun AppNavigation(navController: NavHostController) {
                             inclusive = true
                         }
                     }
-                }
+                },
             )
         }
 
@@ -96,7 +96,7 @@ fun AppNavigation(navController: NavHostController) {
                 },
                 onCreateSuccess = {
                     navController.navigateUp()
-                }
+                },
             )
         }
 
@@ -104,7 +104,7 @@ fun AppNavigation(navController: NavHostController) {
             DrafTuitScreen(
                 onDisMissRequest = {
                     navController.navigateUp()
-                }
+                },
             )
         }
     }
