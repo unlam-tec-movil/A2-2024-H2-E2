@@ -56,7 +56,6 @@ fun FeedScreen(
                 onNavigateToDrafts = onNavigateToDrafts,
             )
         },
-
         floatingActionButton = {
             FloatingActionButton(
                 onClick = onNavigateToCreateTuit,
@@ -75,19 +74,18 @@ fun FeedScreen(
                     .padding(paddingValues)
                     .fillMaxSize()
                     .pullRefresh(pullRefreshState),
-            ) {
-            FeedContent(
-                state = state.tuitsState,
-                onRetry = { viewModel.onRefresh() },
-                modifier = modifier,
-            )
-
-            PullRefreshIndicator(
-                refreshing = state.isRefreshing,
-                state = pullRefreshState,
-                modifier = Modifier.align(Alignment.TopCenter),
-            )
-            }
+        ) {
+        FeedContent(
+            state = state.tuitsState,
+            onRetry = { viewModel.onRefresh() },
+            modifier = modifier,
+        )
+        PullRefreshIndicator(
+            refreshing = state.isRefreshing,
+            state = pullRefreshState,
+            modifier = Modifier.align(Alignment.TopCenter),
+        )
+        }
     }
 }
 
