@@ -75,16 +75,16 @@ fun FeedScreen(
                     .fillMaxSize()
                     .pullRefresh(pullRefreshState),
         ) {
-        FeedContent(
-            state = state.tuitsState,
-            onRetry = { viewModel.onRefresh() },
-            modifier = modifier,
-        )
-        PullRefreshIndicator(
-            refreshing = state.isRefreshing,
-            state = pullRefreshState,
-            modifier = Modifier.align(Alignment.TopCenter),
-        )
+            FeedContent(
+                state = state.tuitsState,
+                onRetry = { viewModel.onRefresh() },
+                modifier = modifier,
+            )
+            PullRefreshIndicator(
+                refreshing = state.isRefreshing,
+                state = pullRefreshState,
+                modifier = Modifier.align(Alignment.TopCenter),
+            )
         }
     }
 }
