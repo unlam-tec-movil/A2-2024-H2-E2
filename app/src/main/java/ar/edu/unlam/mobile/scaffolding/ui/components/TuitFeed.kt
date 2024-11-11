@@ -10,10 +10,19 @@ import androidx.compose.ui.unit.dp
 import ar.edu.unlam.mobile.scaffolding.domain.model.Tuit
 
 @Composable
-fun TuitFeed(tuits: List<Tuit>) {
+fun TuitFeed(
+    tuits: List<Tuit>,
+    likeAction: (Tuit) -> Unit = {}
+) {
     LazyColumn {
         items(tuits) { tuit ->
-            TuitCard(tuit, modifier = Modifier.padding(1.dp))
+            TuitCard(
+                tuit,
+                modifier = Modifier.padding(1.dp),
+                likeAction = {
+                    likeAction(tuit)
+                }
+            )
         }
     }
 }

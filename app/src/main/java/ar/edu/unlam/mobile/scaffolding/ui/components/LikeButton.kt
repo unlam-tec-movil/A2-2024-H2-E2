@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 fun LikeButton(
     color: Color = Color.Red,
     modifier: Modifier = Modifier,
+    onClickAction: () -> Unit = {}
 ) {
 
     var isLiked by remember { mutableStateOf(false) }
@@ -26,6 +27,7 @@ fun LikeButton(
         checked = isLiked,
         onCheckedChange = {
             isLiked = !isLiked
+            onClickAction()
         },
         modifier = modifier
     ) {

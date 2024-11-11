@@ -2,6 +2,7 @@ package ar.edu.unlam.mobile.scaffolding.ui.feed
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import ar.edu.unlam.mobile.scaffolding.domain.port.repository.TuitRepository
 import ar.edu.unlam.mobile.scaffolding.domain.port.usecase.tuit.feed.GetFeed
 import ar.edu.unlam.mobile.scaffolding.domain.port.usecase.tuit.feed.RefreshFeed
 import ar.edu.unlam.mobile.scaffolding.ui.core.state.UIState
@@ -17,6 +18,7 @@ class FeedViewModel
     constructor(
         private val getFeed: GetFeed,
         private val refreshFeed: RefreshFeed,
+        private var tuitRepository: TuitRepository,
     ) : ViewModel() {
         private val _state = MutableStateFlow(FeedState())
         val state = _state.asStateFlow()
@@ -68,6 +70,12 @@ class FeedViewModel
                             isRefreshing = false,
                         )
                 }
+            }
+        }
+
+        fun likeTuit(id: Int) {
+            viewModelScope.launch {
+                tuitRepository.likeTuit(tuitId = id)
             }
         }
     }

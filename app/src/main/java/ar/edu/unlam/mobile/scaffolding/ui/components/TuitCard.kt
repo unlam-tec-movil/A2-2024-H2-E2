@@ -27,6 +27,7 @@ import coil.compose.AsyncImage
 fun TuitCard(
     tuit: Tuit,
     modifier: Modifier = Modifier,
+    likeAction: () -> Unit = {}
 ) {
     Card(
         modifier = modifier,
@@ -61,7 +62,8 @@ fun TuitCard(
 
                 LikeButton(
                     color = Color.Black,
-                    modifier = Modifier.size(20.dp)
+                    modifier = Modifier.size(20.dp),
+                    onClickAction = likeAction
                 )
             }
         }
