@@ -22,8 +22,7 @@ fun BottomNavigationBar(controller: NavHostController) {
     NavigationBar {
         NavigationBarItem(
             selected = navBackStackEntry?.destination?.hierarchy?.any { it.route == Screen.Feed.route } == true,
-            onClick = {
-                controller.navigate(Screen.Feed.route)
+            onClick = { controller.navigate(Screen.Feed.route)
                     {
                         launchSingleTop = true
                         restoreState = true
@@ -39,8 +38,7 @@ fun BottomNavigationBar(controller: NavHostController) {
         )
         NavigationBarItem(
             selected = navBackStackEntry?.destination?.hierarchy?.any { it.route == Screen.Profile.route } == true,
-            onClick = {
-                controller.navigate(Screen.Profile.route)
+            onClick = { controller.navigate(Screen.Profile.route)
                     {
                         launchSingleTop = true
                         restoreState = true
@@ -56,8 +54,7 @@ fun BottomNavigationBar(controller: NavHostController) {
         )
         NavigationBarItem(
             selected = navBackStackEntry?.destination?.hierarchy?.any { it.route == Screen.FavoriteUsers.route } == true,
-            onClick = {
-                controller.navigate(Screen.FavoriteUsers.route)
+            onClick = { controller.navigate(Screen.FavoriteUsers.route)
                     {
                         launchSingleTop = true
                         restoreState = true
