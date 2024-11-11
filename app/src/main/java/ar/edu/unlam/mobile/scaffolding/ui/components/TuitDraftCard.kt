@@ -30,9 +30,9 @@ fun TuitDraftCard(
                     Column(
                         verticalArrangement = Arrangement.Center,
                         modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .height(50.dp),
+                            Modifier
+                                .fillMaxWidth()
+                                .height(50.dp),
                     ) {
                         Text(tuitDraft.lastModified, fontSize = 16.sp)
                     }

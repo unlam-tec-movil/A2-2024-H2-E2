@@ -5,6 +5,8 @@ import kotlinx.coroutines.flow.Flow
 
 interface DraftTuitRepository {
     suspend fun getDrafts(): Flow<List<DraftTuit>>
+
     suspend fun saveDraft(draftTuit: DraftTuit)
+
     suspend fun deleteDraft(draftTuitId: DraftTuit)
 }
