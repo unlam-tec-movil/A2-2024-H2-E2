@@ -8,12 +8,18 @@ import ar.edu.unlam.mobile.scaffolding.data.local.dao.FavoriteUserDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object DatabaseModule {
+    @Provides
+    fun provideAppContext(
+        @ApplicationContext context: Context,
+    ): Context = context
+
     @Provides
     @Singleton
     fun provideAppDatabase(context: Context): AppDatabase =
