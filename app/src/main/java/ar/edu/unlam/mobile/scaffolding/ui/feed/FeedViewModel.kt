@@ -73,9 +73,25 @@ class FeedViewModel
             }
         }
 
-        fun likeTuit(id: Int) {
+        fun toggleTuitLike(tuitId: Int, isLiked: Boolean) {
+            if (isLiked) {
+                unlikeTuit(tuitId)
+            } else {
+                likeTuit(tuitId)
+            }
+        }
+
+        private fun likeTuit(id: Int) {
             viewModelScope.launch {
                 tuitRepository.likeTuit(tuitId = id)
+                // Completar y agregar caso de error
+            }
+        }
+
+        private fun unlikeTuit(id: Int) {
+            viewModelScope.launch {
+                tuitRepository.unlikeTuit(tuitId = id)
+                // Completar y agregar caso de error
             }
         }
     }

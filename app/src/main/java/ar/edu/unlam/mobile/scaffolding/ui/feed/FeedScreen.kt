@@ -45,8 +45,8 @@ fun FeedScreen(
             state = state.tuitsState,
             onRetry = { viewModel.onRefresh() },
             modifier = modifier,
-            likeAction = { tuit ->
-                viewModel.likeTuit(id = tuit.id)
+            likeAction = { tuitId, isLiked ->
+                viewModel.toggleTuitLike(tuitId, isLiked)
             }
         )
         PullRefreshIndicator(
@@ -61,7 +61,7 @@ fun FeedScreen(
 private fun FeedContent(
     state: UIState<List<Tuit>>,
     onRetry: () -> Unit,
-    likeAction: (Tuit) -> Unit = {},
+    likeAction: (tuitId: Int, isLiked: Boolean) -> Unit = { _, _ -> },
     modifier: Modifier = Modifier,
 ) {
     Box(modifier = modifier.fillMaxSize()) {
