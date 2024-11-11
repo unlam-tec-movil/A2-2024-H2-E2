@@ -1,9 +1,8 @@
 package ar.edu.unlam.mobile.scaffolding.ui.user.favorite
 
-/*data class FavoriteUsersState(
-    // TODO: Implementar estado de perfil
-)*/
+import ar.edu.unlam.mobile.scaffolding.domain.model.FavoriteUser
+import ar.edu.unlam.mobile.scaffolding.ui.core.state.UIState
 
-class FavoriteUsersState {
-    // TODO: borrar esta clase y usar la de arriba cuando se implemente
-}
+data class FavoriteUsersState(
+    val favoriteUserState: UIState<List<FavoriteUser>> = UIState.Loading,
+)
