@@ -12,7 +12,7 @@ interface DraftTuitDao {
     @Insert
     suspend fun saveDraftTuit(draft: DraftTuitEntity)
 
-    @Query("SELECT * FROM draft_tuit")
+    @Query("SELECT * FROM draft_tuits")
     suspend fun getDraftTuits(): Flow<List<DraftTuitEntity>>
 
     @Delete
