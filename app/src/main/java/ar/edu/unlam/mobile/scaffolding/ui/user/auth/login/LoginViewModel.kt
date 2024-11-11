@@ -47,19 +47,11 @@ class LoginViewModel
                             loginState = UIState.Success(Unit),
                         )
                     }
-                } else if (result.isFailure) {
-                    if (userCredentials.email.isEmpty() || userCredentials.password.isEmpty()) {
-                        _state.update {
-                            it.copy(
-                                loginState = UIState.Error("Por favor, complete todos los campos"),
-                            )
-                        }
-                    } else {
-                        _state.update {
-                            it.copy(
-                                loginState = UIState.Error("Error al iniciar sesión"),
-                            )
-                        }
+                } else {
+                    _state.update {
+                        it.copy(
+                            loginState = UIState.Error("No se pudo iniciar sesión."),
+                        )
                     }
                 }
             }
