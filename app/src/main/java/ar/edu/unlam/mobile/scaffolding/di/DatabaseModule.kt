@@ -3,6 +3,7 @@ package ar.edu.unlam.mobile.scaffolding.di
 import android.content.Context
 import androidx.room.Room
 import ar.edu.unlam.mobile.scaffolding.data.local.AppDatabase
+import ar.edu.unlam.mobile.scaffolding.data.local.dao.DraftTuitDao
 import ar.edu.unlam.mobile.scaffolding.data.local.dao.FavoriteUserDao
 import dagger.Module
 import dagger.Provides
@@ -31,4 +32,7 @@ object DatabaseModule {
 
     @Provides
     fun provideFavoriteUserDao(appDatabase: AppDatabase): FavoriteUserDao = appDatabase.favoriteUserDao()
+
+    @Provides
+    fun provideDraftTuitDao(appDatabase: AppDatabase): DraftTuitDao = appDatabase.draftTuitDao()
 }
