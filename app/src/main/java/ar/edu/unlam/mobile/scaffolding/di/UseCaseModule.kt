@@ -1,8 +1,13 @@
 package ar.edu.unlam.mobile.scaffolding.di
 
+
 import ar.edu.unlam.mobile.scaffolding.domain.port.repository.AuthRepository
+import ar.edu.unlam.mobile.scaffolding.domain.port.repository.DraftTuitRepository
 import ar.edu.unlam.mobile.scaffolding.domain.port.repository.FavoriteUserRepository
 import ar.edu.unlam.mobile.scaffolding.domain.port.repository.ProfileRepository
+import ar.edu.unlam.mobile.scaffolding.domain.port.usecase.tuit.creation.GetDraftTuits
+import ar.edu.unlam.mobile.scaffolding.domain.port.usecase.tuit.creation.RemoveDraftTuit
+import ar.edu.unlam.mobile.scaffolding.domain.port.usecase.tuit.creation.SaveDraftTuit
 import ar.edu.unlam.mobile.scaffolding.domain.port.usecase.user.auth.LoginUser
 import ar.edu.unlam.mobile.scaffolding.domain.port.usecase.user.auth.RegisterUser
 import ar.edu.unlam.mobile.scaffolding.domain.port.usecase.user.favorite.GetFavoriteUsers
@@ -35,4 +40,13 @@ object UseCaseModule {
 
     @Provides
     fun provideGetFavoriteUser(favoriteUserRepository: FavoriteUserRepository): GetFavoriteUsers = GetFavoriteUsers(favoriteUserRepository)
+
+    @Provides
+    fun provideGetDraftTuit(draftTuitRepository: DraftTuitRepository): GetDraftTuits = GetDraftTuits(draftTuitRepository)
+
+    @Provides
+    fun provideSaveDraftTuit(draftTuitRepository: DraftTuitRepository): SaveDraftTuit = SaveDraftTuit(draftTuitRepository)
+
+    @Provides
+    fun provideRemoveDraftTuit(draftTuitRepository: DraftTuitRepository): RemoveDraftTuit = RemoveDraftTuit(draftTuitRepository)
 }

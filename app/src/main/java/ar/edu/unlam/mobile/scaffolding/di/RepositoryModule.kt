@@ -1,6 +1,8 @@
 package ar.edu.unlam.mobile.scaffolding.di
 
+import ar.edu.unlam.mobile.scaffolding.data.local.dao.DraftTuitDao
 import ar.edu.unlam.mobile.scaffolding.data.local.dao.FavoriteUserDao
+import ar.edu.unlam.mobile.scaffolding.data.local.mapper.DraftTuitMapper
 import ar.edu.unlam.mobile.scaffolding.data.local.mapper.FavoriteUserMapper
 import ar.edu.unlam.mobile.scaffolding.data.remote.api.AuthApi
 import ar.edu.unlam.mobile.scaffolding.data.remote.api.ProfileApi
@@ -10,10 +12,12 @@ import ar.edu.unlam.mobile.scaffolding.data.remote.mapper.AuthMapper
 import ar.edu.unlam.mobile.scaffolding.data.remote.mapper.ProfileMapper
 import ar.edu.unlam.mobile.scaffolding.data.remote.mapper.TuitMapper
 import ar.edu.unlam.mobile.scaffolding.data.repository.AuthenticationRepository
+import ar.edu.unlam.mobile.scaffolding.data.repository.LocalDatabaseDraftTuitRepository
 import ar.edu.unlam.mobile.scaffolding.data.repository.LocalDatabaseFavoriteUserRepository
 import ar.edu.unlam.mobile.scaffolding.data.repository.RemoteProfileRepository
 import ar.edu.unlam.mobile.scaffolding.data.repository.RemoteTuitRepository
 import ar.edu.unlam.mobile.scaffolding.domain.port.repository.AuthRepository
+import ar.edu.unlam.mobile.scaffolding.domain.port.repository.DraftTuitRepository
 import ar.edu.unlam.mobile.scaffolding.domain.port.repository.FavoriteUserRepository
 import ar.edu.unlam.mobile.scaffolding.domain.port.repository.ProfileRepository
 import ar.edu.unlam.mobile.scaffolding.domain.port.repository.TuitRepository
@@ -54,4 +58,11 @@ object RepositoryModule {
         dao: FavoriteUserDao,
         mapper: FavoriteUserMapper,
     ): FavoriteUserRepository = LocalDatabaseFavoriteUserRepository(dao, mapper)
+
+    @Provides
+    @Singleton
+    fun provideDraftTuitRepository(
+        dao: DraftTuitDao,
+        mapper: DraftTuitMapper,
+    ): DraftTuitRepository = LocalDatabaseDraftTuitRepository(dao, mapper)
 }
