@@ -18,7 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 fun LikeButton(
     color: Color = Color.Red,
     modifier: Modifier = Modifier,
-    onClickAction: () -> Unit = {}
+    onClickAction: () -> Unit = {},
 ) {
     var isLiked by remember { mutableStateOf(false) }
 
@@ -41,7 +41,6 @@ fun LikeButton(
             tint = color,
         )
     }
-
 }
 
 @Preview
