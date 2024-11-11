@@ -59,6 +59,9 @@ fun LoginScreen(
         password = viewModel.getPassword(),
         onPasswordChange = viewModel::onPasswordChange,
         onLoginClick = viewModel::login,
+        onRegisterClick = {
+            navController.navigate("register")
+        },
     )
 }
 
@@ -69,6 +72,7 @@ fun LoginForm(
     password: String,
     onPasswordChange: (String) -> Unit,
     onLoginClick: () -> Unit,
+    onRegisterClick: () -> Unit,
 ) {
     Column(
         modifier =
@@ -107,6 +111,13 @@ fun LoginForm(
         ) {
             Text("Iniciar Sesión")
         }
+        Spacer(modifier = Modifier.height(8.dp))
+        Button(
+            onClick = onRegisterClick,
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Text("Registrarse")
+        }
     }
 }
 
@@ -119,5 +130,6 @@ fun LoginScreenPreview() {
         password = "zzz123",
         onPasswordChange = {},
         onLoginClick = {},
+        onRegisterClick = {},
     )
 }
