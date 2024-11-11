@@ -79,7 +79,7 @@ fun FeedScreen(
                 state = state.tuitsState,
                 onRetry = { viewModel.onRefresh() },
                 modifier = modifier,
-                likeAction = { tuitId, isLiked -> 
+                likeAction = { tuitId, isLiked ->
                     viewModel.toggleTuitLike(tuitId, isLiked)
                 },
             )
