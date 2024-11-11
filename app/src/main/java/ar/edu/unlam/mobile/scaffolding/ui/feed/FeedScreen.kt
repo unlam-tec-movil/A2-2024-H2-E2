@@ -65,18 +65,19 @@ private fun FeedContent(
     modifier: Modifier = Modifier,
 ) {
     Box(modifier = modifier.fillMaxSize()) {
-        state.onSuccess { tuits ->
-            TuitFeed(
-                tuits = tuits,
-                likeAction = likeAction,
-            )
-        }.onError { message ->
-            ErrorView(
-                message = message,
-                onRetry = onRetry,
-            )
-        }.onLoading {
-            LoadingIndicator()
-        }
+        state
+            .onSuccess { tuits ->
+                TuitFeed(
+                    tuits = tuits,
+                    likeAction = likeAction,
+                )
+            }.onError { message ->
+                ErrorView(
+                    message = message,
+                    onRetry = onRetry,
+                )
+            }.onLoading {
+                LoadingIndicator()
+            }
     }
 }
