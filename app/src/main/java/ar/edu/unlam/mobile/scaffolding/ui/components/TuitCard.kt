@@ -27,34 +27,36 @@ import coil.compose.AsyncImage
 fun TuitCard(
     tuit: Tuit,
     modifier: Modifier = Modifier,
-    likeAction: () -> Unit = {}
+    likeAction: () -> Unit = {},
 ) {
     Card(
         modifier = modifier,
     ) {
         Box(modifier = Modifier.padding(8.dp)) {
             Column(
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.height(50.dp)
+                    modifier = Modifier.height(50.dp),
                 ) {
                     AsyncImage(
                         model = tuit.avatarUrl,
                         contentDescription = "Android Picture",
-                        modifier = Modifier
-                            .size(50.dp)
-                            .clip(CircleShape)
-                            .background(Color.Gray)
+                        modifier =
+                            Modifier
+                                .size(50.dp)
+                                .clip(CircleShape)
+                                .background(Color.Gray),
                     )
 
                     Text(
                         tuit.author,
                         fontSize = 16.sp,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 8.dp)
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 8.dp),
                     )
                 }
 
@@ -63,7 +65,7 @@ fun TuitCard(
                 LikeButton(
                     color = Color.Black,
                     modifier = Modifier.size(20.dp),
-                    onClickAction = likeAction
+                    onClickAction = likeAction,
                 )
             }
         }
