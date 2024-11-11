@@ -12,6 +12,6 @@ sealed class Screen(val route: String) {
     data object FavoriteUsers : Screen("favorite_users")
 
     data object CreateTuit : Screen("create_tuit")
-    
-    data object DraftTuit : Screen("draf_tuit")
+
+    data object DraftTuit : Screen("draft_tuit")
 }
