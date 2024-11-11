@@ -1,9 +1,11 @@
 package ar.edu.unlam.mobile.scaffolding.data.local.entity
 
-/*data class LocalTuitEntity(
-    // TODO: Implementar campos de la tabla
-)*/
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-class DraftTuitEntity {
-    // TODO: borrar esta clase y usar la de arriba cuando se implemente
-}
+@Entity(tableName = "draft_tuit")
+data class DraftTuitEntity(
+    @PrimaryKey(autoGenerate = true) val draftId: Int = 0,
+    val message: String,
+    val lastModified: String,
+)
