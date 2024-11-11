@@ -24,10 +24,10 @@ fun BottomNavigationBar(controller: NavHostController) {
             selected = navBackStackEntry?.destination?.hierarchy?.any { it.route == Screen.Feed.route } == true,
             onClick = {
                 controller.navigate(Screen.Feed.route)
-                {
-                    launchSingleTop = true
-                    restoreState = true
-                }
+                    {
+                        launchSingleTop = true
+                        restoreState = true
+                    }
             },
             icon = {
                 Icon(
@@ -41,10 +41,10 @@ fun BottomNavigationBar(controller: NavHostController) {
             selected = navBackStackEntry?.destination?.hierarchy?.any { it.route == Screen.Profile.route } == true,
             onClick = {
                 controller.navigate(Screen.Profile.route)
-                {
-                    launchSingleTop = true
-                    restoreState = true
-                }
+                    {
+                        launchSingleTop = true
+                        restoreState = true
+                    }
             },
             icon = {
                 Icon(
