@@ -1,8 +1,12 @@
 package ar.edu.unlam.mobile.scaffolding.domain.port.repository
 
+import ar.edu.unlam.mobile.scaffolding.domain.model.DraftTuit
+import kotlinx.coroutines.flow.Flow
+
 interface DraftTuitRepository {
-    // TODO: Métodos para:
-    // - Guardar borrador
-    // - Obtener borradores
-    // - Eliminar borrador
+    suspend fun getDrafts(): Flow<List<DraftTuit>>
+
+    suspend fun saveDraft(draftTuit: DraftTuit)
+
+    suspend fun deleteDraft(draftTuitId: DraftTuit)
 }
