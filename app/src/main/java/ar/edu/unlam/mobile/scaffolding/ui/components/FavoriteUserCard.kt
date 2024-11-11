@@ -17,6 +17,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ar.edu.unlam.mobile.scaffolding.domain.model.FavoriteUser
@@ -48,7 +50,13 @@ fun FavoriteUserCard(
                     favoriteUser.name,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(start = 10.dp),
+                    modifier =
+                        Modifier
+                            .padding(start = 10.dp)
+                            .weight(15f)
+                            .fillMaxWidth(),
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
                 )
 
                 Spacer(modifier = Modifier.weight(1f))
@@ -63,4 +71,18 @@ fun FavoriteUserCard(
             }
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun FavoriteUserCardPreview() {
+    val favUser =
+        FavoriteUser(
+            name = "Usuario Prueba",
+            avatarUrl = "https://static-00.iconduck.com/assets.00/profile-default-icon-512x511-v4sw4m29.png",
+        )
+    FavoriteUserCard(
+        favoriteUser = favUser,
+        onDeleteUser = {},
+    )
 }
