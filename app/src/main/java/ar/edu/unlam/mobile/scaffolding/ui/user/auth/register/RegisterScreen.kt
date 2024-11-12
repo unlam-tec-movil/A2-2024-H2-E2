@@ -42,16 +42,17 @@ fun RegisterScreen(
                 isRetrying = registerState is UIState.Loading,
                 onBack = onNavigateBackErrorView,
             )
-        else -> RegisterForm(
-            name = name,
-            onNameChange = setName,
-            email = email,
-            onEmailChange = setEmail,
-            password = password,
-            onPasswordChange = setPassword,
-            onRegisterClick = { viewModel.register(name, email, password) },
-            onBackClick = onNavigateBack,
-        )
+        else ->
+            RegisterForm(
+                name = name,
+                onNameChange = setName,
+                email = email,
+                onEmailChange = setEmail,
+                password = password,
+                onPasswordChange = setPassword,
+                onRegisterClick = { viewModel.register(name, email, password) },
+                onBackClick = onNavigateBack,
+            )
     }
 }
 
@@ -110,7 +111,8 @@ fun RegisterForm(
         Spacer(modifier = Modifier.height(8.dp))
         Button(
             onClick = onBackClick,
-            modifier = Modifier.fillMaxWidth(),
+            modifier =
+                Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(
                 containerColor = MaterialTheme.colorScheme.secondary,
             ),

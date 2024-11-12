@@ -24,7 +24,7 @@ class LoginViewModel
         fun login(
             email: String,
             password: String,
-            ) {
+        ) {
             _state.update {
                 it.copy(
                     loginState = UIState.Loading,

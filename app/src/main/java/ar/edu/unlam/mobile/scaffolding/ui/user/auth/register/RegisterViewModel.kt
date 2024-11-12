@@ -24,7 +24,11 @@ class RegisterViewModel
         private val _state = MutableStateFlow(RegisterState(registerState = UIState.None))
         val state = _state.asStateFlow()
 
-        fun register(name: String, email: String, password: String) {
+        fun register(
+            name: String,
+            email: String,
+            password: String,
+        ) {
             val errorMessage = validateCredentials(name, email, password)
             if (errorMessage != null) {
                 _state.update {
@@ -56,7 +60,8 @@ class RegisterViewModel
                 } else {
                     _state.update {
                         it.copy(
-                            registerState = UIState.Error("No se pudo registrar el usuario."),
+                            registerState =
+                                UIState.Error("No se pudo registrar el usuario."),
                         )
                     }
                 }
