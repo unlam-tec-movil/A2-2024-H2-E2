@@ -7,18 +7,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import ar.edu.unlam.mobile.scaffolding.domain.model.FavoriteUser
 import ar.edu.unlam.mobile.scaffolding.domain.model.Tuit
 
 @Composable
 fun TuitFeed(
     tuits: List<Tuit>,
     likeAction: (tuitId: Int, isLiked: Boolean) -> Unit = { _, _ -> },
+    favoriteUsers: Set<FavoriteUser>,
+    onFavoriteClick: (FavoriteUser) -> Unit,
 ) {
     LazyColumn {
         items(tuits) { tuit ->
             TuitCard(
-                tuit,
+                tuit = tuit,
                 modifier = Modifier.padding(1.dp),
+                isFavorite = favoriteUsers.any { it.name == tuit.author },
+                onFavoriteClick = onFavoriteClick,
                 likeAction = {
                     likeAction(tuit.id, tuit.liked)
                     tuit.liked = !tuit.liked
@@ -56,5 +61,23 @@ fun TuitFeedPreview() {
                 replies = 0,
             ),
         )
-    TuitFeed(tuits = tuits)
+
+    val favoriteUsers =
+        setOf(
+            FavoriteUser(
+                name = "John Doe",
+                avatarUrl = "https://ui-avatars.com/api/?name=John+Doe",
+            ),
+        )
+
+    TuitFeed(
+        tuits = tuits,
+        likeAction = { tuitId, isLiked ->
+            println("Like button clicked for Tuit ID: $tuitId, currently liked: $isLiked")
+        },
+        favoriteUsers = favoriteUsers,
+        onFavoriteClick = { author ->
+            println("Favorite button clicked for author: $author") // Acción simulada para la preview
+        },
+    )
 }

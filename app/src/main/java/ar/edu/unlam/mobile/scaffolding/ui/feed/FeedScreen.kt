@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ar.edu.unlam.mobile.scaffolding.R
+import ar.edu.unlam.mobile.scaffolding.domain.model.FavoriteUser
 import ar.edu.unlam.mobile.scaffolding.domain.model.Tuit
 import ar.edu.unlam.mobile.scaffolding.ui.components.MainTopAppBar
 import ar.edu.unlam.mobile.scaffolding.ui.components.TuitFeed
@@ -78,6 +79,8 @@ fun FeedScreen(
             FeedContent(
                 state = state.tuitsState,
                 onRetry = { viewModel.onRefresh() },
+                favoriteUsers = state.favoriteUsers,
+                onFavoriteClick = { favoriteUser -> viewModel.onFavoriteClick(favoriteUser) },
                 modifier = modifier,
                 likeAction = { tuitId, isLiked ->
                     viewModel.toggleTuitLike(tuitId, isLiked)
@@ -96,6 +99,8 @@ fun FeedScreen(
 private fun FeedContent(
     state: UIState<List<Tuit>>,
     onRetry: () -> Unit,
+    onFavoriteClick: (FavoriteUser) -> Unit,
+    favoriteUsers: Set<FavoriteUser>,
     likeAction: (tuitId: Int, isLiked: Boolean) -> Unit = { _, _ -> },
     modifier: Modifier = Modifier,
 ) {
@@ -105,6 +110,8 @@ private fun FeedContent(
                 TuitFeed(
                     tuits = tuits,
                     likeAction = likeAction,
+                    favoriteUsers = favoriteUsers,
+                    onFavoriteClick = onFavoriteClick,
                 )
             }.onError { message ->
                 ErrorView(
