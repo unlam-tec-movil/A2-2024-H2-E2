@@ -61,9 +61,12 @@ fun CreateTuitScreen(
                 },
                 actions = {
                     IconButton(
-                        onClick = { viewModel.createTuit(
-                            message = tuitText,
-                            isFromDraft = initialText.isNotBlank()) },
+                        onClick = {
+                            viewModel.createTuit(
+                                message = tuitText,
+                                isFromDraft = initialText.isNotBlank()
+                            )
+                        },
                         enabled = tuitText.isNotBlank() && tuitText.length <= 280,
                     ) {
                         Text(stringResource(R.string.publish))

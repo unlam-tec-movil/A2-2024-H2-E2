@@ -46,9 +46,10 @@ fun TuitDraftCard(
                                 .fillMaxWidth()
                                 .height(50.dp),
                     ) {
-                        Text(text = formatDate(
-                            tuitDraft.lastModified
-                            ),
+                        Text(
+                            text = formatDate(
+                                tuitDraft.lastModified,
+                                ),
                             fontSize = 16.sp,
                         )
                     }
