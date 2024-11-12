@@ -27,17 +27,17 @@ class CreateTuitViewModel
                 _uiState.value =
                     _uiState.value.copy(
                         createTuitState = UIState.Loading,
-                )
+                    )
                 try {
                     val result = createTuitUseCase(message)
                     _uiState.value =
                         _uiState.value.copy(
                             createTuitState =
-                            if (result) {
-                                UIState.Success(Unit)
-                            } else {
-                                UIState.Error("Error al crear el tuit")
-                            },
+                                if (result) {
+                                    UIState.Success(Unit)
+                                } else {
+                                    UIState.Error("Error al crear el tuit")
+                                },
                         )
                 } catch (e: Exception) {
                     _uiState.value =
@@ -59,13 +59,13 @@ class CreateTuitViewModel
                     _uiState.value.copy(
                         showExitDialog = false,
                     )
-                }
+            }
         }
 
         fun dismissExitDialog() {
             _uiState.value =
                 _uiState.value.copy(
-                    showExitDialog = false
+                    showExitDialog = false,
                 )
         }
 
@@ -73,24 +73,24 @@ class CreateTuitViewModel
             viewModelScope.launch {
                 _uiState.value =
                     _uiState.value.copy(
-                        saveDraftState = UIState.Loading
+                        saveDraftState = UIState.Loading,
                     )
                 try {
                     saveDraftTuitUseCase(
                         DraftTuit(
-                        message = text,
-                        lastModified = System.currentTimeMillis()
+                            message = text,
+                            lastModified = System.currentTimeMillis(),
                         )
                     )
                     _uiState.value =
                         _uiState.value.copy(
                             saveDraftState = UIState.Success(Unit),
-                            showExitDialog = false
+                            showExitDialog = false,
                         )
                 } catch (e: Exception) {
                     _uiState.value =
                         _uiState.value.copy(
-                            saveDraftState = UIState.Error(e.message ?: "Error al guardar borrador")
+                            saveDraftState = UIState.Error(e.message ?: "Error al guardar borrador"),
                         )
                 }
             }
