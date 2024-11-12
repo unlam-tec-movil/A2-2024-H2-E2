@@ -3,13 +3,16 @@ package ar.edu.unlam.mobile.scaffolding.ui.feed
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ar.edu.unlam.mobile.scaffolding.domain.model.FavoriteUser
-import ar.edu.unlam.mobile.scaffolding.domain.port.repository.TuitRepository
+import ar.edu.unlam.mobile.scaffolding.domain.model.Tuit
 import ar.edu.unlam.mobile.scaffolding.domain.port.usecase.tuit.feed.GetFeed
 import ar.edu.unlam.mobile.scaffolding.domain.port.usecase.tuit.feed.RefreshFeed
+import ar.edu.unlam.mobile.scaffolding.domain.port.usecase.tuit.interaction.LikeTuit
+import ar.edu.unlam.mobile.scaffolding.domain.port.usecase.tuit.interaction.UnLikeTuit
 import ar.edu.unlam.mobile.scaffolding.domain.port.usecase.user.favorite.GetFavoriteUsers
 import ar.edu.unlam.mobile.scaffolding.domain.port.usecase.user.favorite.RemoveFavoriteUser
 import ar.edu.unlam.mobile.scaffolding.domain.port.usecase.user.favorite.SaveFavoriteUser
 import ar.edu.unlam.mobile.scaffolding.ui.core.state.UIState
+import ar.edu.unlam.mobile.scaffolding.ui.core.state.getSuccessData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -22,10 +25,11 @@ class FeedViewModel
     constructor(
         private val getFeed: GetFeed,
         private val refreshFeed: RefreshFeed,
-        private var tuitRepository: TuitRepository,
         private val saveFavoriteUser: SaveFavoriteUser,
         private val removeFavoriteUser: RemoveFavoriteUser,
         private val getFavoriteUsers: GetFavoriteUsers,
+        private val saveLikeTuit: LikeTuit,
+        private val saveUnLikeTuit: UnLikeTuit,
     ) : ViewModel() {
         private val _state = MutableStateFlow(FeedState())
         val state = _state.asStateFlow()
@@ -103,27 +107,64 @@ class FeedViewModel
 
         fun toggleTuitLike(
             tuitId: Int,
-            isLiked: Boolean,
+            isNotLiked: Boolean,
         ) {
-            if (isLiked) {
-                unlikeTuit(tuitId)
-            } else {
+            if (isNotLiked) {
                 likeTuit(tuitId)
+            } else {
+                unlikeTuit(tuitId)
             }
         }
 
-        private fun likeTuit(id: Int) {
+        private fun likeTuit(tuitId: Int) {
             viewModelScope.launch {
-                tuitRepository.likeTuit(tuitId = id)
-                // Completar y agregar caso de error
+                try {
+                    saveLikeTuit(tuitId)
+                    val updatedTuits = updateTuitsAfterLike(tuitId, true)
+                    _state.value = _state.value.copy(tuitsState = UIState.Success(updatedTuits))
+                } catch (e: Exception) {
+                    _state.value =
+                        _state
+                            .value
+                            .copy(
+                                tuitsState = UIState.Error(e.message ?: "Error al dar like al tuit"),
+                            )
+                }
             }
         }
 
-        private fun unlikeTuit(id: Int) {
+        private fun unlikeTuit(tuitId: Int) {
             viewModelScope.launch {
-                tuitRepository.unlikeTuit(tuitId = id)
-                // Completar y agregar caso de error
+                try {
+                    saveUnLikeTuit(tuitId)
+                    val updatedTuits = updateTuitsAfterLike(tuitId, false)
+                    _state.value = _state.value.copy(tuitsState = UIState.Success(updatedTuits))
+                } catch (e: Exception) {
+                    _state.value =
+                        _state
+                            .value
+                            .copy(
+                                tuitsState = UIState.Error(e.message ?: "Error al quitar el like del tuit"),
+                            )
+                }
             }
+        }
+
+        private fun updateTuitsAfterLike(
+            tuitId: Int,
+            isLiked: Boolean,
+        ): List<Tuit> {
+            val currentTuits = state.value.tuitsState.getSuccessData() ?: emptyList()
+            val updatedTuits =
+                currentTuits
+                    .map { tuit ->
+                        if (tuit.id == tuitId) {
+                            tuit.copy(liked = isLiked)
+                        } else {
+                            tuit
+                        }
+                    }
+            return updatedTuits
         }
 
         fun onFavoriteClick(favoriteUser: FavoriteUser) {
