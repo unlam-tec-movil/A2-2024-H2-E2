@@ -28,8 +28,4 @@ class DraftTuitMapper
                 entities.map { mapToDomain(it) }
             }
         }
-
-        fun mapToEntityList(draftTuit: List<DraftTuit>): List<DraftTuitEntity> {
-            return draftTuit.map { mapToEntity(it) }
-        }
     }

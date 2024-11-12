@@ -4,13 +4,13 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -59,7 +59,7 @@ fun FeedScreen(
         },
         floatingActionButton = {
             FloatingActionButton(
-                onClick = onNavigateToCreateTuit,
+                onClick = { onNavigateToCreateTuit() },
                 modifier = Modifier.padding(16.dp),
             ) {
                 Icon(
@@ -82,8 +82,8 @@ fun FeedScreen(
                 favoriteUsers = state.favoriteUsers,
                 onFavoriteClick = { favoriteUser -> viewModel.onFavoriteClick(favoriteUser) },
                 modifier = modifier,
-                likeAction = { tuitId, isLiked ->
-                    viewModel.toggleTuitLike(tuitId, isLiked)
+                likeAction = { tuitId, isNotLiked ->
+                    viewModel.toggleTuitLike(tuitId, isNotLiked)
                 },
             )
             PullRefreshIndicator(
@@ -101,7 +101,7 @@ private fun FeedContent(
     onRetry: () -> Unit,
     onFavoriteClick: (FavoriteUser) -> Unit,
     favoriteUsers: Set<FavoriteUser>,
-    likeAction: (tuitId: Int, isLiked: Boolean) -> Unit = { _, _ -> },
+    likeAction: (tuitId: Int, isNotLiked: Boolean) -> Unit = { _, _ -> },
     modifier: Modifier = Modifier,
 ) {
     Box(modifier = modifier.fillMaxSize()) {

@@ -29,7 +29,7 @@ interface TuitApi {
         @Path("id") tuitId: Int,
     )
 
-    @DELETE(ApiConfig.Endpoints.LIKE_TUIT)
+    @DELETE(ApiConfig.Endpoints.UNLIKE_TUIT)
     suspend fun unlikeTuit(
         @Path("id") tuitId: Int,
     )

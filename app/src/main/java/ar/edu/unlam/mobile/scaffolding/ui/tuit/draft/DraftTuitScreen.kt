@@ -2,11 +2,13 @@ package ar.edu.unlam.mobile.scaffolding.ui.tuit.draft
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -32,21 +34,30 @@ fun DraftTuitScreen(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
-    Box(
+    Scaffold(
         modifier = modifier.fillMaxSize(),
-    ) {
-        TopAppBar(
-            title = { Text(text = stringResource(R.string.drafts)) },
-            navigationIcon = {
-                IconButton(onClick = onDismissRequest) {
-                    Icon(Icons.Default.Close, contentDescription = stringResource(R.string.close))
-                }
-            },
-        )
-        DraftTuitContent(
-            state = state.draftTuitState,
-            modifier = modifier,
-        )
+        topBar = {
+            TopAppBar(
+                title = { Text(text = stringResource(R.string.drafts)) },
+                navigationIcon = {
+                    IconButton(onClick = onDismissRequest) {
+                        Icon(Icons.Default.Close, contentDescription = stringResource(R.string.close))
+                    }
+                },
+            )
+        },
+    ) { paddingValues ->
+        Box(
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues),
+        ) {
+            DraftTuitContent(
+                state = state.draftTuitState,
+                modifier = Modifier.fillMaxSize(),
+            )
+        }
     }
 }
 

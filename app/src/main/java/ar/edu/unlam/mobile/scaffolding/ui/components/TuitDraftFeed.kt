@@ -25,11 +25,11 @@ fun TuitDraftFeedPreview() {
         listOf(
             DraftTuit(
                 message = "Esto es un tuit borrador de prueba!",
-                lastModified = "2024-05-12",
+                lastModified = System.currentTimeMillis(),
             ),
             DraftTuit(
                 message = "Esto es otro tuit borrador de prueba!",
-                lastModified = "2024-05-12",
+                lastModified = System.currentTimeMillis(),
             ),
         )
     TuitDraftFeed(drafts = drafts)
