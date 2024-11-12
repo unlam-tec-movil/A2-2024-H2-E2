@@ -26,11 +26,11 @@ fun LikeButton(
     ) {
         Icon(
             imageVector =
-            if (isLiked) {
-                Icons.Filled.Favorite
-            } else {
-                Icons.Default.FavoriteBorder
-            },
+                if (isLiked) {
+                    Icons.Filled.Favorite
+                } else {
+                    Icons.Default.FavoriteBorder
+                },
             contentDescription = "Corazon",
             tint = color,
         )

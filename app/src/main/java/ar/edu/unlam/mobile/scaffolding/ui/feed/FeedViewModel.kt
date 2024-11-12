@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ar.edu.unlam.mobile.scaffolding.domain.model.FavoriteUser
 import ar.edu.unlam.mobile.scaffolding.domain.model.Tuit
-import ar.edu.unlam.mobile.scaffolding.domain.port.repository.TuitRepository
 import ar.edu.unlam.mobile.scaffolding.domain.port.usecase.tuit.feed.GetFeed
 import ar.edu.unlam.mobile.scaffolding.domain.port.usecase.tuit.feed.RefreshFeed
 import ar.edu.unlam.mobile.scaffolding.domain.port.usecase.tuit.interaction.LikeTuit
@@ -117,48 +116,48 @@ class FeedViewModel
             }
         }
 
-    private fun likeTuit(tuitId: Int) {
-        viewModelScope.launch {
-            try {
-                saveLikeTuit(tuitId)
-                val updatedTuits = updateTuitsAfterLike(tuitId, true)
-                _state.value = _state.value.copy(tuitsState = UIState.Success(updatedTuits))
-            } catch (e: Exception) {
-                _state.value = _state.value.copy(
-                    tuitsState = UIState.Error(e.message ?: "Error al dar like al tuit")
-                )
+        private fun likeTuit(tuitId: Int) {
+            viewModelScope.launch {
+                try {
+                    saveLikeTuit(tuitId)
+                    val updatedTuits = updateTuitsAfterLike(tuitId, true)
+                    _state.value = _state.value.copy(tuitsState = UIState.Success(updatedTuits))
+                } catch (e: Exception) {
+                    _state.value = _state.value.copy(
+                        tuitsState = UIState.Error(e.message ?: "Error al dar like al tuit")
+                    )
+                }
             }
         }
-    }
 
-    private fun unlikeTuit(tuitId: Int) {
-        viewModelScope.launch {
-            try {
-                saveUnLikeTuit(tuitId)
-                val updatedTuits = updateTuitsAfterLike(tuitId, false)
-                _state.value = _state.value.copy(tuitsState = UIState.Success(updatedTuits))
-            } catch (e: Exception) {
-                _state.value = _state.value.copy(
-                    tuitsState = UIState.Error(e.message ?: "Error al quitar el like del tuit")
-                )
+        private fun unlikeTuit(tuitId: Int) {
+            viewModelScope.launch {
+                try {
+                    saveUnLikeTuit(tuitId)
+                    val updatedTuits = updateTuitsAfterLike(tuitId, false)
+                    _state.value = _state.value.copy(tuitsState = UIState.Success(updatedTuits))
+                } catch (e: Exception) {
+                    _state.value = _state.value.copy(
+                        tuitsState = UIState.Error(e.message ?: "Error al quitar el like del tuit")
+                    )
+                }
             }
         }
-    }
 
-    private fun updateTuitsAfterLike(tuitId: Int, isLiked: Boolean): List<Tuit> {
-        val currentTuits = state.value.tuitsState.getSuccessData() ?: emptyList()
-        val updatedTuits = currentTuits.map { tuit ->
-            if (tuit.id == tuitId) {
-                tuit.copy(liked = isLiked)
-            } else {
-                tuit
+        private fun updateTuitsAfterLike(tuitId: Int, isLiked: Boolean): List<Tuit> {
+            val currentTuits = state.value.tuitsState.getSuccessData() ?: emptyList()
+            val updatedTuits = currentTuits.map { tuit ->
+                if (tuit.id == tuitId) {
+                    tuit.copy(liked = isLiked)
+                } else {
+                    tuit
+                }
             }
+            return updatedTuits
         }
-        return updatedTuits
-    }
 
 
-    fun onFavoriteClick(favoriteUser: FavoriteUser) {
+        fun onFavoriteClick(favoriteUser: FavoriteUser) {
             viewModelScope.launch {
                 val isFavorite = favoriteUsers.contains(favoriteUser)
                 if (isFavorite) {
