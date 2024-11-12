@@ -28,8 +28,7 @@ class CreateTuitViewModel
             viewModelScope.launch {
                 try {
                     removeDraftTuitUseCase(DraftTuit(message = message))
-                } catch (e: Exception) {
-
+                } catch (_: Exception) {
                 }
             }
         }
