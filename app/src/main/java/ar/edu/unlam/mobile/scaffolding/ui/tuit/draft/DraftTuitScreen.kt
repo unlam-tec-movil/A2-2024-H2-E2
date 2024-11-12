@@ -51,14 +51,14 @@ fun DraftTuitScreen(
             modifier =
                 Modifier
                     .fillMaxSize()
-                    .padding(paddingValues)
-            ) {
-                DraftTuitContent(
-                    state = state.draftTuitState,
-                    modifier = Modifier.fillMaxSize(),
-                )
-            }
+                    .padding(paddingValues),
+        ) {
+            DraftTuitContent(
+                state = state.draftTuitState,
+                modifier = Modifier.fillMaxSize(),
+            )
         }
+    }
 }
 
 @Composable
