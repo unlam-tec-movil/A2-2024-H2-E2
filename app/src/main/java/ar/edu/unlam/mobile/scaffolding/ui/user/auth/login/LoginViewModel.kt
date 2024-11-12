@@ -18,20 +18,13 @@ class LoginViewModel
     constructor(
         private val loginUser: LoginUser,
     ) : ViewModel() {
-        private val _state = MutableStateFlow(LoginState())
+        private val _state = MutableStateFlow(LoginState(loginState = UIState.None))
         val state = _state.asStateFlow()
-        private var email = ""
-        private var password = ""
 
-        fun onPasswordChange(newPassword: String) {
-            password = newPassword
-        }
-
-        fun onEmailChange(newEmail: String) {
-            email = newEmail
-        }
-
-        fun login() {
+        fun login(
+            email: String,
+            password: String,
+        ) {
             _state.update {
                 it.copy(
                     loginState = UIState.Loading,
@@ -41,14 +34,12 @@ class LoginViewModel
                 val userCredentials = LoginCredentials(email, password)
                 val result = loginUser(userCredentials)
 
-                if (result.isSuccess) {
-                    _state.update {
+                _state.update {
+                    if (result.isSuccess) {
                         it.copy(
                             loginState = UIState.Success(Unit),
                         )
-                    }
-                } else {
-                    _state.update {
+                    } else {
                         it.copy(
                             loginState = UIState.Error("No se pudo iniciar sesión."),
                         )
@@ -56,8 +47,4 @@ class LoginViewModel
                 }
             }
         }
-
-        fun getEmail(): String = email
-
-        fun getPassword(): String = password
     }

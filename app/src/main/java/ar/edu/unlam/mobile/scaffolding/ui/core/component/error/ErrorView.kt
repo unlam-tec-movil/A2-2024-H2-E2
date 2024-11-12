@@ -1,6 +1,8 @@
 package ar.edu.unlam.mobile.scaffolding.ui.core.component.error
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -26,6 +28,7 @@ fun ErrorView(
     message: String,
     onRetry: () -> Unit,
     isRetrying: Boolean = false,
+    onBack: (() -> Unit)? = null,
 ) {
     Card(
         modifier =
@@ -63,17 +66,30 @@ fun ErrorView(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            Button(
-                onClick = onRetry,
-                enabled = !isRetrying,
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
             ) {
-                if (isRetrying) {
-                    CircularProgressIndicator(
-                        modifier = Modifier.size(16.dp),
-                        color = MaterialTheme.colorScheme.onPrimary,
-                    )
-                } else {
-                    Text("Reintentar")
+                if (onBack != null) {
+                    Button(
+                        onClick = onBack,
+                    ) {
+                        Text("Volver")
+                    }
+                }
+
+                Button(
+                    onClick = onRetry,
+                    enabled = !isRetrying,
+                ) {
+                    if (isRetrying) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(16.dp),
+                            color = MaterialTheme.colorScheme.onPrimary,
+                        )
+                    } else {
+                        Text("Reintentar")
+                    }
                 }
             }
         }
