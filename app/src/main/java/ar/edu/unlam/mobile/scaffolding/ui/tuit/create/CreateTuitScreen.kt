@@ -16,11 +16,13 @@ import ar.edu.unlam.mobile.scaffolding.ui.core.component.loading.LoadingIndicato
 import ar.edu.unlam.mobile.scaffolding.ui.core.state.onError
 import ar.edu.unlam.mobile.scaffolding.ui.core.state.onLoading
 import ar.edu.unlam.mobile.scaffolding.ui.core.state.onSuccess
+import kotlinx.coroutines.delay
 
 @Composable
 fun CreateTuitScreen(
     viewModel: CreateTuitViewModel = hiltViewModel(),
     onDismissRequest: () -> Unit,
+    onCreateSuccess: () -> Unit = onDismissRequest,
 ) {
     val uiState = viewModel.uiState.value
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -29,6 +31,13 @@ fun CreateTuitScreen(
 
     LaunchedEffect(Unit) {
         keyboardController?.show()
+    }
+
+    LaunchedEffect(showSuccessSnackbar) {
+        if (showSuccessSnackbar) {
+            delay(1500L)
+            onCreateSuccess()
+        }
     }
 
     Scaffold(
