@@ -28,7 +28,7 @@ import ar.edu.unlam.mobile.scaffolding.ui.core.state.onSuccess
 fun DraftTuitScreen(
     modifier: Modifier = Modifier,
     viewModel: DraftTuitViewModel = hiltViewModel(),
-    onDismissRequest: () -> Unit
+    onDismissRequest: () -> Unit,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
@@ -41,10 +41,8 @@ fun DraftTuitScreen(
                 IconButton(onClick = onDismissRequest) {
                     Icon(Icons.Default.Close, contentDescription = stringResource(R.string.close))
                 }
-            }
+            },
         )
-
-
         DraftTuitContent(
             state = state.draftTuitState,
             modifier = modifier,
