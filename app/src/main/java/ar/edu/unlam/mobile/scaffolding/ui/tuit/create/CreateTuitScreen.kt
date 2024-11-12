@@ -70,9 +70,9 @@ fun CreateTuitScreen(
     ) { paddingValues ->
         Box(
             modifier =
-            Modifier
-                .padding(paddingValues)
-                .fillMaxSize(),
+                Modifier
+                    .padding(paddingValues)
+                    .fillMaxSize(),
         ) {
             Column(
                 modifier = Modifier.fillMaxSize(),
@@ -82,9 +82,10 @@ fun CreateTuitScreen(
                     onValueChange = {
                         tuitText = it
                     },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f),
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .weight(1f),
                     placeholder = { Text(stringResource(R.string.create_tuit_hint)) },
                 )
             }
@@ -125,7 +126,7 @@ fun CreateTuitScreen(
             text = { Text(stringResource(R.string.save_draft_message)) },
             confirmButton = {
                 TextButton(
-                    onClick = { viewModel.saveDraft(tuitText) }
+                    onClick = { viewModel.saveDraft(tuitText) },
                 ) {
                     Text(stringResource(R.string.save_draft))
                 }
@@ -135,11 +136,11 @@ fun CreateTuitScreen(
                     onClick = {
                         viewModel.dismissExitDialog()
                         onDismissRequest()
-                    }
+                    },
                 ) {
                     Text(stringResource(R.string.discard))
                 }
-            }
+            },
         )
     }
 

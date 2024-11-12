@@ -13,74 +13,76 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CreateTuitViewModel @Inject constructor(
-    private val createTuitUseCase: CreateTuit,
-    private val saveDraftTuitUseCase: SaveDraftTuit,
-) : ViewModel() {
-    private val _uiState = mutableStateOf(CreateTuitState())
-    val uiState: State<CreateTuitState> = _uiState
+class CreateTuitViewModel
+    @Inject
+    constructor(
+        private val createTuitUseCase: CreateTuit,
+        private val saveDraftTuitUseCase: SaveDraftTuit,
+    ) : ViewModel() {
+        private val _uiState = mutableStateOf(CreateTuitState())
+        val uiState: State<CreateTuitState> = _uiState
 
-    fun createTuit(message: String) {
-        viewModelScope.launch {
-            _uiState.value = _uiState.value.copy(
-                createTuitState = UIState.Loading,
-            )
-            try {
-                val result = createTuitUseCase(message)
+        fun createTuit(message: String) {
+            viewModelScope.launch {
                 _uiState.value = _uiState.value.copy(
-                    createTuitState = if (result) {
-                        UIState.Success(Unit)
-                    } else {
-                        UIState.Error("Error al crear el tuit")
-                    },
+                    createTuitState = UIState.Loading,
                 )
-            } catch (e: Exception) {
+                try {
+                    val result = createTuitUseCase(message)
+                    _uiState.value = _uiState.value.copy(
+                        createTuitState = if (result) {
+                            UIState.Success(Unit)
+                        } else {
+                         UIState.Error("Error al crear el tuit")
+                        },
+                    )
+                } catch (e: Exception) {
+                    _uiState.value = _uiState.value.copy(
+                        createTuitState = UIState.Error(e.message ?: "Error desconocido"),
+                    )
+                }
+            }
+        }
+
+        fun onCloseRequest(text: String) {
+            if (text.isNotBlank()) {
                 _uiState.value = _uiState.value.copy(
-                    createTuitState = UIState.Error(e.message ?: "Error desconocido"),
+                    showExitDialog = true
+                )
+            } else {
+                _uiState.value = _uiState.value.copy(
+                    showExitDialog = false
                 )
             }
         }
-    }
 
-    fun onCloseRequest(text: String) {
-        if (text.isNotBlank()) {
-            _uiState.value = _uiState.value.copy(
-                showExitDialog = true
-            )
-        } else {
+        fun dismissExitDialog() {
             _uiState.value = _uiState.value.copy(
                 showExitDialog = false
             )
         }
-    }
 
-    fun dismissExitDialog() {
-        _uiState.value = _uiState.value.copy(
-            showExitDialog = false
-        )
-    }
-
-    fun saveDraft(text: String) {
-        viewModelScope.launch {
-            _uiState.value = _uiState.value.copy(
-                saveDraftState = UIState.Loading
-            )
-            try {
-                saveDraftTuitUseCase(
-                    DraftTuit(
+        fun saveDraft(text: String) {
+            viewModelScope.launch {
+                _uiState.value = _uiState.value.copy(
+                    saveDraftState = UIState.Loading
+                )
+                try {
+                    saveDraftTuitUseCase(
+                        DraftTuit(
                         message = text,
                         lastModified = System.currentTimeMillis()
+                        )
                     )
-                )
-                _uiState.value = _uiState.value.copy(
-                    saveDraftState = UIState.Success(Unit),
-                    showExitDialog = false
-                )
-            } catch (e: Exception) {
-                _uiState.value = _uiState.value.copy(
-                    saveDraftState = UIState.Error(e.message ?: "Error al guardar borrador")
-                )
+                    _uiState.value = _uiState.value.copy(
+                        saveDraftState = UIState.Success(Unit),
+                        showExitDialog = false
+                    )
+                } catch (e: Exception) {
+                    _uiState.value = _uiState.value.copy(
+                        saveDraftState = UIState.Error(e.message ?: "Error al guardar borrador")
+                    )
+                }
             }
         }
     }
-}
