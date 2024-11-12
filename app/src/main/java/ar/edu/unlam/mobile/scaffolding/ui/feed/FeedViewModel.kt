@@ -163,7 +163,7 @@ class FeedViewModel
                         } else {
                             tuit
                         }
-            }
+                    }
             return updatedTuits
         }
 
