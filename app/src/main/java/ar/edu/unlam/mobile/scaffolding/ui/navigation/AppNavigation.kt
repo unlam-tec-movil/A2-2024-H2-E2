@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import ar.edu.unlam.mobile.scaffolding.ui.feed.FeedScreen
 import ar.edu.unlam.mobile.scaffolding.ui.tuit.create.CreateTuitScreen
+import ar.edu.unlam.mobile.scaffolding.ui.tuit.draft.DraftTuitScreen
 import ar.edu.unlam.mobile.scaffolding.ui.user.auth.login.LoginScreen
 import ar.edu.unlam.mobile.scaffolding.ui.user.auth.register.RegisterScreen
 import ar.edu.unlam.mobile.scaffolding.ui.user.favorite.FavoriteUsersScreen
@@ -106,12 +107,12 @@ fun AppNavigation(navController: NavHostController) {
             )
         }
 
-        /*composable(Screen.DraftTuit.route) {
-            DrafTuitScreen(
-                onDisMissRequest = {
+        composable(Screen.DraftTuit.route) {
+            DraftTuitScreen(
+                onDismissRequest = {
                     navController.navigateUp()
                 },
             )
-        }*/
+        }
     }
 }
