@@ -62,7 +62,7 @@ fun TuitFeedPreview() {
     val favoriteUsers =
         setOf(
             FavoriteUser(
-                name = "John Doe",
+                name = "John Does",
                 avatarUrl = "https://ui-avatars.com/api/?name=John+Doe",
             ),
         )
