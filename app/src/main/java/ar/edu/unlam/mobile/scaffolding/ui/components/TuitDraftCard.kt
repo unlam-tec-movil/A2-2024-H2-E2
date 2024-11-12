@@ -49,7 +49,7 @@ fun TuitDraftCard(
                         Text(
                             text =
                                 formatDate(
-                                    tuitDraft.lastModified,
+                                tuitDraft.lastModified,
                                 ),
                             fontSize = 16.sp,
                         )

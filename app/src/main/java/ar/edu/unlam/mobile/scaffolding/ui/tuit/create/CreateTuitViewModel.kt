@@ -29,11 +29,15 @@ class CreateTuitViewModel
                 try {
                     removeDraftTuitUseCase(DraftTuit(message = message))
                 } catch (_: Exception) {
+
                 }
             }
         }
 
-        fun createTuit(message: String, isFromDraft: Boolean = false) {
+        fun createTuit(
+            message: String,
+            isFromDraft: Boolean = false
+        ) {
             viewModelScope.launch {
                 _uiState.value =
                     _uiState.value.copy(

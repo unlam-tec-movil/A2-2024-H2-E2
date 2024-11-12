@@ -42,7 +42,7 @@ fun DraftTuitScreen(
                     IconButton(onClick = onDismissRequest) {
                         Icon(Icons.Default.Close, contentDescription = stringResource(R.string.close))
                     }
-                }
+                },
             )
         }
     ) { paddingValues ->

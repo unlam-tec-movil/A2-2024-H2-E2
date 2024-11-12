@@ -64,7 +64,7 @@ fun CreateTuitScreen(
                         onClick = {
                             viewModel.createTuit(
                                 message = tuitText,
-                                isFromDraft = initialText.isNotBlank()
+                                isFromDraft = initialText.isNotBlank(),
                             )
                         },
                         enabled = tuitText.isNotBlank() && tuitText.length <= 280,
