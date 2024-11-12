@@ -50,12 +50,11 @@ class FeedViewModel
 
         fun onRefresh() {
             viewModelScope.launch {
+                _state.value = _state.value.copy(isRefreshing = true)
                 try {
-                    _state.value =
-                        _state.value.copy(
-                            isRefreshing = true,
-                        )
-                    refreshFeed()
+                    refreshFeed().collect { tuits ->
+                        _state.value = _state.value.copy(tuitsState = UIState.Success(tuits))
+                    }
                 } catch (e: Exception) {
                     _state.value =
                         _state.value.copy(

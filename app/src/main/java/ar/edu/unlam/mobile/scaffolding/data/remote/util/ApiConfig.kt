@@ -12,5 +12,7 @@ object ApiConfig {
         const val PROFILE = "api/v1/me/profile"
         const val FEED = "api/v1/me/feed"
         const val CREATE_TUIT = "api/v1/me/tuits"
+        const val LIKE_TUIT = "api/v1/me/tuits/{id}/likes"
+        const val GET_TUIT_BY_ID = "api/v1/me/tuits/{id}"
     }
 }
