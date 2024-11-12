@@ -100,13 +100,14 @@ fun AppNavigation(navController: NavHostController) {
 
         composable(
             route = Screen.CreateTuit.route + "?draftText={draftText}",
-            arguments = listOf(
-                navArgument("draftText") {
-                    type = NavType.StringType
-                    defaultValue = ""
-                }
-            )
-        ) { backStackEntry ->
+            arguments =
+                listOf(
+                    navArgument("draftText") {
+                        type = NavType.StringType
+                        defaultValue = ""
+                    }
+                )
+        )   { backStackEntry ->
             val draftText = backStackEntry.arguments?.getString("draftText") ?: ""
             CreateTuitScreen(
                 initialText = draftText,

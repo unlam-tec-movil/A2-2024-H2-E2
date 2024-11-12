@@ -26,28 +26,34 @@ fun TuitDraftCard(
     modifier: Modifier = Modifier,
 ) {
     Card(
-        modifier = modifier
-            .fillMaxWidth()
-            .clickable { onCardClick() },
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .clickable { onCardClick() },
     ) {
         Box(modifier = Modifier.padding(8.dp)) {
             Column {
                 Row(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier =
+                        Modifier
+                            .fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Column(
                         verticalArrangement = Arrangement.Center,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(50.dp),
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .height(50.dp),
                     ) {
-                        Text(text = formatDate(tuitDraft.lastModified), fontSize = 16.sp)
+                        Text(text = formatDate(tuitDraft.lastModified),
+                            fontSize = 16.sp,
+                        )
                     }
                 }
                 Text(
                     text = tuitDraft.message,
-                    fontSize = 24.sp
+                    fontSize = 24.sp,
                 )
             }
         }
