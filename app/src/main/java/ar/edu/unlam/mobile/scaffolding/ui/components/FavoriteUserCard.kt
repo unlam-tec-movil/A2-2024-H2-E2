@@ -47,10 +47,10 @@ fun FavoriteUserCard(
                     model = favoriteUser.avatarUrl,
                     contentDescription = "User avatar",
                     modifier =
-                    Modifier
-                        .size(50.dp)
-                        .clip(CircleShape)
-                        .background(Color.Gray),
+                        Modifier
+                            .size(50.dp)
+                            .clip(CircleShape)
+                            .background(Color.Gray),
                 )
 
                 Text(

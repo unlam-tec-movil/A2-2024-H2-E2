@@ -66,7 +66,7 @@ fun TuitFeedPreview() {
         setOf(
             FavoriteUser(
                 name = "John Doe",
-                avatarUrl = "https://ui-avatars.com/api/?name=John+Doe"
+                avatarUrl = "https://ui-avatars.com/api/?name=John+Doe",
             ),
         )
 
