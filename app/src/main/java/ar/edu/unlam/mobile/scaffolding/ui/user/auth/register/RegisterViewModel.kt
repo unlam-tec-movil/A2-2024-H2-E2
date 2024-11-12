@@ -68,7 +68,11 @@ class RegisterViewModel
             }
         }
 
-        private fun validateCredentials(name: String, email: String, password: String): String? =
+        private fun validateCredentials(
+            name: String,
+            email: String,
+            password: String,
+        ): String? =
             when {
                 name.isBlank() || email.isBlank() || password.isBlank() -> "Por favor, complete todos los campos."
                 !isValidEmail(email) -> "Por favor, ingrese un email válido."
