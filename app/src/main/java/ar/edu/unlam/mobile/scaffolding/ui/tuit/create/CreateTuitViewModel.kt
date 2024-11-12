@@ -24,49 +24,57 @@ class CreateTuitViewModel
 
         fun createTuit(message: String) {
             viewModelScope.launch {
-                _uiState.value = _uiState.value.copy(
-                    createTuitState = UIState.Loading,
+                _uiState.value =
+                    _uiState.value.copy(
+                        createTuitState = UIState.Loading,
                 )
                 try {
                     val result = createTuitUseCase(message)
-                    _uiState.value = _uiState.value.copy(
-                        createTuitState = if (result) {
-                            UIState.Success(Unit)
-                        } else {
-                         UIState.Error("Error al crear el tuit")
-                        },
-                    )
+                    _uiState.value =
+                        _uiState.value.copy(
+                            createTuitState =
+                            if (result) {
+                                UIState.Success(Unit)
+                            } else {
+                                UIState.Error("Error al crear el tuit")
+                            },
+                        )
                 } catch (e: Exception) {
-                    _uiState.value = _uiState.value.copy(
-                        createTuitState = UIState.Error(e.message ?: "Error desconocido"),
-                    )
+                    _uiState.value =
+                        _uiState.value.copy(
+                            createTuitState = UIState.Error(e.message ?: "Error desconocido"),
+                        )
                 }
             }
         }
 
         fun onCloseRequest(text: String) {
             if (text.isNotBlank()) {
-                _uiState.value = _uiState.value.copy(
-                    showExitDialog = true
-                )
+                _uiState.value =
+                    _uiState.value.copy(
+                        showExitDialog = true,
+                    )
             } else {
-                _uiState.value = _uiState.value.copy(
-                    showExitDialog = false
-                )
-            }
+                _uiState.value =
+                    _uiState.value.copy(
+                        showExitDialog = false,
+                    )
+                }
         }
 
         fun dismissExitDialog() {
-            _uiState.value = _uiState.value.copy(
-                showExitDialog = false
-            )
+            _uiState.value =
+                _uiState.value.copy(
+                    showExitDialog = false
+                )
         }
 
         fun saveDraft(text: String) {
             viewModelScope.launch {
-                _uiState.value = _uiState.value.copy(
-                    saveDraftState = UIState.Loading
-                )
+                _uiState.value =
+                    _uiState.value.copy(
+                        saveDraftState = UIState.Loading
+                    )
                 try {
                     saveDraftTuitUseCase(
                         DraftTuit(
@@ -74,14 +82,16 @@ class CreateTuitViewModel
                         lastModified = System.currentTimeMillis()
                         )
                     )
-                    _uiState.value = _uiState.value.copy(
-                        saveDraftState = UIState.Success(Unit),
-                        showExitDialog = false
-                    )
+                    _uiState.value =
+                        _uiState.value.copy(
+                            saveDraftState = UIState.Success(Unit),
+                            showExitDialog = false
+                        )
                 } catch (e: Exception) {
-                    _uiState.value = _uiState.value.copy(
-                        saveDraftState = UIState.Error(e.message ?: "Error al guardar borrador")
-                    )
+                    _uiState.value =
+                        _uiState.value.copy(
+                            saveDraftState = UIState.Error(e.message ?: "Error al guardar borrador")
+                        )
                 }
             }
         }
