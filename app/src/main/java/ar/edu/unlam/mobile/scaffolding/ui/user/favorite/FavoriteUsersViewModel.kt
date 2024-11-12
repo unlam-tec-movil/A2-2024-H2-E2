@@ -64,7 +64,7 @@ class FavoriteUsersViewModel
             viewModelScope.launch {
                 try {
                     removeFavoriteUser(user)
-                    getFavoriteUsers()
+                    loadFavoriteUsers()
                 } catch (e: Exception) {
                     _state.value =
                         _state.value.copy(
