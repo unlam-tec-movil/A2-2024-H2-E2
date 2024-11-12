@@ -22,6 +22,9 @@ fun AppNavigation(navController: NavHostController) {
                 onNavigateToRegister = {
                     navController.navigate(Screen.Register.route)
                 },
+                onNavigateBack = {
+                    navController.navigate(Screen.Login.route)
+                },
                 onLoginSuccess = {
                     navController.navigate(Screen.Feed.route) {
                         popUpTo(Screen.Login.route) {
@@ -35,7 +38,10 @@ fun AppNavigation(navController: NavHostController) {
         composable(Screen.Register.route) {
             RegisterScreen(
                 onNavigateBack = {
-                    navController.navigateUp()
+                    navController.navigate(Screen.Login.route)
+                },
+                onNavigateBackErrorView = {
+                    navController.navigate(Screen.Register.route)
                 },
                 onRegisterSuccess = {
                     navController.navigate(Screen.Feed.route) {
