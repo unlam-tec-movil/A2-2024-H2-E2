@@ -52,7 +52,7 @@ fun CreateTuitScreen(
                             } else {
                                 viewModel.onCloseRequest(tuitText)
                             }
-                        }
+                        },
                     ) {
                         Icon(Icons.Default.Close, contentDescription = stringResource(R.string.close))
                     }
@@ -69,7 +69,8 @@ fun CreateTuitScreen(
         },
     ) { paddingValues ->
         Box(
-            modifier = Modifier
+            modifier =
+            Modifier
                 .padding(paddingValues)
                 .fillMaxSize(),
         ) {
@@ -78,7 +79,9 @@ fun CreateTuitScreen(
             ) {
                 OutlinedTextField(
                     value = tuitText,
-                    onValueChange = { tuitText = it },
+                    onValueChange = {
+                        tuitText = it
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(1f),
@@ -109,7 +112,7 @@ fun CreateTuitScreen(
                 .onError { message ->
                     ErrorView(
                         message = message,
-                        onRetry = { viewModel.saveDraft(tuitText) }
+                        onRetry = { viewModel.saveDraft(tuitText) },
                     )
                 }
         }
