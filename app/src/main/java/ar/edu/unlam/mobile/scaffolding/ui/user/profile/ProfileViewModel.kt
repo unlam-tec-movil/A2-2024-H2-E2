@@ -15,6 +15,7 @@ class ProfileViewModel
     @Inject
     constructor(
         private val getProfile: GetProfile,
+        private val profileRepository: ProfileRepository,
     ) : ViewModel() {
         private val _state = MutableStateFlow(ProfileState())
         val state = _state.asStateFlow()
@@ -37,6 +38,29 @@ class ProfileViewModel
                     _state.value =
                         _state.value.copy(
                             profileState = UIState.Error(e.message ?: "Error al cargar el perfil"),
+                        )
+                }
+            }
+        }
+
+        fun editUserProfile() {
+            _state.value =
+                _state.value.copy(isEditing = true)
+        }
+
+        fun saveUserProfile(profile: Profile) {
+            viewModelScope.launch {
+                try {
+                    profileRepository.updateProfile(profile)
+                    _state.value =
+                        _state.value.copy(
+                            profileState = UIState.Success(profile)
+                            isEditing = false,
+                        )
+                } catch (e: Exception) {
+                    _state.value =
+                        _state.value.copy(
+                            profileState = UIState.Error(e.message ?: "Error al guardar el perfil"),
                         )
                 }
             }
