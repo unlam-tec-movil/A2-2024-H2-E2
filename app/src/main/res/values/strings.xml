@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">ScaffoldingV2</string>
+    <string name="create_tuit_title">Crear tuit</string>
+    <string name="close">Cerrar</string>
+    <string name="publish">Publicar</string>
+    <string name="create_tuit_hint">¿Que estas pensando?</string>
+    <string name="dismiss">Descartar</string>
+    <string name="tuit_created">Tuit Creado</string>
+    <string name="create_tuit">Crear Tuit</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="feed_title">Feed</string>
+    <string name="profile_title">Perfil</string>
+    <string name="favorite_users_title">Usuarios favoritos</string>
+    <string name="delete_user_title">Eliminar Usuario</string>
+    <string name="delete_user_confirmation">¿Estás seguro que querés eliminar a %1$s de favoritos?</string>
+    <string name="delete">Eliminar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="drafts">Borradores</string>
+
+    <string name="error_invalid_credentials">Email o contraseña incorrectos. Por favor, verifica tus datos.</string>
+    <string name="error_connection">Error de conexión. Verifica tu conexión a Internet.</string>
+    <string name="error_server">Error en el servidor. Intenta nuevamente más tarde.</string>
+    <string name="error_unknown">Ocurrió un error desconocido. Intenta nuevamente.</string>
+    <string name="error_email_already_registered">El email ya está registrado o los datos son incorrectos.</string>
+
 </resources>
