@@ -19,7 +19,7 @@ class CreateTuitViewModel
         private val createTuitUseCase: CreateTuit,
         private val saveDraftTuitUseCase: SaveDraftTuit,
     ) : ViewModel() {
-        private val _uiState = mutableStateOf(CreateTuitState())
+        private val _uiState = mutableStateOf(CreateTuitState(createTuitState = UIState.None))
         val uiState: State<CreateTuitState> = _uiState
 
         fun createTuit(message: String) {

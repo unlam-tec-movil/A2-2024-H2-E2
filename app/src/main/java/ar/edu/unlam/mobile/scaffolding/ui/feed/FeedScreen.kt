@@ -82,8 +82,8 @@ fun FeedScreen(
                 favoriteUsers = state.favoriteUsers,
                 onFavoriteClick = { favoriteUser -> viewModel.onFavoriteClick(favoriteUser) },
                 modifier = modifier,
-                likeAction = { tuitId, isLiked ->
-                    viewModel.toggleTuitLike(tuitId, isLiked)
+                likeAction = { tuitId, isNotLiked ->
+                    viewModel.toggleTuitLike(tuitId, isNotLiked)
                 },
             )
             PullRefreshIndicator(
@@ -101,7 +101,7 @@ private fun FeedContent(
     onRetry: () -> Unit,
     onFavoriteClick: (FavoriteUser) -> Unit,
     favoriteUsers: Set<FavoriteUser>,
-    likeAction: (tuitId: Int, isLiked: Boolean) -> Unit = { _, _ -> },
+    likeAction: (tuitId: Int, isNotLiked: Boolean) -> Unit = { _, _ -> },
     modifier: Modifier = Modifier,
 ) {
     Box(modifier = modifier.fillMaxSize()) {
