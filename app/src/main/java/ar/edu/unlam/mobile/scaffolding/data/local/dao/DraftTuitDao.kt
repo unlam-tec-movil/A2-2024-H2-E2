@@ -16,7 +16,10 @@ interface DraftTuitDao {
     fun getDraftTuits(userId: String): Flow<List<DraftTuitEntity>>
 
     @Query("DELETE FROM draft_tuits WHERE message = :message AND userId = :userId")
-    suspend fun deleteDraftTuitByMessage(message: String, userId: String)
+    suspend fun deleteDraftTuitByMessage(
+        message: String,
+        userId: String,
+    )
 
     @Delete
     suspend fun deleteDraftTuit(draft: DraftTuitEntity)

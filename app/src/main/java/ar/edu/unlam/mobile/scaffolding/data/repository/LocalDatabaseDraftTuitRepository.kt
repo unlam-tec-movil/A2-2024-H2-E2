@@ -9,12 +9,13 @@ import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
-class LocalDatabaseDraftTuitRepository @Inject constructor(
-    private val draftTuitDao: DraftTuitDao,
-    private val draftTuitMapper: DraftTuitMapper,
-    private val tokenManager: TokenManager
-) : DraftTuitRepository {
+class LocalDatabaseDraftTuitRepository
+    @Inject
+    constructor(
+        private val draftTuitDao: DraftTuitDao,
+        private val draftTuitMapper: DraftTuitMapper,
+        private val tokenManager: TokenManager
+    ) : DraftTuitRepository {
 
     override suspend fun getDrafts(): Flow<List<DraftTuit>> {
         val userId = tokenManager.getToken() ?: ""
