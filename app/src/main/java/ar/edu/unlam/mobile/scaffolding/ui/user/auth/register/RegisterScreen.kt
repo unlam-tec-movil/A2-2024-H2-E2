@@ -35,12 +35,13 @@ fun RegisterScreen(
     when (val registerState = state.registerState) {
         UIState.Loading -> LoadingIndicator()
         is UIState.Success -> onRegisterSuccess()
-        is UIState.Error -> ErrorView(
-            message = registerState.message,
-            onRetry = { viewModel.register(name, email, password) },
-            isRetrying = registerState is UIState.Loading,
-            onBack = onNavigateBackErrorView,
-        )
+        is UIState.Error ->
+            ErrorView(
+                message = registerState.message,
+                onRetry = { viewModel.register(name, email, password) },
+                isRetrying = registerState is UIState.Loading,
+                onBack = onNavigateBackErrorView,
+            )
         else -> RegisterForm(
             name = name,
             onNameChange = setName,

@@ -21,7 +21,10 @@ class LoginViewModel
         private val _state = MutableStateFlow(LoginState(loginState = UIState.None))
         val state = _state.asStateFlow()
 
-        fun login(email: String, password: String) {
+        fun login(
+            email: String,
+            password: String,
+            ) {
             _state.update {
                 it.copy(
                     loginState = UIState.Loading,
