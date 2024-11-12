@@ -24,10 +24,7 @@ fun TuitFeed(
                 modifier = Modifier.padding(1.dp),
                 isFavorite = favoriteUsers.any { it.name == tuit.author },
                 onFavoriteClick = onFavoriteClick,
-                likeAction = {
-                    likeAction(tuit.id, tuit.liked)
-                    tuit.liked = !tuit.liked
-                },
+                likeAction = { tuitId, isLiked -> likeAction(tuitId, isLiked) },
             )
         }
     }
@@ -77,7 +74,7 @@ fun TuitFeedPreview() {
         },
         favoriteUsers = favoriteUsers,
         onFavoriteClick = { author ->
-            println("Favorite button clicked for author: $author") // Acción simulada para la preview
+            println("Favorite button clicked for author: $author")
         },
     )
 }

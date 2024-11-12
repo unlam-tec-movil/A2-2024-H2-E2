@@ -43,7 +43,7 @@ fun TuitCard(
     modifier: Modifier = Modifier,
     onFavoriteClick: (FavoriteUser) -> Unit,
     isFavorite: Boolean,
-    likeAction: () -> Unit = {},
+    likeAction: (Int, Boolean) -> Unit,
 ) {
     var showConfirmationDialog by remember { mutableStateOf(false) }
     Card(
@@ -96,9 +96,10 @@ fun TuitCard(
                 Text(tuit.message, fontSize = 24.sp)
 
                 LikeButton(
+                    isLiked = tuit.liked,
                     color = Color.Black,
                     modifier = Modifier.size(20.dp),
-                    onClickAction = likeAction,
+                    onClickAction = { likeAction(tuit.id, !tuit.liked) },
                 )
             }
 
@@ -150,6 +151,6 @@ fun TuitCardPreview() {
         modifier = Modifier,
         onFavoriteClick = { },
         isFavorite = true,
-        likeAction = {},
+        likeAction = { _, _ -> },
     )
 }

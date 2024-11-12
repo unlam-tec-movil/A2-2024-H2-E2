@@ -9,6 +9,7 @@ import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Url
 
 interface TuitApi {
     @GET(ApiConfig.Endpoints.FEED)
@@ -29,7 +30,7 @@ interface TuitApi {
         @Path("id") tuitId: Int,
     )
 
-    @DELETE(ApiConfig.Endpoints.LIKE_TUIT)
+    @DELETE(ApiConfig.Endpoints.UNLIKE_TUIT)
     suspend fun unlikeTuit(
         @Path("id") tuitId: Int,
     )

@@ -43,3 +43,10 @@ fun <T> UIState<T>.onNone(action: @Composable () -> Unit): UIState<T> {
     }
     return this
 }
+
+fun <T> UIState<T>.getSuccessData(): T? {
+    return when (this) {
+        is UIState.Success -> data
+        else -> null
+    }
+}
