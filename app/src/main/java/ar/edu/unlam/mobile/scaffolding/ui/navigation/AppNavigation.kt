@@ -105,9 +105,9 @@ fun AppNavigation(navController: NavHostController) {
                     navArgument("draftText") {
                         type = NavType.StringType
                         defaultValue = ""
-                    }
-                )
-        )   { backStackEntry ->
+                    },
+                ),
+        ) { backStackEntry ->
             val draftText = backStackEntry.arguments?.getString("draftText") ?: ""
             CreateTuitScreen(
                 initialText = draftText,
@@ -116,7 +116,7 @@ fun AppNavigation(navController: NavHostController) {
                 },
                 onCreateSuccess = {
                     navController.navigateUp()
-                }
+                },
             )
         }
 
@@ -127,7 +127,7 @@ fun AppNavigation(navController: NavHostController) {
                 },
                 onNavigateToCreate = { draftText ->
                     navController.navigate(Screen.CreateTuit.route + "?draftText=$draftText")
-                }
+                },
             )
         }
     }

@@ -12,14 +12,14 @@ import ar.edu.unlam.mobile.scaffolding.domain.model.DraftTuit
 fun TuitDraftFeed(
     drafts: List<DraftTuit>,
     onDraftClick: (DraftTuit) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     LazyColumn(modifier = modifier) {
         items(drafts) { draft ->
             TuitDraftCard(
                 tuitDraft = draft,
                 onCardClick = { onDraftClick(draft) },
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
             )
         }
     }
