@@ -155,12 +155,14 @@ class FeedViewModel
             isLiked: Boolean,
         ): List<Tuit> {
             val currentTuits = state.value.tuitsState.getSuccessData() ?: emptyList()
-            val updatedTuits = currentTuits.map { tuit ->
-                if (tuit.id == tuitId) {
-                    tuit.copy(liked = isLiked)
-                } else {
-                    tuit
-                }
+            val updatedTuits =
+                currentTuits
+                    .map { tuit ->
+                        if (tuit.id == tuitId) {
+                            tuit.copy(liked = isLiked)
+                        } else {
+                            tuit
+                        }
             }
             return updatedTuits
         }
