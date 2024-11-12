@@ -80,7 +80,7 @@ class CreateTuitViewModel
                         DraftTuit(
                             message = text,
                             lastModified = System.currentTimeMillis(),
-                        )
+                        ),
                     )
                     _uiState.value =
                         _uiState.value.copy(

@@ -43,21 +43,22 @@ fun DraftTuitScreen(
                     IconButton(onClick = onDismissRequest) {
                         Icon(Icons.Default.Close, contentDescription = stringResource(R.string.close))
                     }
-                }
+                },
             )
-        }
+        },
     ) { paddingValues ->
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-        ) {
-            DraftTuitContent(
-                state = state.draftTuitState,
-                modifier = Modifier.fillMaxSize()
-            )
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
+            ) {
+                DraftTuitContent(
+                    state = state.draftTuitState,
+                    modifier = Modifier.fillMaxSize(),
+                )
+            }
         }
-    }
 }
 
 @Composable
