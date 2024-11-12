@@ -5,6 +5,7 @@ import androidx.room.Room
 import ar.edu.unlam.mobile.scaffolding.data.local.AppDatabase
 import ar.edu.unlam.mobile.scaffolding.data.local.dao.DraftTuitDao
 import ar.edu.unlam.mobile.scaffolding.data.local.dao.FavoriteUserDao
+import ar.edu.unlam.mobile.scaffolding.data.local.dao.LocalProfileDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,4 +38,7 @@ object DatabaseModule {
 
     @Provides
     fun provideDraftTuitDao(appDatabase: AppDatabase): DraftTuitDao = appDatabase.draftTuitDao()
+
+    @Provides
+    fun provideProfileDao(appDatabase: AppDatabase): LocalProfileDao = appDatabase.profileDao()
 }

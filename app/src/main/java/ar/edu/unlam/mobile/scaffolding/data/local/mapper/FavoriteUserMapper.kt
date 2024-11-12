@@ -24,8 +24,4 @@ class FavoriteUserMapper
         fun mapToDomainList(favoriteUserEntities: List<FavoriteUserEntity>): List<FavoriteUser> {
             return favoriteUserEntities.map { mapToDomain(it) }
         }
-
-        fun mapToEntityList(favoriteUsers: List<FavoriteUser>): List<FavoriteUserEntity> {
-            return favoriteUsers.map { mapToEntity(it) }
-        }
     }

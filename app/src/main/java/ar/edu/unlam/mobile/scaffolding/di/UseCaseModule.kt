@@ -3,6 +3,7 @@ package ar.edu.unlam.mobile.scaffolding.di
 import ar.edu.unlam.mobile.scaffolding.domain.port.repository.AuthRepository
 import ar.edu.unlam.mobile.scaffolding.domain.port.repository.DraftTuitRepository
 import ar.edu.unlam.mobile.scaffolding.domain.port.repository.FavoriteUserRepository
+import ar.edu.unlam.mobile.scaffolding.domain.port.repository.LocalProfileRepository
 import ar.edu.unlam.mobile.scaffolding.domain.port.repository.ProfileRepository
 import ar.edu.unlam.mobile.scaffolding.domain.port.usecase.tuit.creation.GetDraftTuits
 import ar.edu.unlam.mobile.scaffolding.domain.port.usecase.tuit.creation.RemoveDraftTuit
@@ -12,7 +13,9 @@ import ar.edu.unlam.mobile.scaffolding.domain.port.usecase.user.auth.RegisterUse
 import ar.edu.unlam.mobile.scaffolding.domain.port.usecase.user.favorite.GetFavoriteUsers
 import ar.edu.unlam.mobile.scaffolding.domain.port.usecase.user.favorite.RemoveFavoriteUser
 import ar.edu.unlam.mobile.scaffolding.domain.port.usecase.user.favorite.SaveFavoriteUser
+import ar.edu.unlam.mobile.scaffolding.domain.port.usecase.user.profile.GetLocalProfile
 import ar.edu.unlam.mobile.scaffolding.domain.port.usecase.user.profile.GetProfile
+import ar.edu.unlam.mobile.scaffolding.domain.port.usecase.user.profile.SaveLocalProfile
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -48,4 +51,10 @@ object UseCaseModule {
 
     @Provides
     fun provideRemoveDraftTuit(draftTuitRepository: DraftTuitRepository): RemoveDraftTuit = RemoveDraftTuit(draftTuitRepository)
+
+    @Provides
+    fun provideGetLocalProfile(localProfileRepository: LocalProfileRepository): GetLocalProfile = GetLocalProfile(localProfileRepository)
+
+    @Provides
+    fun provideSaveLocalProfile(localProfileRepository: LocalProfileRepository): SaveLocalProfile = SaveLocalProfile(localProfileRepository)
 }

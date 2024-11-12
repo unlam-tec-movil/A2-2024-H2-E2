@@ -41,27 +41,33 @@ fun ProfileScreen(
         topBar = {
             MainTopAppBar(
                 title = stringResource(R.string.profile_title),
-                onLogout = onLogout,
+                onLogout = onLogout
             )
-        },
+        }
     ) { paddingValues ->
         Column(
-            modifier =
-                Modifier
-                    .padding(paddingValues)
-                    .fillMaxSize(),
+            modifier = Modifier
+                .padding(paddingValues)
+                .fillMaxSize()
         ) {
-            state.profileState
-                .onLoading {
-                    LoadingIndicator()
-                }.onSuccess { profile ->
-                    ProfileContent(profile)
-                }.onError { message ->
-                    ErrorView(
-                        message = message,
-                        onRetry = { viewModel.retryLoadUserProfile() },
-                    )
-                }
+            if (viewModel.localProfile == null) {
+                Text("Cargando perfil...")
+            } else {
+                state.profileState
+                    .onLoading {
+                        LoadingIndicator()
+                    }
+                    .onSuccess { profile ->
+                        ProfileContent(profile)
+                        viewModel.localProfile = profile
+                    }
+                    .onError { message ->
+                        ErrorView(
+                            message = message,
+                            onRetry = { viewModel.retryLoadUserProfile() }
+                        )
+                    }
+            }
         }
     }
 }
