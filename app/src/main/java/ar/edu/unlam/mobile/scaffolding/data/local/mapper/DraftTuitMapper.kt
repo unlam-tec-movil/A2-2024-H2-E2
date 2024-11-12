@@ -13,7 +13,7 @@ class DraftTuitMapper
             return DraftTuit(
                 message = draftTuitEntity.message,
                 lastModified = draftTuitEntity.lastModified,
-                userId = draftTuitEntity.userId
+                userId = draftTuitEntity.userId,
             )
         }
 
@@ -21,7 +21,7 @@ class DraftTuitMapper
             return DraftTuitEntity(
                 message = draftTuit.message,
                 lastModified = draftTuit.lastModified,
-                userId = draftTuit.userId
+                userId = draftTuit.userId,
             )
         }
 

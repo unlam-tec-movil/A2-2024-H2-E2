@@ -7,30 +7,29 @@ import ar.edu.unlam.mobile.scaffolding.domain.model.DraftTuit
 import ar.edu.unlam.mobile.scaffolding.domain.port.repository.DraftTuitRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
-import javax.inject.Singleton
+
 
 class LocalDatabaseDraftTuitRepository
     @Inject
     constructor(
         private val draftTuitDao: DraftTuitDao,
         private val draftTuitMapper: DraftTuitMapper,
-        private val tokenManager: TokenManager
+        private val tokenManager: TokenManager,
     ) : DraftTuitRepository {
+        override suspend fun getDrafts(): Flow<List<DraftTuit>> {
+            val userId = tokenManager.getToken() ?: ""
+            val entities = draftTuitDao.getDraftTuits(userId)
+            return draftTuitMapper.mapToDomainList(entities)
+        }
 
-    override suspend fun getDrafts(): Flow<List<DraftTuit>> {
-        val userId = tokenManager.getToken() ?: ""
-        val entities = draftTuitDao.getDraftTuits(userId)
-        return draftTuitMapper.mapToDomainList(entities)
-    }
+        override suspend fun saveDraft(draftTuit: DraftTuit) {
+            val userId = tokenManager.getToken() ?: ""
+            val entity = draftTuitMapper.mapToEntity(draftTuit.copy(userId = userId))
+            draftTuitDao.saveDraftTuit(entity)
+        }
 
-    override suspend fun saveDraft(draftTuit: DraftTuit) {
-        val userId = tokenManager.getToken() ?: ""
-        val entity = draftTuitMapper.mapToEntity(draftTuit.copy(userId = userId))
-        draftTuitDao.saveDraftTuit(entity)
+        override suspend fun deleteDraft(draftTuit: DraftTuit) {
+            val userId = tokenManager.getToken() ?: ""
+            draftTuitDao.deleteDraftTuitByMessage(message = draftTuit.message, userId = userId)
+        }
     }
-
-    override suspend fun deleteDraft(draftTuit: DraftTuit) {
-        val userId = tokenManager.getToken() ?: ""
-        draftTuitDao.deleteDraftTuitByMessage(message = draftTuit.message, userId = userId)
-    }
-}
