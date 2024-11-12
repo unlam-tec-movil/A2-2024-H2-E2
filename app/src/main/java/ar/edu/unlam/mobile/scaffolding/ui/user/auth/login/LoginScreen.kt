@@ -23,7 +23,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import ar.edu.unlam.mobile.scaffolding.ui.core.component.error.ErrorView
 import ar.edu.unlam.mobile.scaffolding.ui.core.component.loading.LoadingIndicator
 import ar.edu.unlam.mobile.scaffolding.ui.core.state.UIState
@@ -33,8 +32,9 @@ import ar.edu.unlam.mobile.scaffolding.ui.core.state.onSuccess
 
 @Composable
 fun LoginScreen(
-    navController: NavController,
     viewModel: LoginViewModel = hiltViewModel(),
+    onNavigateToRegister: () -> Unit,
+    onLoginSuccess: () -> Unit,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
@@ -42,7 +42,7 @@ fun LoginScreen(
         .onLoading {
             LoadingIndicator()
         }.onSuccess {
-            navController.navigate("home")
+            onLoginSuccess()
         }.onError { message ->
             ErrorView(
                 message = message,
@@ -59,9 +59,7 @@ fun LoginScreen(
         password = viewModel.getPassword(),
         onPasswordChange = viewModel::onPasswordChange,
         onLoginClick = viewModel::login,
-        onRegisterClick = {
-            navController.navigate("register")
-        },
+        onRegisterClick = onNavigateToRegister,
     )
 }
 
