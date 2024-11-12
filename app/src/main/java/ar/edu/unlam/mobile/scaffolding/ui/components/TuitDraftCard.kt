@@ -1,5 +1,6 @@
 package ar.edu.unlam.mobile.scaffolding.ui.components
 
+import android.icu.text.SimpleDateFormat
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,6 +16,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ar.edu.unlam.mobile.scaffolding.domain.model.DraftTuit
+
+import java.util.Date
 
 @Composable
 fun TuitDraftCard(
@@ -34,7 +37,7 @@ fun TuitDraftCard(
                                 .fillMaxWidth()
                                 .height(50.dp),
                     ) {
-                        Text(tuitDraft.lastModified, fontSize = 16.sp)
+                        Text(formatDate(tuitDraft.lastModified), fontSize = 16.sp)
                     }
                 }
                 Row {
@@ -45,13 +48,19 @@ fun TuitDraftCard(
     }
 }
 
+private fun formatDate(timestamp: Long): String {
+    val locale = java.util.Locale("es", "AR")
+    return SimpleDateFormat("dd/MM/yyyy HH:mm", locale)
+        .format(Date(timestamp))
+}
+
 @Preview
 @Composable
 fun TuitDraftCardPreview() {
     val tuitDraft =
         DraftTuit(
             message = "Esto es un tuit borrador de prueba!",
-            lastModified = "2024-05-12",
+            lastModified = System.currentTimeMillis(),
         )
     TuitDraftCard(tuitDraft)
 }

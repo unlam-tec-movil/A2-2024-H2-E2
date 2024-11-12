@@ -45,15 +45,21 @@ fun CreateTuitScreen(
             TopAppBar(
                 title = { Text(stringResource(R.string.create_tuit_title)) },
                 navigationIcon = {
-                    IconButton(onClick = onDismissRequest) {
+                    IconButton(
+                        onClick = {
+                            if (tuitText.isBlank()) {
+                                onDismissRequest()
+                            } else {
+                                viewModel.onCloseRequest(tuitText)
+                            }
+                        }
+                    ) {
                         Icon(Icons.Default.Close, contentDescription = stringResource(R.string.close))
                     }
                 },
                 actions = {
                     IconButton(
-                        onClick = {
-                            viewModel.createTuit(tuitText)
-                        },
+                        onClick = { viewModel.createTuit(tuitText) },
                         enabled = tuitText.isNotBlank() && tuitText.length <= 280,
                     ) {
                         Text(stringResource(R.string.publish))
@@ -63,10 +69,9 @@ fun CreateTuitScreen(
         },
     ) { paddingValues ->
         Box(
-            modifier =
-                Modifier
-                    .padding(paddingValues)
-                    .fillMaxSize(),
+            modifier = Modifier
+                .padding(paddingValues)
+                .fillMaxSize(),
         ) {
             Column(
                 modifier = Modifier.fillMaxSize(),
@@ -74,10 +79,9 @@ fun CreateTuitScreen(
                 OutlinedTextField(
                     value = tuitText,
                     onValueChange = { tuitText = it },
-                    modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .weight(1f),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f),
                     placeholder = { Text(stringResource(R.string.create_tuit_hint)) },
                 )
             }
@@ -95,7 +99,45 @@ fun CreateTuitScreen(
                         onRetry = { viewModel.createTuit(tuitText) },
                     )
                 }
+
+            uiState.saveDraftState
+                .onSuccess {
+                    LaunchedEffect(Unit) {
+                        onDismissRequest()
+                    }
+                }
+                .onError { message ->
+                    ErrorView(
+                        message = message,
+                        onRetry = { viewModel.saveDraft(tuitText) }
+                    )
+                }
         }
+    }
+
+    if (uiState.showExitDialog) {
+        AlertDialog(
+            onDismissRequest = { viewModel.dismissExitDialog() },
+            title = { Text(stringResource(R.string.save_draft_title)) },
+            text = { Text(stringResource(R.string.save_draft_message)) },
+            confirmButton = {
+                TextButton(
+                    onClick = { viewModel.saveDraft(tuitText) }
+                ) {
+                    Text(stringResource(R.string.save_draft))
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = {
+                        viewModel.dismissExitDialog()
+                        onDismissRequest()
+                    }
+                ) {
+                    Text(stringResource(R.string.discard))
+                }
+            }
+        )
     }
 
     if (showSuccessSnackbar) {

@@ -5,7 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "draft_tuits")
 data class DraftTuitEntity(
-    @PrimaryKey(autoGenerate = true) val draftId: Int = 0,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
     val message: String,
-    val lastModified: String,
+    val lastModified: Long,
 )
