@@ -21,42 +21,35 @@ class RegisterViewModel
         private val registerUser: RegisterUser,
         private val loginUser: LoginUser,
     ) : ViewModel() {
-        private val _state = MutableStateFlow(RegisterState())
+        private val _state = MutableStateFlow(RegisterState(registerState = UIState.None))
         val state = _state.asStateFlow()
-        private var name = ""
-        private var email = ""
-        private var password = ""
 
-        fun onPasswordChange(newPassword: String) {
-            password = newPassword
-        }
-
-        fun onEmailChange(newEmail: String) {
-            email = newEmail
-        }
-
-        fun onNameChange(newName: String) {
-            name = newName
-        }
-
-        fun register() {
-            val errorMessage = validateCredentials()
+        fun register(
+            name: String,
+            email: String,
+            password: String,
+        ) {
+            val errorMessage = validateCredentials(name, email, password)
             if (errorMessage != null) {
                 _state.update {
                     it.copy(
                         registerState = UIState.Error(errorMessage),
                     )
                 }
+                return
             }
+
             _state.update {
                 it.copy(
                     registerState = UIState.Loading,
                 )
             }
+
             viewModelScope.launch {
                 val userCredentials = RegisterCredentials(name, email, password)
                 val loginCredentials = LoginCredentials(email, password)
                 val result = registerUser(userCredentials)
+
                 if (result.isSuccess) {
                     _state.update {
                         it.copy(
@@ -67,32 +60,28 @@ class RegisterViewModel
                 } else {
                     _state.update {
                         it.copy(
-                            registerState = UIState.Error("No se pudo registrar el usuario."),
+                            registerState =
+                                UIState.Error("No se pudo registrar el usuario."),
                         )
                     }
                 }
             }
         }
 
-        private fun validateCredentials(): String? =
-            if (name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()) {
-                "Por favor, complete todos los campos."
-            } else if (!isValidEmail(email)) {
-                "Por favor, ingrese un email válido."
-            } else if (password.length < 6) {
-                "La contraseña debe tener al menos 6 caracteres."
-            } else {
-                null
+        private fun validateCredentials(
+            name: String,
+            email: String,
+            password: String,
+        ): String? =
+            when {
+                name.isBlank() || email.isBlank() || password.isBlank() -> "Por favor, complete todos los campos."
+                !isValidEmail(email) -> "Por favor, ingrese un email válido."
+                password.length < 6 -> "La contraseña debe tener al menos 6 caracteres."
+                else -> null
             }
 
         private fun isValidEmail(email: String): Boolean {
             val emailRegex = Regex("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$")
             return emailRegex.matches(email)
         }
-
-        fun getName(): String = name
-
-        fun getEmail(): String = email
-
-        fun getPassword(): String = password
     }

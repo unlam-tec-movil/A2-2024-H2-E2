@@ -1,6 +1,7 @@
 package ar.edu.unlam.mobile.scaffolding.data.repository
 
 import ar.edu.unlam.mobile.scaffolding.data.remote.api.TuitApi
+import ar.edu.unlam.mobile.scaffolding.data.remote.dto.request.CreateTuitRequest
 import ar.edu.unlam.mobile.scaffolding.data.remote.mapper.TuitMapper
 import ar.edu.unlam.mobile.scaffolding.domain.model.Tuit
 import ar.edu.unlam.mobile.scaffolding.domain.port.repository.TuitRepository
@@ -26,7 +27,7 @@ class RemoteTuitRepository
         }
 
         override suspend fun createTuit(message: String): Boolean {
-            val response = api.createTuit(message)
+            val response = api.createTuit(CreateTuitRequest(message))
             return response.isSuccessful
         }
 

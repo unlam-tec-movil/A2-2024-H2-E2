@@ -1,23 +1,15 @@
 package ar.edu.unlam.mobile.scaffolding.ui.user.auth.login
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -26,41 +18,42 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ar.edu.unlam.mobile.scaffolding.ui.core.component.error.ErrorView
 import ar.edu.unlam.mobile.scaffolding.ui.core.component.loading.LoadingIndicator
 import ar.edu.unlam.mobile.scaffolding.ui.core.state.UIState
-import ar.edu.unlam.mobile.scaffolding.ui.core.state.onError
-import ar.edu.unlam.mobile.scaffolding.ui.core.state.onLoading
-import ar.edu.unlam.mobile.scaffolding.ui.core.state.onSuccess
 
 @Composable
 fun LoginScreen(
     viewModel: LoginViewModel = hiltViewModel(),
     onNavigateToRegister: () -> Unit,
+    onNavigateBack: () -> Unit,
     onLoginSuccess: () -> Unit,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+    val (email, setEmail) = remember { mutableStateOf("") }
+    val (password, setPassword) = remember { mutableStateOf("") }
 
-    state.loginState
-        .onLoading {
-            LoadingIndicator()
-        }.onSuccess {
+    when (val loginState = state.loginState) {
+        UIState.Loading -> LoadingIndicator()
+        is UIState.Success -> {
             onLoginSuccess()
-        }.onError { message ->
+        }
+        is UIState.Error -> {
             ErrorView(
-                message = message,
-                onRetry = {
-                    viewModel.login()
-                },
-                isRetrying = state.loginState is UIState.Loading,
+                message = loginState.message,
+                onRetry = { viewModel.login(email, password) },
+                isRetrying = false,
+                onBack = onNavigateBack,
             )
         }
-
-    LoginForm(
-        email = viewModel.getEmail(),
-        onEmailChange = viewModel::onEmailChange,
-        password = viewModel.getPassword(),
-        onPasswordChange = viewModel::onPasswordChange,
-        onLoginClick = viewModel::login,
-        onRegisterClick = onNavigateToRegister,
-    )
+        else -> {
+            LoginForm(
+                email = email,
+                onEmailChange = setEmail,
+                password = password,
+                onPasswordChange = setPassword,
+                onLoginClick = { viewModel.login(email, password) },
+                onRegisterClick = onNavigateToRegister,
+            )
+        }
+    }
 }
 
 @Composable
@@ -83,9 +76,7 @@ fun LoginForm(
             imageVector = Icons.Default.AccountCircle,
             contentDescription = "Person Icon",
             modifier = Modifier.size(100.dp),
-            colorResource(
-                id = ar.edu.unlam.mobile.scaffolding.R.color.purple_500,
-            ),
+            tint = MaterialTheme.colorScheme.primary,
         )
         Spacer(modifier = Modifier.height(16.dp))
         TextField(
