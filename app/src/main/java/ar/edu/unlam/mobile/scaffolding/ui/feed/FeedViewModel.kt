@@ -150,7 +150,10 @@ class FeedViewModel
             }
         }
 
-        private fun updateTuitsAfterLike(tuitId: Int, isLiked: Boolean): List<Tuit> {
+        private fun updateTuitsAfterLike(
+            tuitId: Int,
+            isLiked: Boolean,
+        ): List<Tuit> {
             val currentTuits = state.value.tuitsState.getSuccessData() ?: emptyList()
             val updatedTuits = currentTuits.map { tuit ->
                 if (tuit.id == tuitId) {
