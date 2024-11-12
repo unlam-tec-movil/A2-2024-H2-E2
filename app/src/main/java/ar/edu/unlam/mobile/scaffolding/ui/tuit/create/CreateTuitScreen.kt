@@ -21,12 +21,13 @@ import kotlinx.coroutines.delay
 @Composable
 fun CreateTuitScreen(
     viewModel: CreateTuitViewModel = hiltViewModel(),
+    initialText: String = "",
     onDismissRequest: () -> Unit,
     onCreateSuccess: () -> Unit = onDismissRequest,
 ) {
     val uiState = viewModel.uiState.value
     val keyboardController = LocalSoftwareKeyboardController.current
-    var tuitText by remember { mutableStateOf("") }
+    var tuitText by remember { mutableStateOf(initialText) }
     var showSuccessSnackbar by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
@@ -34,7 +35,8 @@ fun CreateTuitScreen(
     }
 
     LaunchedEffect(showSuccessSnackbar) {
-        if (showSuccessSnackbar) {
+        if (showSuccessSnackbar && initialText.isNotBlank()) {
+            viewModel.deleteDraftAfterPublish(initialText)
             delay(1500L)
             onCreateSuccess()
         }
@@ -59,7 +61,9 @@ fun CreateTuitScreen(
                 },
                 actions = {
                     IconButton(
-                        onClick = { viewModel.createTuit(tuitText) },
+                        onClick = { viewModel.createTuit(
+                            message = tuitText,
+                            isFromDraft = initialText.isNotBlank()) },
                         enabled = tuitText.isNotBlank() && tuitText.length <= 280,
                     ) {
                         Text(stringResource(R.string.publish))

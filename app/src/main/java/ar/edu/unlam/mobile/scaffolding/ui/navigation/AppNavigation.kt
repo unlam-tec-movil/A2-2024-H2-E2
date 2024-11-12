@@ -2,8 +2,10 @@ package ar.edu.unlam.mobile.scaffolding.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import ar.edu.unlam.mobile.scaffolding.ui.feed.FeedScreen
 import ar.edu.unlam.mobile.scaffolding.ui.tuit.create.CreateTuitScreen
 import ar.edu.unlam.mobile.scaffolding.ui.tuit.draft.DraftTuitScreen
@@ -96,14 +98,24 @@ fun AppNavigation(navController: NavHostController) {
             )
         }
 
-        composable(Screen.CreateTuit.route) {
+        composable(
+            route = Screen.CreateTuit.route + "?draftText={draftText}",
+            arguments = listOf(
+                navArgument("draftText") {
+                    type = NavType.StringType
+                    defaultValue = ""
+                }
+            )
+        ) { backStackEntry ->
+            val draftText = backStackEntry.arguments?.getString("draftText") ?: ""
             CreateTuitScreen(
+                initialText = draftText,
                 onDismissRequest = {
                     navController.navigateUp()
                 },
                 onCreateSuccess = {
                     navController.navigateUp()
-                },
+                }
             )
         }
 
@@ -112,6 +124,9 @@ fun AppNavigation(navController: NavHostController) {
                 onDismissRequest = {
                     navController.navigateUp()
                 },
+                onNavigateToCreate = { draftText ->
+                    navController.navigate(Screen.CreateTuit.route + "?draftText=$draftText")
+                }
             )
         }
     }

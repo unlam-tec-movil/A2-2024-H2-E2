@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ar.edu.unlam.mobile.scaffolding.domain.model.DraftTuit
 import ar.edu.unlam.mobile.scaffolding.domain.port.usecase.tuit.creation.CreateTuit
+import ar.edu.unlam.mobile.scaffolding.domain.port.usecase.tuit.creation.RemoveDraftTuit
 import ar.edu.unlam.mobile.scaffolding.domain.port.usecase.tuit.creation.SaveDraftTuit
 import ar.edu.unlam.mobile.scaffolding.ui.core.state.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,11 +19,22 @@ class CreateTuitViewModel
     constructor(
         private val createTuitUseCase: CreateTuit,
         private val saveDraftTuitUseCase: SaveDraftTuit,
+        private val removeDraftTuitUseCase: RemoveDraftTuit,
     ) : ViewModel() {
         private val _uiState = mutableStateOf(CreateTuitState(createTuitState = UIState.None))
         val uiState: State<CreateTuitState> = _uiState
 
-        fun createTuit(message: String) {
+        fun deleteDraftAfterPublish(message: String) {
+            viewModelScope.launch {
+                try {
+                    removeDraftTuitUseCase(DraftTuit(message = message))
+                } catch (e: Exception) {
+
+                }
+            }
+        }
+
+        fun createTuit(message: String, isFromDraft: Boolean = false) {
             viewModelScope.launch {
                 _uiState.value =
                     _uiState.value.copy(
@@ -30,6 +42,9 @@ class CreateTuitViewModel
                     )
                 try {
                     val result = createTuitUseCase(message)
+                    if (result && isFromDraft) {
+                            removeDraftTuitUseCase(DraftTuit(message = message))
+                    }
                     _uiState.value =
                         _uiState.value.copy(
                             createTuitState =

@@ -11,7 +11,15 @@ sealed class Screen(val route: String) {
 
     data object FavoriteUsers : Screen("favorite_users")
 
-    data object CreateTuit : Screen("create_tuit")
+    data object CreateTuit : Screen("create_tuit") {
+        fun createRoute(draftText: String = ""): String {
+            return if (draftText.isEmpty()) {
+                route
+            } else {
+                "$route?draftText=$draftText"
+            }
+        }
+    }
 
     data object DraftTuit : Screen("draft_tuit")
 }
