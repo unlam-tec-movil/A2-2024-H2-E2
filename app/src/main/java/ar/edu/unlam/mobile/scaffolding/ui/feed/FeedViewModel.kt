@@ -123,9 +123,12 @@ class FeedViewModel
                     val updatedTuits = updateTuitsAfterLike(tuitId, true)
                     _state.value = _state.value.copy(tuitsState = UIState.Success(updatedTuits))
                 } catch (e: Exception) {
-                    _state.value = _state.value.copy(
-                        tuitsState = UIState.Error(e.message ?: "Error al dar like al tuit")
-                    )
+                    _state.value =
+                        _state
+                            .value
+                            .copy(
+                                tuitsState = UIState.Error(e.message ?: "Error al dar like al tuit"),
+                            )
                 }
             }
         }
@@ -137,9 +140,12 @@ class FeedViewModel
                     val updatedTuits = updateTuitsAfterLike(tuitId, false)
                     _state.value = _state.value.copy(tuitsState = UIState.Success(updatedTuits))
                 } catch (e: Exception) {
-                    _state.value = _state.value.copy(
-                        tuitsState = UIState.Error(e.message ?: "Error al quitar el like del tuit")
-                    )
+                    _state.value =
+                        _state
+                            .value
+                            .copy(
+                                tuitsState = UIState.Error(e.message ?: "Error al quitar el like del tuit"),
+                            )
                 }
             }
         }
@@ -155,7 +161,6 @@ class FeedViewModel
             }
             return updatedTuits
         }
-
 
         fun onFavoriteClick(favoriteUser: FavoriteUser) {
             viewModelScope.launch {
