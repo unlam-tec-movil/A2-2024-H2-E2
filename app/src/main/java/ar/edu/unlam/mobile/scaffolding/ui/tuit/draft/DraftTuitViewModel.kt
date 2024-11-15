@@ -19,25 +19,25 @@ class DraftTuitViewModel
         private val _state = MutableStateFlow(DraftTuitState())
         val state = _state.asStateFlow()
 
-    init {
-        loadDraftTuitFeed()
-    }
+        init {
+            loadDraftTuitFeed()
+        }
 
-    private fun loadDraftTuitFeed() {
-        viewModelScope.launch {
-            try {
-                getDraftFeed().collect { drafts ->
-                    _state.value = _state.value.copy(
+        private fun loadDraftTuitFeed() {
+            viewModelScope.launch {
+                try {
+                    getDraftFeed().collect { drafts ->
+                        _state.value = _state.value.copy(
                         draftTuitState = UIState.Success(drafts),
+                        )
+                    }
+                } catch (e: Exception) {
+                    _state.value = _state.value.copy(
+                        draftTuitState = UIState.Error(
+                            e.message ?: "Error al cargar los drafts",
+                        ),
                     )
                 }
-            } catch (e: Exception) {
-                _state.value = _state.value.copy(
-                    draftTuitState = UIState.Error(
-                        e.message ?: "Error al cargar los drafts",
-                    ),
-                )
             }
         }
     }
-}
