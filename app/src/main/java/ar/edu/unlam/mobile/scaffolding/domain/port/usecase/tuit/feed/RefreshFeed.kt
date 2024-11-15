@@ -11,7 +11,8 @@ class RefreshFeed
     constructor(
         private val tuitRepository: TuitRepository,
     ) {
-        operator fun invoke(): Flow<List<Tuit>> = flow {
-            tuitRepository.getFeed(1)
-        }
+        operator fun invoke(): Flow<List<Tuit>> =
+            flow {
+                tuitRepository.getFeed(1)
+            }
     }

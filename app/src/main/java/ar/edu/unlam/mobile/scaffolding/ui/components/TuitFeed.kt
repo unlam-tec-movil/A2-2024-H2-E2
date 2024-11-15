@@ -87,6 +87,6 @@ fun TuitFeedPreview() {
             println("Favorite button clicked for author: $author")
         },
         loadMoreFeed = { },
-        isLoadingMoreTuits = false
+        isLoadingMoreTuits = false,
     )
 }

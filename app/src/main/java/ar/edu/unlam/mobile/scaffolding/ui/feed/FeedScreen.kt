@@ -71,10 +71,10 @@ fun FeedScreen(
     ) { paddingValues ->
         Box(
             modifier =
-            modifier
-                .padding(paddingValues)
-                .fillMaxSize()
-                .pullRefresh(pullRefreshState),
+                modifier
+                    .padding(paddingValues)
+                    .fillMaxSize()
+                    .pullRefresh(pullRefreshState),
         ) {
             FeedContent(
                 state = state.tuitsState,

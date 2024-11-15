@@ -14,7 +14,7 @@ import retrofit2.http.Query
 interface TuitApi {
     @GET(ApiConfig.Endpoints.FEED)
     suspend fun getFeed(
-        @Query("page") page: Int
+        @Query("page") page: Int,
     ): List<TuitResponse>
 
     @GET(ApiConfig.Endpoints.GET_TUIT_BY_ID)

@@ -21,12 +21,17 @@ fun LazyLoadingRemote(
     isLoadingRemote: Boolean,
     state: LazyListState,
 ) {
-    val shouldLoadMore = remember {
-        derivedStateOf {
-            val lastVisibleItem = state.layoutInfo.visibleItemsInfo.lastOrNull()
-                ?: return@derivedStateOf false
-            lastVisibleItem.index >= (state.layoutInfo.totalItemsCount - 10) && !isLoadingRemote
-        }
+    val shouldLoadMore =
+        remember {
+            derivedStateOf {
+                val lastVisibleItem =
+                    state
+                        .layoutInfo
+                        .visibleItemsInfo
+                        .lastOrNull()
+                        ?: return@derivedStateOf false
+                lastVisibleItem.index >= (state.layoutInfo.totalItemsCount - 10) && !isLoadingRemote
+            }
     }
 
     val isLoadingRemoteState = remember { derivedStateOf { isLoadingRemote } }
