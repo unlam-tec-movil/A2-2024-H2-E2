@@ -50,9 +50,11 @@ class FeedViewModel
                             _state
                                 .value
                                 .copy(
-                                    tuitsState = UIState.Success(
-                                        state.value.tuitsState.getSuccessData()?.plus(tuits) ?: tuits,
-                                    )
+                                    tuitsState =
+                                        UIState
+                                            .Success(
+                                            state.value.tuitsState.getSuccessData()?.plus(tuits) ?: tuits,
+                                            )
                                 )
                         isLoadingMoreTuits = false
                     }
@@ -61,7 +63,9 @@ class FeedViewModel
                         _state
                             .value
                             .copy(
-                                tuitsState = UIState.Error(e.message ?: "Error al cargar los tuits"),
+                                tuitsState =
+                                    UIState
+                                        .Error(e.message ?: "Error al cargar los tuits"),
                             )
                     isLoadingMoreTuits = false
                 }
@@ -97,7 +101,10 @@ class FeedViewModel
 
         fun onRefresh() {
             viewModelScope.launch {
-                _state.value = _state.value.copy(isRefreshing = true)
+                _state.value =
+                    _state
+                        .value
+                        .copy(isRefreshing = true)
                 try {
                     refreshFeed().collect { firstPageTuits ->
                         val updatedTuits = state.value.tuitsState.getSuccessData()?.let { existingTuits ->
