@@ -53,8 +53,8 @@ class FeedViewModel
                                     tuitsState =
                                         UIState
                                             .Success(
-                                            state.value.tuitsState.getSuccessData()?.plus(tuits) ?: tuits,
-                                            )
+                                                state.value.tuitsState.getSuccessData()?.plus(tuits) ?: tuits,
+                                            ),
                                 )
                         isLoadingMoreTuits = false
                     }
@@ -107,15 +107,23 @@ class FeedViewModel
                         .copy(isRefreshing = true)
                 try {
                     refreshFeed().collect { firstPageTuits ->
-                        val updatedTuits = state.value.tuitsState.getSuccessData()?.let { existingTuits ->
-                            existingTuits.drop(firstPageTuits.size) + firstPageTuits
-                        } ?: firstPageTuits
+                        val updatedTuits =
+                            state
+                                .value
+                                .tuitsState
+                                .getSuccessData()
+                                ?.let { existingTuits ->
+                                    existingTuits.drop(firstPageTuits.size) + firstPageTuits
+                                } ?: firstPageTuits
                         _state.value = _state.value.copy(tuitsState = UIState.Success(updatedTuits))
                     }
                 } catch (e: Exception) {
-                    _state.value = _state.value.copy(
-                        tuitsState = UIState.Error(e.message ?: "Error al actualizar los tuits")
-                    )
+                    _state.value =
+                        _state
+                            .value
+                            .copy(
+                                tuitsState = UIState.Error(e.message ?: "Error al actualizar los tuits"),
+                            )
                 } finally {
                     _state.value = _state.value.copy(isRefreshing = false)
                 }
