@@ -1,7 +1,7 @@
 package ar.edu.unlam.mobile.scaffolding.ui.user.auth.logout
 
 import androidx.lifecycle.ViewModel
-import ar.edu.unlam.mobile.scaffolding.data.repository.AuthenticationRepository
+import ar.edu.unlam.mobile.scaffolding.domain.port.repository.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -9,7 +9,7 @@ import javax.inject.Inject
 class LogoutViewModel
     @Inject
     constructor(
-        private val authRepository: AuthenticationRepository,
+        private val authRepository: AuthRepository
     ) : ViewModel() {
         fun logout() {
             authRepository.clearToken()
