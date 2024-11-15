@@ -9,5 +9,5 @@ data class DraftTuitEntity(
     val id: Int = 0,
     val message: String,
     val lastModified: Long,
-    val userId: String,
+    val userEmail: String,
 )

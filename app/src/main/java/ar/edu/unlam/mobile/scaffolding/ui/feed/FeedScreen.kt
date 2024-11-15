@@ -31,15 +31,16 @@ import ar.edu.unlam.mobile.scaffolding.ui.core.state.UIState
 import ar.edu.unlam.mobile.scaffolding.ui.core.state.onError
 import ar.edu.unlam.mobile.scaffolding.ui.core.state.onLoading
 import ar.edu.unlam.mobile.scaffolding.ui.core.state.onSuccess
+import ar.edu.unlam.mobile.scaffolding.ui.user.auth.logout.LogoutViewModel
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun FeedScreen(
     modifier: Modifier = Modifier,
     viewModel: FeedViewModel = hiltViewModel(),
+    logoutViewModel: LogoutViewModel = hiltViewModel(),
     onNavigateToCreateTuit: () -> Unit,
     onLogout: () -> Unit,
-    onNavigateToDrafts: () -> Unit,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
@@ -53,8 +54,10 @@ fun FeedScreen(
         topBar = {
             MainTopAppBar(
                 title = stringResource(R.string.feed_title),
-                onLogout = onLogout,
-                onNavigateToDrafts = onNavigateToDrafts,
+                onLogout = {
+                    logoutViewModel.logout()
+                    onLogout()
+                },
             )
         },
         floatingActionButton = {

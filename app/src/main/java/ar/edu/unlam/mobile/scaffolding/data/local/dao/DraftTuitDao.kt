@@ -12,13 +12,13 @@ interface DraftTuitDao {
     @Insert
     suspend fun saveDraftTuit(draft: DraftTuitEntity)
 
-    @Query("SELECT * FROM draft_tuits WHERE userId = :userId")
-    fun getDraftTuits(userId: String): Flow<List<DraftTuitEntity>>
+    @Query("SELECT * FROM draft_tuits WHERE userEmail = :userEmail")
+    fun getDraftTuits(userEmail: String): Flow<List<DraftTuitEntity>>
 
-    @Query("DELETE FROM draft_tuits WHERE message = :message AND userId = :userId")
+    @Query("DELETE FROM draft_tuits WHERE message = :message AND userEmail = :userEmail")
     suspend fun deleteDraftTuitByMessage(
         message: String,
-        userId: String,
+        userEmail: String,
     )
 
     @Delete

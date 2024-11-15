@@ -21,10 +21,12 @@ import ar.edu.unlam.mobile.scaffolding.ui.core.component.loading.LoadingIndicato
 import ar.edu.unlam.mobile.scaffolding.ui.core.state.onError
 import ar.edu.unlam.mobile.scaffolding.ui.core.state.onLoading
 import ar.edu.unlam.mobile.scaffolding.ui.core.state.onSuccess
+import ar.edu.unlam.mobile.scaffolding.ui.user.auth.logout.LogoutViewModel
 
 @Composable
 fun FavoriteUsersScreen(
     viewModel: FavoriteUsersViewModel = hiltViewModel(),
+    logoutViewModel: LogoutViewModel = hiltViewModel(),
     onLogout: () -> Unit,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -34,7 +36,10 @@ fun FavoriteUsersScreen(
         topBar = {
             MainTopAppBar(
                 title = stringResource(R.string.favorite_users_title),
-                onLogout = onLogout,
+                onLogout = {
+                    logoutViewModel.logout()
+                    onLogout()
+                }
             )
         },
     ) { paddingValues ->

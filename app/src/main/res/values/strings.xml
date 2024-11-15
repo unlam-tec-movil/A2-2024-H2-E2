@@ -15,7 +15,7 @@
     <string name="delete_user_confirmation">¿Estás seguro que quieres eliminar a %1$s de favoritos?</string>
     <string name="delete">Eliminar</string>
     <string name="cancel">Cancelar</string>
-    <string name="drafts">Borradores</string>
+    <string name="drafts">Borrador</string>
 
     <string name="save_draft">Guardar borrador</string>
     <string name="discard">Descartar</string>

@@ -29,14 +29,14 @@ class CreateTuitViewModel
                 try {
                     removeDraftTuitUseCase(DraftTuit(message = message))
                 } catch (_: Exception) {
-
+                    // Manejar error
                 }
             }
         }
 
         fun createTuit(
             message: String,
-            isFromDraft: Boolean = false
+            isFromDraft: Boolean = false,
         ) {
             viewModelScope.launch {
                 _uiState.value =
@@ -46,7 +46,7 @@ class CreateTuitViewModel
                 try {
                     val result = createTuitUseCase(message)
                     if (result && isFromDraft) {
-                            removeDraftTuitUseCase(DraftTuit(message = message))
+                        removeDraftTuitUseCase(DraftTuit(message = message))
                     }
                     _uiState.value =
                         _uiState.value.copy(

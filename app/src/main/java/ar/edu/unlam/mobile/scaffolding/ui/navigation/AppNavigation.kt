@@ -67,10 +67,7 @@ fun AppNavigation(navController: NavHostController) {
                             inclusive = true
                         }
                     }
-                },
-                onNavigateToDrafts = {
-                    navController.navigate(Screen.DraftTuit.route)
-                },
+                }
             )
         }
 
@@ -117,6 +114,9 @@ fun AppNavigation(navController: NavHostController) {
                 onCreateSuccess = {
                     navController.navigateUp()
                 },
+                onNavigateToDrafts = {
+                    navController.navigate(Screen.DraftTuit.route)
+                }
             )
         }
 
