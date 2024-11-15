@@ -56,7 +56,7 @@ fun DraftTuitScreen(
                 TuitDraftFeed(
                     drafts = drafts,
                     onDraftClick = { draft -> onNavigateToCreate(draft.message) },
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier.fillMaxSize(),
                 )
             }.onLoading {
                 LoadingIndicator()

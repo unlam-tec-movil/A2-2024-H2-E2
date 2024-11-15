@@ -11,11 +11,13 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DraftTuitViewModel @Inject constructor(
-    private val getDraftFeed: GetDraftTuits,
-) : ViewModel() {
-    private val _state = MutableStateFlow(DraftTuitState())
-    val state = _state.asStateFlow()
+class DraftTuitViewModel
+    @Inject
+    constructor(
+        private val getDraftFeed: GetDraftTuits,
+    ) : ViewModel() {
+        private val _state = MutableStateFlow(DraftTuitState())
+        val state = _state.asStateFlow()
 
     init {
         loadDraftTuitFeed()
@@ -26,14 +28,14 @@ class DraftTuitViewModel @Inject constructor(
             try {
                 getDraftFeed().collect { drafts ->
                     _state.value = _state.value.copy(
-                        draftTuitState = UIState.Success(drafts)
+                        draftTuitState = UIState.Success(drafts),
                     )
                 }
             } catch (e: Exception) {
                 _state.value = _state.value.copy(
                     draftTuitState = UIState.Error(
-                        e.message ?: "Error al cargar los drafts"
-                    )
+                        e.message ?: "Error al cargar los drafts",
+                    ),
                 )
             }
         }
