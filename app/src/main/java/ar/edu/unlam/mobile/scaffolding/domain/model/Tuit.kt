@@ -6,7 +6,7 @@ data class Tuit(
     val parentId: Int,
     val author: String,
     val avatarUrl: String,
-    val likes: Int,
+    val likes: Long,
     var liked: Boolean,
     val date: String,
     val replies: Int = 0,
