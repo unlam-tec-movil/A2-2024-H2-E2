@@ -85,9 +85,9 @@ fun FeedScreen(
                 favoriteUsers = state.favoriteUsers,
                 onFavoriteClick = { favoriteUser -> viewModel.onFavoriteClick(favoriteUser) },
                 modifier = modifier,
-                likeAction = { tuitId, isNotLiked ->
-                    viewModel.toggleTuitLike(tuitId, isNotLiked)
-                },
+                likeAction = { tuitId, isNotLiked -> viewModel.toggleTuitLike(tuitId, isNotLiked) },
+                loadMoreFeed = { viewModel.loadMoreFeed() },
+                isLoadingMoreTuits = viewModel.isLoadingMoreTuits,
             )
             PullRefreshIndicator(
                 refreshing = state.isRefreshing,
@@ -105,6 +105,8 @@ private fun FeedContent(
     onFavoriteClick: (FavoriteUser) -> Unit,
     favoriteUsers: Set<FavoriteUser>,
     likeAction: (tuitId: Int, isNotLiked: Boolean) -> Unit = { _, _ -> },
+    loadMoreFeed: () -> Unit,
+    isLoadingMoreTuits: Boolean,
     modifier: Modifier = Modifier,
 ) {
     Box(modifier = modifier.fillMaxSize()) {
@@ -115,13 +117,17 @@ private fun FeedContent(
                     likeAction = likeAction,
                     favoriteUsers = favoriteUsers,
                     onFavoriteClick = onFavoriteClick,
+                    loadMoreFeed = loadMoreFeed,
+                    isLoadingMoreTuits = isLoadingMoreTuits,
                 )
-            }.onError { message ->
+            }
+            .onError { message ->
                 ErrorView(
                     message = message,
                     onRetry = onRetry,
                 )
-            }.onLoading {
+            }
+            .onLoading {
                 LoadingIndicator()
             }
     }

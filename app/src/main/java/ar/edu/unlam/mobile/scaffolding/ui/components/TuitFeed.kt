@@ -3,6 +3,7 @@ package ar.edu.unlam.mobile.scaffolding.ui.components
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -16,8 +17,12 @@ fun TuitFeed(
     likeAction: (tuitId: Int, isLiked: Boolean) -> Unit = { _, _ -> },
     favoriteUsers: Set<FavoriteUser>,
     onFavoriteClick: (FavoriteUser) -> Unit,
+    loadMoreFeed: () -> Unit,
+    isLoadingMoreTuits: Boolean,
 ) {
-    LazyColumn {
+    val listState = rememberLazyListState()
+
+    LazyColumn(state = listState) {
         items(tuits) { tuit ->
             TuitCard(
                 tuit = tuit,
@@ -28,6 +33,11 @@ fun TuitFeed(
             )
         }
     }
+    LazyLoadingRemote(
+        loadingRemote = loadMoreFeed,
+        isLoadingRemote = isLoadingMoreTuits,
+        state = listState,
+    )
 }
 
 @Preview
@@ -62,7 +72,7 @@ fun TuitFeedPreview() {
     val favoriteUsers =
         setOf(
             FavoriteUser(
-                name = "John Does",
+                name = "John Doe",
                 avatarUrl = "https://ui-avatars.com/api/?name=John+Doe",
             ),
         )
@@ -76,5 +86,7 @@ fun TuitFeedPreview() {
         onFavoriteClick = { author ->
             println("Favorite button clicked for author: $author")
         },
+        loadMoreFeed = { },
+        isLoadingMoreTuits = false,
     )
 }
