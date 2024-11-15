@@ -10,5 +10,5 @@ class GetFeed
     constructor(
         private val tuitRepository: TuitRepository,
     ) {
-        operator fun invoke(): Flow<List<Tuit>> = tuitRepository.getFeed()
+        operator fun invoke(page: Int): Flow<List<Tuit>> = tuitRepository.getFeed(page)
     }

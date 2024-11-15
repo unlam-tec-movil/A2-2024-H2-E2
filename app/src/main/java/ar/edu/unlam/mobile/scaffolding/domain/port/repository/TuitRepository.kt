@@ -4,7 +4,7 @@ import ar.edu.unlam.mobile.scaffolding.domain.model.Tuit
 import kotlinx.coroutines.flow.Flow
 
 interface TuitRepository {
-    fun getFeed(): Flow<List<Tuit>>
+    fun getFeed(page: Int): Flow<List<Tuit>>
 
     suspend fun getTuitById(id: Int): Tuit
 
