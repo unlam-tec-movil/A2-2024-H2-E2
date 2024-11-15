@@ -9,10 +9,13 @@ import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface TuitApi {
     @GET(ApiConfig.Endpoints.FEED)
-    suspend fun getFeed(): List<TuitResponse>
+    suspend fun getFeed(
+        @Query("page") page: Int
+    ): List<TuitResponse>
 
     @GET(ApiConfig.Endpoints.GET_TUIT_BY_ID)
     suspend fun getTuitById(

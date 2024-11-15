@@ -32,34 +32,40 @@ class FeedViewModel
         private val saveUnLikeTuit: UnLikeTuit,
     ) : ViewModel() {
         private val _state = MutableStateFlow(FeedState())
-        val state = _state.asStateFlow()
-
         private val favoriteUsers = mutableSetOf<FavoriteUser>()
+        private var currentPage = 1
+        var isLoadingMoreTuits = false
+        val state = _state.asStateFlow()
 
         init {
             loadFeed()
             loadFavoriteUsers()
         }
 
-        private fun loadFeed() {
+        private fun loadFeed(page: Int = 1) {
             viewModelScope.launch {
                 try {
-                    getFeed().collect { tuits ->
-                        _state.value =
-                            _state.value.copy(
-                                tuitsState = UIState.Success(tuits),
+                    getFeed(page).collect { tuits ->
+                        _state.value = _state.value.copy(
+                            tuitsState = UIState.Success(
+                                state.value.tuitsState.getSuccessData()?.plus(tuits) ?: tuits
                             )
+                        )
+                        isLoadingMoreTuits = false
                     }
                 } catch (e: Exception) {
-                    _state.value =
-                        _state.value.copy(
-                            tuitsState =
-                                UIState.Error(
-                                    e.message ?: "Error al cargar los tuits",
-                                ),
-                        )
+                    _state.value = _state.value.copy(
+                        tuitsState = UIState.Error(e.message ?: "Error al cargar los tuits")
+                    )
+                    isLoadingMoreTuits = false
                 }
             }
+        }
+
+        fun loadMoreFeed() {
+            currentPage++
+            isLoadingMoreTuits = true
+            loadFeed(currentPage)
         }
 
         private fun loadFavoriteUsers() {
@@ -85,22 +91,18 @@ class FeedViewModel
             viewModelScope.launch {
                 _state.value = _state.value.copy(isRefreshing = true)
                 try {
-                    refreshFeed().collect { tuits ->
-                        _state.value = _state.value.copy(tuitsState = UIState.Success(tuits))
+                    refreshFeed().collect { firstPageTuits ->
+                        val updatedTuits = state.value.tuitsState.getSuccessData()?.let { existingTuits ->
+                            existingTuits.drop(firstPageTuits.size) + firstPageTuits
+                        } ?: firstPageTuits
+                        _state.value = _state.value.copy(tuitsState = UIState.Success(updatedTuits))
                     }
                 } catch (e: Exception) {
-                    _state.value =
-                        _state.value.copy(
-                            tuitsState =
-                                UIState.Error(
-                                    e.message ?: "Error al actualizar los tuits",
-                                ),
-                        )
+                    _state.value = _state.value.copy(
+                        tuitsState = UIState.Error(e.message ?: "Error al actualizar los tuits")
+                    )
                 } finally {
-                    _state.value =
-                        _state.value.copy(
-                            isRefreshing = false,
-                        )
+                    _state.value = _state.value.copy(isRefreshing = false)
                 }
             }
         }
