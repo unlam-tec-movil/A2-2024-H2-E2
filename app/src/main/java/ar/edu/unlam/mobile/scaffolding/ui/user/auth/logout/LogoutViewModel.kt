@@ -9,9 +9,8 @@ import javax.inject.Inject
 class LogoutViewModel
     @Inject
     constructor(
-        private val authRepository: AuthenticationRepository
+        private val authRepository: AuthenticationRepository,
     ) : ViewModel() {
-
         fun logout() {
             authRepository.clearToken()
         }

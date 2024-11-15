@@ -46,7 +46,7 @@ fun ProfileScreen(
                 onLogout = {
                     logoutViewModel.logout()
                     onLogout()
-                }
+                },
             )
         },
     ) { paddingValues ->

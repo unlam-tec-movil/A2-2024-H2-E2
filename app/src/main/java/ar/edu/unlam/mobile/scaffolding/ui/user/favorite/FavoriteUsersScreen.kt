@@ -39,7 +39,7 @@ fun FavoriteUsersScreen(
                 onLogout = {
                     logoutViewModel.logout()
                     onLogout()
-                }
+                },
             )
         },
     ) { paddingValues ->
