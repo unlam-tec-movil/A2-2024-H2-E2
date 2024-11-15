@@ -67,7 +67,7 @@ fun AppNavigation(navController: NavHostController) {
                             inclusive = true
                         }
                     }
-                }
+                },
             )
         }
 
@@ -116,7 +116,7 @@ fun AppNavigation(navController: NavHostController) {
                 },
                 onNavigateToDrafts = {
                     navController.navigate(Screen.DraftTuit.route)
-                }
+                },
             )
         }
 

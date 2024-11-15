@@ -44,12 +44,13 @@ fun DraftTuitScreen(
                     }
                 },
             )
-        }
+        },
     ) { paddingValues ->
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues),
         ) {
             state.draftTuitState.onSuccess { drafts ->
                 TuitDraftFeed(

@@ -33,7 +33,7 @@ class LocalDatabaseDraftTuitRepository
             val userEmail = profileRepository.getProfile().email
             draftTuitDao.deleteDraftTuitByMessage(
                 message = draftTuit.message,
-                userEmail = userEmail
+                userEmail = userEmail,
             )
         }
     }
