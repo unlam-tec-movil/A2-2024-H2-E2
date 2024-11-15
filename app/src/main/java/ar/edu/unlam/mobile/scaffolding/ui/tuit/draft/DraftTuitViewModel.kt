@@ -35,9 +35,10 @@ class DraftTuitViewModel
                 } catch (e: Exception) {
                     _state.value =
                         _state.value.copy(
-                            draftTuitState = UIState.Error(
-                                e.message ?: "Error al cargar los drafts",
-                            ),
+                            draftTuitState =
+                                UIState.Error(
+                                    e.message ?: "Error al cargar los drafts",
+                                ),
                         )
                 }
             }
