@@ -32,7 +32,7 @@ fun LazyLoadingRemote(
                         ?: return@derivedStateOf false
                 lastVisibleItem.index >= (state.layoutInfo.totalItemsCount - 10) && !isLoadingRemote
             }
-    }
+        }
 
     val isLoadingRemoteState = remember { derivedStateOf { isLoadingRemote } }
 
@@ -52,7 +52,7 @@ fun LazyLoadingRemote(
                 Modifier
                     .fillMaxWidth()
                     .padding(16.dp),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             CircularProgressIndicator()
         }

@@ -46,17 +46,23 @@ class FeedViewModel
             viewModelScope.launch {
                 try {
                     getFeed(page).collect { tuits ->
-                        _state.value = _state.value.copy(
-                            tuitsState = UIState.Success(
-                                state.value.tuitsState.getSuccessData()?.plus(tuits) ?: tuits
-                            )
-                        )
+                        _state.value =
+                            _state
+                                .value
+                                .copy(
+                                    tuitsState = UIState.Success(
+                                        state.value.tuitsState.getSuccessData()?.plus(tuits) ?: tuits,
+                                    )
+                                )
                         isLoadingMoreTuits = false
                     }
                 } catch (e: Exception) {
-                    _state.value = _state.value.copy(
-                        tuitsState = UIState.Error(e.message ?: "Error al cargar los tuits")
-                    )
+                    _state.value =
+                        _state
+                            .value
+                            .copy(
+                                tuitsState = UIState.Error(e.message ?: "Error al cargar los tuits"),
+                            )
                     isLoadingMoreTuits = false
                 }
             }
@@ -80,9 +86,11 @@ class FeedViewModel
                         )
                 } catch (e: Exception) {
                     _state.value =
-                        _state.value.copy(
-                            tuitsState = UIState.Error(e.message ?: "Error al cargar los usuarios favoritos"),
-                        )
+                        _state
+                            .value
+                            .copy(
+                                tuitsState = UIState.Error(e.message ?: "Error al cargar los usuarios favoritos"),
+                            )
                 }
             }
         }
