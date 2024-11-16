@@ -15,9 +15,9 @@ class RemoteTuitRepository
         private val api: TuitApi,
         private val mapper: TuitMapper,
     ) : TuitRepository {
-        override fun getFeed(): Flow<List<Tuit>> =
+        override fun getFeed(page: Int): Flow<List<Tuit>> =
             flow {
-                val response = api.getFeed()
+                val response = api.getFeed(page)
                 emit(mapper.toDomainList(response))
             }
 

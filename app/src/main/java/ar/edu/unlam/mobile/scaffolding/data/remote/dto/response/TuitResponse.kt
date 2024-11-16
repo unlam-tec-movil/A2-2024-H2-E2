@@ -8,7 +8,7 @@ data class TuitResponse(
     @SerializedName("parent_id") val parentId: Int,
     @SerializedName("author") val author: String,
     @SerializedName("avatar_url") val avatarUrl: String,
-    @SerializedName("likes") val likes: Int,
+    @SerializedName("likes") val likes: Long,
     @SerializedName("liked") val liked: Boolean,
     @SerializedName("date") val date: String,
 )
