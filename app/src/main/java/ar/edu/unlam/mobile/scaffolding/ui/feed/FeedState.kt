@@ -8,4 +8,5 @@ data class FeedState(
     val tuitsState: UIState<List<Tuit>> = UIState.Loading,
     val isRefreshing: Boolean = false,
     val favoriteUsers: Set<FavoriteUser> = emptySet(),
+    val userEmail: String = "",
 )

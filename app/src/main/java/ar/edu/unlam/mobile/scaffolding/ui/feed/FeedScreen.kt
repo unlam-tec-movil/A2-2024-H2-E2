@@ -78,6 +78,7 @@ fun FeedScreen(
         ) {
             FeedContent(
                 state = state.tuitsState,
+                userEmail = state.userEmail,
                 onRetry = { viewModel.onRefresh() },
                 favoriteUsers = state.favoriteUsers,
                 onFavoriteClick = { favoriteUser -> viewModel.onFavoriteClick(favoriteUser) },
@@ -98,6 +99,7 @@ fun FeedScreen(
 @Composable
 private fun FeedContent(
     state: UIState<List<Tuit>>,
+    userEmail: String,
     onRetry: () -> Unit,
     onFavoriteClick: (FavoriteUser) -> Unit,
     favoriteUsers: Set<FavoriteUser>,
@@ -111,20 +113,19 @@ private fun FeedContent(
             .onSuccess { tuits ->
                 TuitFeed(
                     tuits = tuits,
+                    userEmail = userEmail,
                     likeAction = likeAction,
                     favoriteUsers = favoriteUsers,
                     onFavoriteClick = onFavoriteClick,
                     loadMoreFeed = loadMoreFeed,
                     isLoadingMoreTuits = isLoadingMoreTuits,
                 )
-            }
-            .onError { message ->
+            }.onError { message ->
                 ErrorView(
                     message = message,
                     onRetry = onRetry,
                 )
-            }
-            .onLoading {
+            }.onLoading {
                 LoadingIndicator()
             }
     }

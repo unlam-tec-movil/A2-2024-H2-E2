@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ar.edu.unlam.mobile.scaffolding.domain.model.FavoriteUser
 import ar.edu.unlam.mobile.scaffolding.domain.model.Tuit
+import ar.edu.unlam.mobile.scaffolding.domain.port.repository.ProfileRepository
 import ar.edu.unlam.mobile.scaffolding.domain.port.usecase.tuit.feed.GetFeed
 import ar.edu.unlam.mobile.scaffolding.domain.port.usecase.tuit.feed.RefreshFeed
 import ar.edu.unlam.mobile.scaffolding.domain.port.usecase.tuit.interaction.LikeTuit
@@ -30,6 +31,7 @@ class FeedViewModel
         private val getFavoriteUsers: GetFavoriteUsers,
         private val saveLikeTuit: LikeTuit,
         private val saveUnLikeTuit: UnLikeTuit,
+        private val profileRepository: ProfileRepository,
     ) : ViewModel() {
         private val _state = MutableStateFlow(FeedState())
         private val favoriteUsers = mutableSetOf<FavoriteUser>()
@@ -53,7 +55,9 @@ class FeedViewModel
                                     tuitsState =
                                         UIState
                                             .Success(
-                                                state.value.tuitsState.getSuccessData()?.plus(tuits) ?: tuits,
+                                                state.value.tuitsState
+                                                    .getSuccessData()
+                                                    ?.plus(tuits) ?: tuits,
                                             ),
                                 )
                         isLoadingMoreTuits = false
@@ -81,19 +85,23 @@ class FeedViewModel
         private fun loadFavoriteUsers() {
             viewModelScope.launch {
                 try {
-                    val favoriteUsersList = getFavoriteUsers()
-                    favoriteUsers.clear()
-                    favoriteUsers.addAll(favoriteUsersList)
-                    _state.value =
-                        _state.value.copy(
-                            favoriteUsers = favoriteUsers.toSet(),
-                        )
+                    getFavoriteUsers().collect { favoriteUsersList ->
+                        favoriteUsers.clear()
+                        favoriteUsers.addAll(favoriteUsersList)
+                        _state.value =
+                            _state.value.copy(
+                                favoriteUsers = favoriteUsers.toSet(),
+                            )
+                    }
                 } catch (e: Exception) {
                     _state.value =
                         _state
                             .value
                             .copy(
-                                tuitsState = UIState.Error(e.message ?: "Error al cargar los usuarios favoritos"),
+                                tuitsState =
+                                    UIState.Error(
+                                        e.message ?: "Error al cargar los usuarios favoritos",
+                                    ),
                             )
                 }
             }
@@ -122,7 +130,10 @@ class FeedViewModel
                         _state
                             .value
                             .copy(
-                                tuitsState = UIState.Error(e.message ?: "Error al actualizar los tuits"),
+                                tuitsState =
+                                    UIState.Error(
+                                        e.message ?: "Error al actualizar los tuits",
+                                    ),
                             )
                 } finally {
                     _state.value = _state.value.copy(isRefreshing = false)
@@ -169,7 +180,10 @@ class FeedViewModel
                         _state
                             .value
                             .copy(
-                                tuitsState = UIState.Error(e.message ?: "Error al quitar el like del tuit"),
+                                tuitsState =
+                                    UIState.Error(
+                                        e.message ?: "Error al quitar el like del tuit",
+                                    ),
                             )
                 }
             }
@@ -194,12 +208,13 @@ class FeedViewModel
 
         fun onFavoriteClick(favoriteUser: FavoriteUser) {
             viewModelScope.launch {
+                val userEmail = profileRepository.getProfile().email
                 val isFavorite = favoriteUsers.contains(favoriteUser)
                 if (isFavorite) {
-                    removeFavoriteUser(favoriteUser)
+                    removeFavoriteUser(favoriteUser.copy(userEmail = userEmail))
                     favoriteUsers.remove(favoriteUser)
                 } else {
-                    saveFavoriteUser(favoriteUser)
+                    saveFavoriteUser(favoriteUser.copy(userEmail = userEmail))
                     favoriteUsers.add(favoriteUser)
                 }
                 _state.value = _state.value.copy(favoriteUsers = favoriteUsers.toSet())
