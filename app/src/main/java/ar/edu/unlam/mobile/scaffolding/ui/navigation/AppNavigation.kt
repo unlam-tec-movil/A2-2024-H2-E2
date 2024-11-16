@@ -56,7 +56,16 @@ fun AppNavigation(navController: NavHostController) {
             )
         }
 
-        composable(Screen.Feed.route) {
+        composable(
+            route = Screen.Feed.route + "?fromCreate={fromCreate}",
+            arguments = listOf(
+                navArgument("fromCreate") {
+                    type = NavType.BoolType
+                    defaultValue = false
+                }
+            )
+        ) { backStackEntry ->
+            val fromCreate = backStackEntry.arguments?.getBoolean("fromCreate") ?: false
             FeedScreen(
                 onNavigateToCreateTuit = {
                     navController.navigate(Screen.CreateTuit.route)
@@ -68,6 +77,7 @@ fun AppNavigation(navController: NavHostController) {
                         }
                     }
                 },
+                fromCreateTuit = fromCreate
             )
         }
 
@@ -96,27 +106,37 @@ fun AppNavigation(navController: NavHostController) {
         }
 
         composable(
-            route = Screen.CreateTuit.route + "?draftText={draftText}",
+            route = Screen.CreateTuit.route + "?draftText={draftText}&draftId={draftId}",
             arguments =
                 listOf(
                     navArgument("draftText") {
                         type = NavType.StringType
                         defaultValue = ""
                     },
+                    navArgument("draftId") {
+                        type = NavType.IntType
+                        defaultValue = -1
+                    }
                 ),
         ) { backStackEntry ->
             val draftText = backStackEntry.arguments?.getString("draftText") ?: ""
+            val draftId = backStackEntry.arguments?.getInt("draftId")?.takeIf{ it != -1 }
             CreateTuitScreen(
                 initialText = draftText,
+                draftId = draftId,
                 onDismissRequest = {
                     navController.navigateUp()
                 },
                 onCreateSuccess = {
-                    navController.navigateUp()
+                    navController.navigate(Screen.Feed.route + "?fromCreate=true") {
+                        popUpTo(Screen.Feed.route) {
+                            inclusive = true
+                        }
+                    }
                 },
                 onNavigateToDrafts = {
                     navController.navigate(Screen.DraftTuit.route)
-                },
+                }
             )
         }
 
@@ -125,8 +145,9 @@ fun AppNavigation(navController: NavHostController) {
                 onDismissRequest = {
                     navController.navigateUp()
                 },
-                onNavigateToCreate = { draftText ->
-                    navController.navigate(Screen.CreateTuit.route + "?draftText=$draftText")
+                onNavigateToCreate = { draftText, draftId ->
+                    navController.navigate(
+                        Screen.CreateTuit.route + "?draftText=$draftText&draftId=$draftId")
                 },
             )
         }

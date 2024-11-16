@@ -14,7 +14,7 @@ import javax.inject.Inject
 class DraftTuitViewModel
     @Inject
     constructor(
-        private val getDraftFeed: GetDraftTuits,
+        private val getDraftTuitsUseCase: GetDraftTuits,
     ) : ViewModel() {
         private val _state = MutableStateFlow(DraftTuitState())
         val state = _state.asStateFlow()
@@ -26,7 +26,7 @@ class DraftTuitViewModel
         private fun loadDraftTuitFeed() {
             viewModelScope.launch {
                 try {
-                    getDraftFeed().collect { drafts ->
+                    getDraftTuitsUseCase().collect { drafts ->
                         _state.value =
                             _state.value.copy(
                                 draftTuitState = UIState.Success(drafts),

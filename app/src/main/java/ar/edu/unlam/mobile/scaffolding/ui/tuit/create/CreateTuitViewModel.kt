@@ -26,20 +26,14 @@ class CreateTuitViewModel
         private val _uiState = mutableStateOf(CreateTuitState(createTuitState = UIState.None))
         val uiState: State<CreateTuitState> = _uiState
 
-        fun deleteDraftAfterPublish(message: String) {
+        fun deleteDraftById(draftId: Int) {
             viewModelScope.launch {
                 _uiState.value =
                     _uiState.value.copy(
                         deleteDraftState = UIState.Loading
                     )
                 try {
-                    val userEmail = profileRepository.getProfile().email
-                    removeDraftTuitUseCase(
-                        DraftTuit(
-                        message = message,
-                        userEmail = userEmail,
-                        ),
-                    )
+                    removeDraftTuitUseCase(draftId)
                     _uiState.value =
                         _uiState.value.copy(
                             deleteDraftState = UIState.Success(Unit)
@@ -54,7 +48,7 @@ class CreateTuitViewModel
 
         fun createTuit(
             message: String,
-            isFromDraft: Boolean = false,
+            draftId: Int? = null,
         ) {
             viewModelScope.launch {
                 _uiState.value =
@@ -63,44 +57,33 @@ class CreateTuitViewModel
                     )
                 try {
                     val result = createTuitUseCase(message)
-                    if (result && isFromDraft) {
-                        val userEmail = profileRepository.getProfile().email
-                        removeDraftTuitUseCase(
-                            DraftTuit(
-                            message = message,
-                            userEmail = userEmail,
-                            ),
-                        )
+                    if (result && draftId != null) {
+                        deleteDraftById(draftId)
                     }
-                    _uiState.value =
-                        _uiState.value.copy(
-                            createTuitState =
-                                if (result) {
-                                    UIState.Success(Unit)
-                                } else {
-                                    UIState.Error("Error al crear el tuit")
-                                },
-                        )
-                } catch (e: Exception) {
-                    _uiState.value =
-                        _uiState.value.copy(
-                            createTuitState = UIState.Error(e.message ?: "Error desconocido"),
-                        )
-                }
+                        _uiState.value =
+                            _uiState.value.copy(
+                                createTuitState = if (result) UIState.Success(Unit) else UIState.Error("Error al crear el tuit")
+                            )
+                    } catch (e: Exception) {
+                        _uiState.value =
+                            _uiState.value.copy(
+                                createTuitState = UIState.Error(e.message ?: "Error desconocido"),
+                            )
+                    }
             }
         }
 
-        fun onCloseRequest(text: String) {
+        fun onCloseRequest(text: String, draftId: Int?) {
             if (text.isNotBlank()) {
                 _uiState.value =
                     _uiState.value.copy(
                         showExitDialog = true,
                     )
+            } else if (draftId != null) {
+                deleteDraftById(draftId)
+                dismissExitDialog()
             } else {
-                _uiState.value =
-                    _uiState.value.copy(
-                        showExitDialog = false,
-                    )
+                dismissExitDialog()
             }
         }
 

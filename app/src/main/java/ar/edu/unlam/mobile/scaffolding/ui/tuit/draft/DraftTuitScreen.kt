@@ -29,7 +29,7 @@ fun DraftTuitScreen(
     modifier: Modifier = Modifier,
     viewModel: DraftTuitViewModel = hiltViewModel(),
     onDismissRequest: () -> Unit,
-    onNavigateToCreate: (String) -> Unit,
+    onNavigateToCreate: (text: String, draftId: Int) -> Unit,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
@@ -55,7 +55,12 @@ fun DraftTuitScreen(
             state.draftTuitState.onSuccess { drafts ->
                 TuitDraftFeed(
                     drafts = drafts,
-                    onDraftClick = { draft -> onNavigateToCreate(draft.message) },
+                    onDraftClick = { draft ->
+                        onNavigateToCreate(
+                            draft.message,
+                            draft.id,
+                        )
+                    },
                     modifier = Modifier.fillMaxSize(),
                 )
             }.onLoading {

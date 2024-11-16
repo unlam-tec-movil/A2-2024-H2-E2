@@ -15,14 +15,17 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import ar.edu.unlam.mobile.scaffolding.R
 import ar.edu.unlam.mobile.scaffolding.ui.core.component.error.ErrorView
 import ar.edu.unlam.mobile.scaffolding.ui.core.component.loading.LoadingIndicator
+import ar.edu.unlam.mobile.scaffolding.ui.core.state.UIState
 import ar.edu.unlam.mobile.scaffolding.ui.core.state.onError
 import ar.edu.unlam.mobile.scaffolding.ui.core.state.onLoading
 import ar.edu.unlam.mobile.scaffolding.ui.core.state.onSuccess
@@ -33,8 +36,9 @@ import kotlinx.coroutines.delay
 fun CreateTuitScreen(
     viewModel: CreateTuitViewModel = hiltViewModel(),
     initialText: String = "",
+    draftId: Int? = null,
     onDismissRequest: () -> Unit,
-    onCreateSuccess: () -> Unit = onDismissRequest,
+    onCreateSuccess: () -> Unit,
     onNavigateToDrafts: () -> Unit,
 ) {
     val uiState = viewModel.uiState.value
@@ -46,9 +50,10 @@ fun CreateTuitScreen(
         keyboardController?.show()
     }
 
-    LaunchedEffect(showSuccessSnackbar) {
-        if (showSuccessSnackbar && initialText.isNotBlank()) {
-            viewModel.deleteDraftAfterPublish(initialText)
+    LaunchedEffect(uiState.createTuitState) {
+        if (uiState.createTuitState is UIState.Success) {
+            draftId?.let { viewModel.deleteDraftById(it) }
+            showSuccessSnackbar = true
             delay(1500L)
             onCreateSuccess()
         }
@@ -64,7 +69,7 @@ fun CreateTuitScreen(
                             if (tuitText.isBlank()) {
                                 onDismissRequest()
                             } else {
-                                viewModel.onCloseRequest(tuitText)
+                                viewModel.onCloseRequest(tuitText, draftId)
                             }
                         },
                     ) {
@@ -82,10 +87,7 @@ fun CreateTuitScreen(
                     }
                     TextButton(
                         onClick = {
-                            viewModel.createTuit(
-                                message = tuitText,
-                                isFromDraft = initialText.isNotBlank(),
-                            )
+                            viewModel.createTuit(tuitText, draftId)
                         },
                         enabled = tuitText.isNotBlank() && tuitText.length <= 280,
                     ) {
@@ -124,13 +126,10 @@ fun CreateTuitScreen(
                 .onLoading {
                     LoadingIndicator()
                 }
-                .onSuccess {
-                    showSuccessSnackbar = true
-                }
                 .onError { message ->
                     ErrorView(
                         message = message,
-                        onRetry = { viewModel.createTuit(tuitText) },
+                        onRetry = { viewModel.createTuit(tuitText, draftId) },
                     )
                 }
 
@@ -164,6 +163,7 @@ fun CreateTuitScreen(
             dismissButton = {
                 TextButton(
                     onClick = {
+                        draftId?.let { viewModel.deleteDraftById(it) }
                         viewModel.dismissExitDialog()
                         onDismissRequest()
                     },
@@ -175,15 +175,18 @@ fun CreateTuitScreen(
     }
 
     if (showSuccessSnackbar) {
-        Snackbar(
-            modifier = Modifier.padding(16.dp),
-            action = {
-                TextButton(onClick = { showSuccessSnackbar = false }) {
-                    Text(stringResource(R.string.dismiss))
-                }
-            },
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
         ) {
-            Text(stringResource(R.string.tuit_created))
+            Snackbar(
+                modifier = Modifier.padding(16.dp),
+            ) {
+                Text(stringResource(R.string.tuit_created),
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
         }
     }
 }

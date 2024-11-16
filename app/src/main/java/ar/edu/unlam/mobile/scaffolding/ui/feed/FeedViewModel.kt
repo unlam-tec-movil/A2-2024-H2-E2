@@ -106,16 +106,10 @@ class FeedViewModel
                         .value
                         .copy(isRefreshing = true)
                 try {
-                    refreshFeed().collect { firstPageTuits ->
-                        val updatedTuits =
-                            state
-                                .value
-                                .tuitsState
-                                .getSuccessData()
-                                ?.let { existingTuits ->
-                                    existingTuits.drop(firstPageTuits.size) + firstPageTuits
-                                } ?: firstPageTuits
-                        _state.value = _state.value.copy(tuitsState = UIState.Success(updatedTuits))
+                    refreshFeed.invoke().collect { firstPageTuits ->
+                        _state.value = _state.value.copy(
+                            tuitsState = UIState.Success(firstPageTuits)
+                        )
                     }
                 } catch (e: Exception) {
                     _state.value =

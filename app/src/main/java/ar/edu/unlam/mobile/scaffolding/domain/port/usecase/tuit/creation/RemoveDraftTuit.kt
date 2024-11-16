@@ -1,6 +1,5 @@
 package ar.edu.unlam.mobile.scaffolding.domain.port.usecase.tuit.creation
 
-import ar.edu.unlam.mobile.scaffolding.domain.model.DraftTuit
 import ar.edu.unlam.mobile.scaffolding.domain.port.repository.DraftTuitRepository
 import javax.inject.Inject
 
@@ -9,5 +8,7 @@ class RemoveDraftTuit
     constructor(
         private val draftTuitRepository: DraftTuitRepository,
     ) {
-        suspend operator fun invoke(draft: DraftTuit) = draftTuitRepository.deleteDraft(draft)
+        suspend operator fun invoke(draftId: Int) {
+            draftTuitRepository.deleteDraftById(draftId)
+        }
     }

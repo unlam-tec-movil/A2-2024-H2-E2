@@ -6,6 +6,7 @@ import ar.edu.unlam.mobile.scaffolding.domain.model.DraftTuit
 import ar.edu.unlam.mobile.scaffolding.domain.port.repository.DraftTuitRepository
 import ar.edu.unlam.mobile.scaffolding.domain.port.repository.ProfileRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -19,8 +20,11 @@ class LocalDatabaseDraftTuitRepository
     ) : DraftTuitRepository {
         override suspend fun getDrafts(): Flow<List<DraftTuit>> {
             val userEmail = profileRepository.getProfile().email
-            val entities = draftTuitDao.getDraftTuits(userEmail)
-            return draftTuitMapper.mapToDomainList(entities)
+            return draftTuitDao.getDraftTuits(userEmail).map { entities ->
+                entities.map { entity ->
+                    draftTuitMapper.mapToDomain(entity)
+                }
+            }
         }
 
         override suspend fun saveDraft(draftTuit: DraftTuit) {
@@ -29,10 +33,10 @@ class LocalDatabaseDraftTuitRepository
             draftTuitDao.saveDraftTuit(entity)
         }
 
-        override suspend fun deleteDraft(draftTuit: DraftTuit) {
+        override suspend fun deleteDraftById(draftTuitId: Int) {
             val userEmail = profileRepository.getProfile().email
-            draftTuitDao.deleteDraftTuitByMessage(
-                message = draftTuit.message,
+            draftTuitDao.deleteDraftTuitByIdAndUser(
+                draftId = draftTuitId,
                 userEmail = userEmail,
             )
         }
