@@ -61,7 +61,7 @@ class RegisterViewModel
                     _state.update {
                         it.copy(
                             registerState =
-                            UIState.Error("No se pudo registrar el usuario."),
+                                UIState.Error("No se pudo registrar el usuario."),
                         )
                     }
                 }
