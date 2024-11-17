@@ -88,7 +88,7 @@ fun MainScreen() {
                 AnimatedVisibility(
                     visible = isBottomVarVisible,
                     enter = expandVertically(expandFrom = Alignment.Bottom) + fadeIn(),
-                    exit = shrinkVertically(shrinkTowards = Alignment.Bottom) + fadeOut()
+                    exit = shrinkVertically(shrinkTowards = Alignment.Bottom) + fadeOut(),
                 ) {
                     BottomNavigationBar(controller = navController)
                 }
