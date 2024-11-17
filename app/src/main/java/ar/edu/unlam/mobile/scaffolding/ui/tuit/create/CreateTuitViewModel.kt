@@ -42,7 +42,7 @@ class CreateTuitViewModel
                     _uiState.value =
                         _uiState.value.copy(
                             deleteDraftState = UIState.Error("Error al eliminar el borrador: ${e.message}"),
-                    )
+                        )
                 }
             }
         }
@@ -74,7 +74,10 @@ class CreateTuitViewModel
             }
         }
 
-        fun onCloseRequest(text: String, draftId: Int?) {
+        fun onCloseRequest(
+            text: String,
+            draftId: Int?,
+        ) {
             if (text.isNotBlank()) {
                 _uiState.value =
                     _uiState.value.copy(
