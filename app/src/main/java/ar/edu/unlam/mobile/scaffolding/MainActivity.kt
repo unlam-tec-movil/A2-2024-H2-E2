@@ -86,12 +86,12 @@ fun MainScreen() {
                     val deltaDp = (currentScrollOffset - lastScrollOfSet).toDp()
                     val sensitivityDp = 4.dp
 
-                if (deltaDp > sensitivityDp) {
-                    isBottomBarVisible = false
-                } else if (deltaDp < -sensitivityDp) {
-                    isBottomBarVisible = true
-                }
-                lastScrollOfSet = currentScrollOffset
+                    if (deltaDp > sensitivityDp) {
+                        isBottomBarVisible = false
+                    } else if (deltaDp < -sensitivityDp) {
+                        isBottomBarVisible = true
+                    }
+                    lastScrollOfSet = currentScrollOffset
                 }
             }
     }

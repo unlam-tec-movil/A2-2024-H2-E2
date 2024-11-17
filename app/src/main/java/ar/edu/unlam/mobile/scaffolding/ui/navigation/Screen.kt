@@ -11,15 +11,7 @@ sealed class Screen(val route: String) {
 
     data object FavoriteUsers : Screen("favorite_users")
 
-    data object CreateTuit : Screen("create_tuit") {
-        fun createRoute(draftText: String = "", draftId: Int? = null): String {
-            return when {
-                draftText.isEmpty() && draftId == null -> route
-                draftId == null -> "$route?draftText=$draftText"
-                else -> "$route?draftText=$draftText&draftId"
-            }
-        }
-    }
+    data object CreateTuit : Screen("create_tuit")
 
     data object DraftTuit : Screen("draft_tuit")
 }
