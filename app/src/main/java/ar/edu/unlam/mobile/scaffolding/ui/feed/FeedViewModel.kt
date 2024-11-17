@@ -122,7 +122,7 @@ class FeedViewModel
                 } finally {
                     _state.value =
                         _state.value.copy(
-                            isRefreshing = false
+                            isRefreshing = false,
                         )
                 }
             }
@@ -146,7 +146,7 @@ class FeedViewModel
                     val updatedTuits = updateTuitsAfterLike(tuitId, true)
                     _state.value =
                         _state.value.copy(
-                            tuitsState = UIState.Success(updatedTuits)
+                            tuitsState = UIState.Success(updatedTuits),
                         )
                 } catch (e: Exception) {
                     _state.value =
@@ -166,7 +166,7 @@ class FeedViewModel
                     val updatedTuits = updateTuitsAfterLike(tuitId, false)
                     _state.value =
                         _state.value.copy(
-                            tuitsState = UIState.Success(updatedTuits)
+                            tuitsState = UIState.Success(updatedTuits),
                         )
                 } catch (e: Exception) {
                     _state.value =
@@ -208,7 +208,7 @@ class FeedViewModel
                 }
                 _state.value =
                     _state.value.copy(
-                        favoriteUsers = favoriteUsers.toSet()
+                        favoriteUsers = favoriteUsers.toSet(),
                     )
             }
         }

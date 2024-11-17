@@ -16,7 +16,10 @@ import ar.edu.unlam.mobile.scaffolding.ui.user.favorite.FavoriteUsersScreen
 import ar.edu.unlam.mobile.scaffolding.ui.user.profile.ProfileScreen
 
 @Composable
-fun AppNavigation(navController: NavHostController, listState: LazyListState) {
+fun AppNavigation(
+    navController: NavHostController,
+    listState: LazyListState
+) {
     NavHost(
         navController = navController,
         startDestination = Screen.Login.route,
@@ -63,8 +66,8 @@ fun AppNavigation(navController: NavHostController, listState: LazyListState) {
                 navArgument("fromCreate") {
                     type = NavType.BoolType
                     defaultValue = false
-                }
-            )
+                },
+            ),
         ) { backStackEntry ->
             val fromCreate = backStackEntry.arguments?.getBoolean("fromCreate") ?: false
             FeedScreen(
