@@ -15,7 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import ar.edu.unlam.mobile.scaffolding.ui.core.component.error.ErrorView
+import ar.edu.unlam.mobile.scaffolding.ui.core.component.error.ErrorHandler
 import ar.edu.unlam.mobile.scaffolding.ui.core.component.loading.LoadingIndicator
 import ar.edu.unlam.mobile.scaffolding.ui.core.state.UIState
 
@@ -23,27 +23,22 @@ import ar.edu.unlam.mobile.scaffolding.ui.core.state.UIState
 fun LoginScreen(
     viewModel: LoginViewModel = hiltViewModel(),
     onNavigateToRegister: () -> Unit,
-    onNavigateBack: () -> Unit,
     onLoginSuccess: () -> Unit,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val (email, setEmail) = remember { mutableStateOf("") }
     val (password, setPassword) = remember { mutableStateOf("") }
+    val snackbarHostState = remember { SnackbarHostState() }
 
-    when (val loginState = state.loginState) {
-        UIState.Loading -> LoadingIndicator()
-        is UIState.Success -> {
-            onLoginSuccess()
-        }
-        is UIState.Error -> {
-            ErrorView(
-                message = loginState.message,
-                onRetry = { viewModel.login(email, password) },
-                isRetrying = false,
-                onBack = onNavigateBack,
-            )
-        }
-        else -> {
+    Scaffold(
+        snackbarHost = { SnackbarHost(snackbarHostState) }
+    ) { paddingValues ->
+        Box(
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
+        ) {
             LoginForm(
                 email = email,
                 onEmailChange = setEmail,
@@ -51,7 +46,27 @@ fun LoginScreen(
                 onPasswordChange = setPassword,
                 onLoginClick = { viewModel.login(email, password) },
                 onRegisterClick = onNavigateToRegister,
+                enabled = state.loginState != UIState.Loading,
             )
+            when (val loginState = state.loginState) {
+                UIState.Loading -> {
+                    LoadingIndicator()
+                }
+                is UIState.Success -> {
+                    onLoginSuccess()
+                }
+                is UIState.Error -> {
+                    ErrorHandler(
+                        error = loginState.message,
+                        onRetry = { viewModel.login(email, password) },
+                        snackbarHostState = snackbarHostState,
+                        onErrorShown = { viewModel.clearErrorState() }
+                    )
+                }
+                else -> {
+
+                }
+            }
         }
     }
 }
@@ -64,6 +79,7 @@ fun LoginForm(
     onPasswordChange: (String) -> Unit,
     onLoginClick: () -> Unit,
     onRegisterClick: () -> Unit,
+    enabled: Boolean = true
 ) {
     Column(
         modifier =
@@ -84,6 +100,7 @@ fun LoginForm(
             onValueChange = onEmailChange,
             label = { Text("Email") },
             modifier = Modifier.fillMaxWidth(),
+            enabled = enabled,
         )
         Spacer(modifier = Modifier.height(8.dp))
         TextField(
@@ -92,11 +109,13 @@ fun LoginForm(
             label = { Text("Contraseña") },
             visualTransformation = PasswordVisualTransformation(),
             modifier = Modifier.fillMaxWidth(),
+            enabled = enabled,
         )
         Spacer(modifier = Modifier.height(16.dp))
         Button(
             onClick = onLoginClick,
             modifier = Modifier.fillMaxWidth(),
+            enabled = enabled,
         ) {
             Text("Iniciar Sesión")
         }
@@ -104,6 +123,7 @@ fun LoginForm(
         Button(
             onClick = onRegisterClick,
             modifier = Modifier.fillMaxWidth(),
+            enabled = enabled,
         ) {
             Text("Registrarse")
         }
