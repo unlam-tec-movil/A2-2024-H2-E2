@@ -47,6 +47,7 @@ class LoginViewModel
                 }
             }
         }
+
         fun clearErrorState() {
             _state.update {
                 it.copy(loginState = UIState.None)

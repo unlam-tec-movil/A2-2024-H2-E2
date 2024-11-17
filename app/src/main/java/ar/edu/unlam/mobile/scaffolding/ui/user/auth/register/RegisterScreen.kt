@@ -34,13 +34,13 @@ fun RegisterScreen(
     val snackbarHostState = remember { SnackbarHostState() }
 
     Scaffold(
-        snackbarHost = { SnackbarHost(snackbarHostState) }
+        snackbarHost = { SnackbarHost(snackbarHostState) },
     ) { paddingValues ->
         Box(
             modifier =
-            Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
+                Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues),
         ) {
             RegisterForm(
                 name = name,

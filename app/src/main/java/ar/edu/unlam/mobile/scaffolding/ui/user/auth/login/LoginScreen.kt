@@ -31,13 +31,13 @@ fun LoginScreen(
     val snackbarHostState = remember { SnackbarHostState() }
 
     Scaffold(
-        snackbarHost = { SnackbarHost(snackbarHostState) }
+        snackbarHost = { SnackbarHost(snackbarHostState) },
     ) { paddingValues ->
         Box(
             modifier =
                 Modifier
                     .fillMaxSize()
-                    .padding(paddingValues)
+                    .padding(paddingValues),
         ) {
             LoginForm(
                 email = email,
@@ -60,11 +60,10 @@ fun LoginScreen(
                         error = loginState.message,
                         onRetry = { viewModel.login(email, password) },
                         snackbarHostState = snackbarHostState,
-                        onErrorShown = { viewModel.clearErrorState() }
+                        onErrorShown = { viewModel.clearErrorState() },
                     )
                 }
                 else -> {
-
                 }
             }
         }
@@ -79,7 +78,7 @@ fun LoginForm(
     onPasswordChange: (String) -> Unit,
     onLoginClick: () -> Unit,
     onRegisterClick: () -> Unit,
-    enabled: Boolean = true
+    enabled: Boolean = true,
 ) {
     Column(
         modifier =

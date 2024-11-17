@@ -18,7 +18,7 @@ fun ErrorHandler(
             snackbarHostState.showSnackbar(
                 message = errorMessage,
                 actionLabel = "Reintentar",
-                duration = SnackbarDuration.Long
+                duration = SnackbarDuration.Long,
             ).let { result ->
                 if (result == SnackbarResult.ActionPerformed) {
                     onRetry()
