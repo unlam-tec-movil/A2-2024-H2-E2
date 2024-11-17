@@ -30,13 +30,13 @@ class CreateTuitViewModel
             viewModelScope.launch {
                 _uiState.value =
                     _uiState.value.copy(
-                        deleteDraftState = UIState.Loading
+                        deleteDraftState = UIState.Loading,
                     )
                 try {
                     removeDraftTuitUseCase(draftId)
                     _uiState.value =
                         _uiState.value.copy(
-                            deleteDraftState = UIState.Success(Unit)
+                            deleteDraftState = UIState.Success(Unit),
                         )
                 } catch (e: Exception) {
                     _uiState.value = _uiState.value.copy(

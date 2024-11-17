@@ -177,14 +177,15 @@ fun CreateTuitScreen(
     if (showSuccessSnackbar) {
         Box(
             modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.Center,
         ) {
             Snackbar(
                 modifier = Modifier.padding(16.dp),
             ) {
-                Text(stringResource(R.string.tuit_created),
+                Text(
+                    stringResource(R.string.tuit_created),
                     textAlign = TextAlign.Center,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth(),
                 )
             }
         }

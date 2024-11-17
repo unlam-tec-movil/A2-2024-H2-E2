@@ -153,7 +153,7 @@ fun AppNavigation(
                 },
                 onNavigateToCreate = { draftText, draftId ->
                     navController.navigate(
-                        Screen.CreateTuit.route + "?draftText=$draftText&draftId=$draftId"
+                        Screen.CreateTuit.route + "?draftText=$draftText&draftId=$draftId",
                     )
                 },
             )
