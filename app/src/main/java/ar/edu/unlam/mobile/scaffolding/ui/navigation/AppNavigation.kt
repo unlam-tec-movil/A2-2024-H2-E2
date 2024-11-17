@@ -18,7 +18,7 @@ import ar.edu.unlam.mobile.scaffolding.ui.user.profile.ProfileScreen
 @Composable
 fun AppNavigation(
     navController: NavHostController,
-    listState: LazyListState
+    listState: LazyListState,
 ) {
     NavHost(
         navController = navController,
@@ -62,12 +62,13 @@ fun AppNavigation(
 
         composable(
             route = Screen.Feed.route + "?fromCreate={fromCreate}",
-            arguments = listOf(
-                navArgument("fromCreate") {
-                    type = NavType.BoolType
-                    defaultValue = false
-                },
-            ),
+            arguments =
+                listOf(
+                    navArgument("fromCreate") {
+                        type = NavType.BoolType
+                        defaultValue = false
+                    },
+                ),
         ) { backStackEntry ->
             val fromCreate = backStackEntry.arguments?.getBoolean("fromCreate") ?: false
             FeedScreen(
@@ -82,7 +83,7 @@ fun AppNavigation(
                     }
                 },
                 fromCreateTuit = fromCreate,
-                listState = listState
+                listState = listState,
             )
         }
 
@@ -121,11 +122,11 @@ fun AppNavigation(
                     navArgument("draftId") {
                         type = NavType.IntType
                         defaultValue = -1
-                    }
+                    },
                 ),
         ) { backStackEntry ->
             val draftText = backStackEntry.arguments?.getString("draftText") ?: ""
-            val draftId = backStackEntry.arguments?.getInt("draftId")?.takeIf{ it != -1 }
+            val draftId = backStackEntry.arguments?.getInt("draftId")?.takeIf { it != -1 }
             CreateTuitScreen(
                 initialText = draftText,
                 draftId = draftId,
@@ -141,7 +142,7 @@ fun AppNavigation(
                 },
                 onNavigateToDrafts = {
                     navController.navigate(Screen.DraftTuit.route)
-                }
+                },
             )
         }
 
@@ -152,7 +153,8 @@ fun AppNavigation(
                 },
                 onNavigateToCreate = { draftText, draftId ->
                     navController.navigate(
-                        Screen.CreateTuit.route + "?draftText=$draftText&draftId=$draftId")
+                        Screen.CreateTuit.route + "?draftText=$draftText&draftId=$draftId"
+                    )
                 },
             )
         }
