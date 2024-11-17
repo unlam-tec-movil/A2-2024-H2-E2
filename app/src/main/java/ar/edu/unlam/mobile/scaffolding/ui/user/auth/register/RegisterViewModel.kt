@@ -21,14 +21,14 @@ class RegisterViewModel
         private val registerUser: RegisterUser,
         private val loginUser: LoginUser,
     ) : ViewModel() {
-    private val _state = MutableStateFlow(RegisterState(registerState = UIState.None))
-    val state = _state.asStateFlow()
+        private val _state = MutableStateFlow(RegisterState(registerState = UIState.None))
+        val state = _state.asStateFlow()
 
-    fun register(
-        name: String,
-        email: String,
-        password: String,
-    ) {
+        fun register(
+            name: String,
+            email: String,
+            password: String,
+        ) {
         val errorMessage = validateCredentials(name, email, password)
         if (errorMessage != null) {
             _state.update {

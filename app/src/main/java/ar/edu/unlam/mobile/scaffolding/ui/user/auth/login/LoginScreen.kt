@@ -64,6 +64,7 @@ fun LoginScreen(
                     )
                 }
                 else -> {
+                    // No hay acciones requeridas
                 }
             }
         }

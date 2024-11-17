@@ -67,11 +67,11 @@ fun RegisterScreen(
                         error = registerState.message,
                         onRetry = { viewModel.register(name, email, password) },
                         snackbarHostState = snackbarHostState,
-                        onErrorShown = { viewModel.clearErrorState() }
+                        onErrorShown = { viewModel.clearErrorState() },
                     )
                 }
                 else -> {
-
+                    // No hay acciones requeridas
                 }
             }
         }
