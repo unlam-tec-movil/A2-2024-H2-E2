@@ -39,8 +39,9 @@ class CreateTuitViewModel
                             deleteDraftState = UIState.Success(Unit),
                         )
                 } catch (e: Exception) {
-                    _uiState.value = _uiState.value.copy(
-                        deleteDraftState = UIState.Error("Error al eliminar el borrador: ${e.message}"),
+                    _uiState.value =
+                        _uiState.value.copy(
+                            deleteDraftState = UIState.Error("Error al eliminar el borrador: ${e.message}"),
                     )
                 }
             }
@@ -62,14 +63,14 @@ class CreateTuitViewModel
                     }
                     _uiState.value =
                         _uiState.value.copy(
-                            createTuitState = if (result) UIState.Success(Unit) else UIState.Error("Error al crear el tuit")
+                            createTuitState = if (result) UIState.Success(Unit) else UIState.Error("Error al crear el tuit"),
                         )
-                    } catch (e: Exception) {
-                        _uiState.value =
-                            _uiState.value.copy(
-                                createTuitState = UIState.Error(e.message ?: "Error desconocido"),
-                            )
-                    }
+                } catch (e: Exception) {
+                    _uiState.value =
+                        _uiState.value.copy(
+                            createTuitState = UIState.Error(e.message ?: "Error desconocido"),
+                        )
+                }
             }
         }
 
