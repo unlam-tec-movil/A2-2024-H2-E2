@@ -29,65 +29,65 @@ class RegisterViewModel
             email: String,
             password: String,
         ) {
-        val errorMessage = validateCredentials(name, email, password)
-        if (errorMessage != null) {
+            val errorMessage = validateCredentials(name, email, password)
+            if (errorMessage != null) {
+                _state.update {
+                    it.copy(
+                        registerState = UIState.Error(errorMessage),
+                    )
+                }
+                return
+            }
+
             _state.update {
                 it.copy(
-                    registerState = UIState.Error(errorMessage),
+                    registerState = UIState.Loading,
                 )
             }
-            return
-        }
 
-        _state.update {
-            it.copy(
-                registerState = UIState.Loading,
-            )
-        }
+            viewModelScope.launch {
+                val userCredentials = RegisterCredentials(name, email, password)
+                val loginCredentials = LoginCredentials(email, password)
+                val result = registerUser(userCredentials)
 
-        viewModelScope.launch {
-            val userCredentials = RegisterCredentials(name, email, password)
-            val loginCredentials = LoginCredentials(email, password)
-            val result = registerUser(userCredentials)
-
-            if (result.isSuccess) {
-                _state.update {
-                    it.copy(
-                        registerState = UIState.Success(Unit),
-                    )
-                }
-                loginUser(loginCredentials)
-            } else {
-                _state.update {
-                    it.copy(
-                        registerState =
-                        UIState.Error("No se pudo registrar el usuario."),
-                    )
+                if (result.isSuccess) {
+                    _state.update {
+                        it.copy(
+                            registerState = UIState.Success(Unit),
+                        )
+                    }
+                    loginUser(loginCredentials)
+                } else {
+                    _state.update {
+                        it.copy(
+                            registerState =
+                            UIState.Error("No se pudo registrar el usuario."),
+                        )
+                    }
                 }
             }
         }
-    }
 
-    private fun validateCredentials(
-        name: String,
-        email: String,
-        password: String,
-    ): String? =
-        when {
-            name.isBlank() || email.isBlank() || password.isBlank() -> "Por favor, complete todos los campos."
-            !isValidEmail(email) -> "Por favor, ingrese un email válido."
-            password.length < 6 -> "La contraseña debe tener al menos 6 caracteres."
-            else -> null
+        private fun validateCredentials(
+            name: String,
+            email: String,
+            password: String,
+        ): String? =
+            when {
+                name.isBlank() || email.isBlank() || password.isBlank() -> "Por favor, complete todos los campos."
+                !isValidEmail(email) -> "Por favor, ingrese un email válido."
+                password.length < 6 -> "La contraseña debe tener al menos 6 caracteres."
+                else -> null
+            }
+
+        private fun isValidEmail(email: String): Boolean {
+            val emailRegex = Regex("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$")
+            return emailRegex.matches(email)
         }
 
-    private fun isValidEmail(email: String): Boolean {
-        val emailRegex = Regex("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$")
-        return emailRegex.matches(email)
-    }
-
-    fun clearErrorState() {
-        _state.update {
-            it.copy(registerState = UIState.None)
+        fun clearErrorState() {
+            _state.update {
+                it.copy(registerState = UIState.None)
+            }
         }
     }
-}
