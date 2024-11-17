@@ -24,6 +24,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import ar.edu.unlam.mobile.scaffolding.ui.components.BottomNavigationBar
@@ -71,14 +73,26 @@ fun MainScreen() {
 
     val listState = rememberLazyListState()
 
-    var isBottomVarVisible by remember { mutableStateOf(true) }
+    var isBottomBarVisible by remember { mutableStateOf(true) }
+
+    val density = LocalDensity.current
 
     LaunchedEffect(listState) {
-        var lastScrollIndex = 0
-        snapshotFlow { listState.firstVisibleItemIndex }
-            .collect { currentIndex ->
-                isBottomVarVisible = currentIndex <= lastScrollIndex
-                lastScrollIndex = currentIndex
+        var lastScrollOfSet = 0
+
+        snapshotFlow { listState.firstVisibleItemScrollOffset }
+            .collect { currentScrollOffset ->
+                with(density) {
+                    val deltaDp = (currentScrollOffset - lastScrollOfSet).toDp()
+                    val sensitivityDp = 4.dp
+
+                if (deltaDp > sensitivityDp) {
+                    isBottomBarVisible = false
+                } else if (deltaDp < -sensitivityDp) {
+                    isBottomBarVisible = true
+                }
+                lastScrollOfSet = currentScrollOffset
+                }
             }
     }
 
@@ -86,7 +100,7 @@ fun MainScreen() {
         bottomBar = {
             if (showBottomBar) {
                 AnimatedVisibility(
-                    visible = isBottomVarVisible,
+                    visible = isBottomBarVisible,
                     enter = expandVertically(expandFrom = Alignment.Bottom) + fadeIn(),
                     exit = shrinkVertically(shrinkTowards = Alignment.Bottom) + fadeOut(),
                 ) {

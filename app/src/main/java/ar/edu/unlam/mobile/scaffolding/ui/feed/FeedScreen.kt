@@ -27,6 +27,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -57,13 +58,24 @@ fun FeedScreen(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     var isFabVisible by remember { mutableStateOf(true) }
+    val density = LocalDensity.current
 
     LaunchedEffect(listState) {
-        var lastScrollIndex = 0
-        snapshotFlow { listState.firstVisibleItemIndex }
-            .collect { currentIndex ->
-                isFabVisible = currentIndex <= lastScrollIndex
-                lastScrollIndex = currentIndex
+        var lastScrollOfSet = 0
+
+        snapshotFlow { listState.firstVisibleItemScrollOffset }
+            .collect { currentScrollOffset ->
+                with(density) {
+                    val deltaDp = (currentScrollOffset - lastScrollOfSet).toDp()
+                    val sensitivityDp = 4.dp
+
+                    if (deltaDp > sensitivityDp) {
+                        isFabVisible = false
+                    } else if (deltaDp < -sensitivityDp) {
+                        isFabVisible = true
+                    }
+                    lastScrollOfSet = currentScrollOffset
+                }
             }
     }
 
