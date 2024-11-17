@@ -35,7 +35,7 @@ fun BottomNavigationBar(controller: NavHostController) {
                     tint = MaterialTheme.colorScheme.primary,
                 )
             },
-            )
+        )
         NavigationBarItem(
             selected = navBackStackEntry?.destination?.hierarchy?.any { it.route == Screen.Profile.route } == true,
             onClick = {

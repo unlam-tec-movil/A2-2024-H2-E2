@@ -17,6 +17,6 @@ interface DraftTuitDao {
     @Query("DELETE FROM draft_tuits WHERE id = :draftId AND userEmail = :userEmail")
     suspend fun deleteDraftTuitByIdAndUser(
         draftId: Int,
-        userEmail: String
+        userEmail: String,
     )
 }

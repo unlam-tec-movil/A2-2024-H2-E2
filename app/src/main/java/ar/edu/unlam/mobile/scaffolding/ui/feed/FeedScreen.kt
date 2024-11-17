@@ -93,7 +93,7 @@ fun FeedScreen(
             AnimatedVisibility(
                 visible = isFabVisible,
                 enter = expandVertically(expandFrom = Alignment.Bottom) + fadeIn(),
-                exit = shrinkVertically(shrinkTowards = Alignment.Bottom) + fadeOut()
+                exit = shrinkVertically(shrinkTowards = Alignment.Bottom) + fadeOut(),
             ) {
                 FloatingActionButton(
                     onClick = { onNavigateToCreateTuit() },
@@ -123,7 +123,7 @@ fun FeedScreen(
                 likeAction = { tuitId, isNotLiked -> viewModel.toggleTuitLike(tuitId, isNotLiked) },
                 loadMoreFeed = { viewModel.loadMoreFeed() },
                 isLoadingMoreTuits = viewModel.isLoadingMoreTuits,
-                listState = listState
+                listState = listState,
             )
             PullRefreshIndicator(
                 refreshing = state.isRefreshing,
@@ -156,7 +156,7 @@ private fun FeedContent(
                     onFavoriteClick = onFavoriteClick,
                     loadMoreFeed = loadMoreFeed,
                     isLoadingMoreTuits = isLoadingMoreTuits,
-                    listState = listState
+                    listState = listState,
                 )
             }
             .onError { message ->

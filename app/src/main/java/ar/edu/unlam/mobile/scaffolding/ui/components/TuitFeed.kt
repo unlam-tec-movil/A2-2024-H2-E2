@@ -4,10 +4,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ar.edu.unlam.mobile.scaffolding.domain.model.FavoriteUser
 import ar.edu.unlam.mobile.scaffolding.domain.model.Tuit
@@ -22,7 +20,6 @@ fun TuitFeed(
     isLoadingMoreTuits: Boolean,
     listState: LazyListState,
 ) {
-
     LazyColumn(state = listState) {
         items(tuits) { tuit ->
             TuitCard(
