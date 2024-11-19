@@ -3,7 +3,6 @@ package ar.edu.unlam.mobile.scaffolding.ui.components
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
 import ar.edu.unlam.mobile.scaffolding.domain.model.FavoriteUser
 
 @Composable
@@ -21,7 +20,7 @@ fun FavoriteUsersList(
     }
 }
 
-@Preview
+/*@Preview
 @Composable
 fun FavoriteUsersListPreview() {
     val favUsers =
@@ -47,4 +46,4 @@ fun FavoriteUsersListPreview() {
         favUsers,
         onDeleteUser = {},
     )
-}
+}*/

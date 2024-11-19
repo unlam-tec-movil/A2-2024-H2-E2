@@ -29,7 +29,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ar.edu.unlam.mobile.scaffolding.R
@@ -40,6 +39,7 @@ import coil.compose.AsyncImage
 @Composable
 fun TuitCard(
     tuit: Tuit,
+    userEmail: String,
     modifier: Modifier = Modifier,
     onFavoriteClick: (FavoriteUser) -> Unit,
     isFavorite: Boolean,
@@ -82,7 +82,7 @@ fun TuitCard(
                         if (isFavorite) {
                             showConfirmationDialog = true
                         } else {
-                            onFavoriteClick(FavoriteUser(tuit.author, tuit.avatarUrl))
+                            onFavoriteClick(FavoriteUser(tuit.author, tuit.avatarUrl, userEmail))
                         }
                     }) {
                         Icon(
@@ -111,7 +111,7 @@ fun TuitCard(
                     confirmButton = {
                         TextButton(
                             onClick = {
-                                onFavoriteClick(FavoriteUser(tuit.author, tuit.avatarUrl))
+                                onFavoriteClick(FavoriteUser(tuit.author, tuit.avatarUrl, userEmail))
                                 showConfirmationDialog = false
                             },
                         ) {
@@ -131,7 +131,7 @@ fun TuitCard(
     }
 }
 
-@Preview
+/* @Preview
 @Composable
 fun TuitCardPreview() {
     val tuit =
@@ -153,4 +153,4 @@ fun TuitCardPreview() {
         isFavorite = true,
         likeAction = { _, _ -> },
     )
-}
+} */

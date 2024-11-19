@@ -57,7 +57,8 @@ object RepositoryModule {
     fun provideFavoriteUserRepository(
         dao: FavoriteUserDao,
         mapper: FavoriteUserMapper,
-    ): FavoriteUserRepository = LocalDatabaseFavoriteUserRepository(dao, mapper)
+        profileRepository: ProfileRepository,
+    ): FavoriteUserRepository = LocalDatabaseFavoriteUserRepository(dao, mapper, profileRepository)
 
     @Provides
     @Singleton
