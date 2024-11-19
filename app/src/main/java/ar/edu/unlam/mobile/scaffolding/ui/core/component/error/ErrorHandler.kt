@@ -17,14 +17,17 @@ fun ErrorHandler(
     error?.let { errorMessage ->
         LaunchedEffect(errorMessage) {
             val snackbarResult =
-                    snackbarHostState.showSnackbar(
+                snackbarHostState
+                    .showSnackbar(
                         message = errorMessage,
                         actionLabel = if (showRetryButton) "Reintentar" else null,
                         duration = SnackbarDuration.Long,
                     )
+
             if (snackbarResult == SnackbarResult.ActionPerformed && showRetryButton) {
                 onRetry()
             }
+
             onErrorShown()
         }
     }
