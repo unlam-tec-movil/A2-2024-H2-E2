@@ -16,7 +16,7 @@ fun ErrorHandler(
 ) {
     error?.let { errorMessage ->
         LaunchedEffect(errorMessage) {
-            val snackbarResult = 
+            val snackbarResult =
                 snackbarHostState
                     .showSnackbar(
                         message = errorMessage,
