@@ -21,7 +21,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ar.edu.unlam.mobile.scaffolding.domain.model.FavoriteUser
@@ -80,7 +79,7 @@ fun FavoriteUserCard(
     }
 }
 
-@Preview(showBackground = true)
+/* @Preview(showBackground = true)
 @Composable
 fun FavoriteUserCardPreview() {
     val favUser =
@@ -92,4 +91,4 @@ fun FavoriteUserCardPreview() {
         favoriteUser = favUser,
         onDeleteUser = {},
     )
-}
+} */

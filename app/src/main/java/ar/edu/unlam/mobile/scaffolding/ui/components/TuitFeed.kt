@@ -13,6 +13,7 @@ import ar.edu.unlam.mobile.scaffolding.domain.model.Tuit
 @Composable
 fun TuitFeed(
     tuits: List<Tuit>,
+    userEmail: String,
     likeAction: (tuitId: Int, isLiked: Boolean) -> Unit = { _, _ -> },
     favoriteUsers: Set<FavoriteUser>,
     onFavoriteClick: (FavoriteUser) -> Unit,
@@ -24,6 +25,7 @@ fun TuitFeed(
         items(tuits) { tuit ->
             TuitCard(
                 tuit = tuit,
+                userEmail = userEmail,
                 modifier = Modifier.padding(1.dp),
                 isFavorite = favoriteUsers.any { it.name == tuit.author },
                 onFavoriteClick = onFavoriteClick,
