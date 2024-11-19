@@ -213,8 +213,7 @@ class FeedViewModel
         fun onFavoriteClick(favoriteUser: FavoriteUser) {
             viewModelScope.launch {
                 val userEmail = profileRepository.getProfile().email
-                val isFavorite = favoriteUsers.contains(favoriteUser)
-                if (isFavorite) {
+                if (isFavorite(favoriteUser)) {
                     removeFavoriteUser(favoriteUser.copy(userEmail = userEmail))
                     favoriteUsers.remove(favoriteUser)
                 } else {
@@ -227,4 +226,9 @@ class FeedViewModel
                     )
             }
         }
+
+        private fun isFavorite(favoriteUser: FavoriteUser): Boolean =
+            state.value.favoriteUsers.any {
+                it.name == favoriteUser.name && it.avatarUrl == favoriteUser.avatarUrl
+            }
     }
