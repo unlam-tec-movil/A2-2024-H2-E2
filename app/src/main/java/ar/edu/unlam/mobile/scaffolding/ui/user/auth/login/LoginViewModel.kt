@@ -41,10 +41,16 @@ class LoginViewModel
                         )
                     } else {
                         it.copy(
-                            loginState = UIState.Error("No se pudo iniciar sesión."),
+                            loginState = UIState.Error("No pudimos iniciar sesión. Verifica tus datos o inténtalo más tarde."),
                         )
                     }
                 }
+            }
+        }
+
+        fun clearErrorState() {
+            _state.update {
+                it.copy(loginState = UIState.None)
             }
         }
     }

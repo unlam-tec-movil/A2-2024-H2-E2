@@ -13,6 +13,8 @@ class RefreshFeed
     ) {
         operator fun invoke(): Flow<List<Tuit>> =
             flow {
-                tuitRepository.getFeed(1)
+                tuitRepository.getFeed(1).collect { feed ->
+                    emit(feed)
+                }
             }
     }

@@ -5,20 +5,27 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ar.edu.unlam.mobile.scaffolding.domain.model.DraftTuit
 
 @Composable
-fun TuitDraftFeed(drafts: List<DraftTuit>) {
-    LazyColumn {
+fun TuitDraftFeed(
+    drafts: List<DraftTuit>,
+    onDraftClick: (DraftTuit) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    LazyColumn(modifier = modifier) {
         items(drafts) { draft ->
-            TuitDraftCard(draft, modifier = Modifier.padding(1.dp))
+            TuitDraftCard(
+                tuitDraft = draft,
+                onCardClick = { onDraftClick(draft) },
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+            )
         }
     }
 }
 
-@Preview
+/*@Preview
 @Composable
 fun TuitDraftFeedPreview() {
     val drafts =
@@ -33,4 +40,4 @@ fun TuitDraftFeedPreview() {
             ),
         )
     TuitDraftFeed(drafts = drafts)
-}
+}*/
