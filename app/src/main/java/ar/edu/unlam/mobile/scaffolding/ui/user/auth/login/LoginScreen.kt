@@ -61,6 +61,7 @@ fun LoginScreen(
                         onRetry = { viewModel.login(email, password) },
                         snackbarHostState = snackbarHostState,
                         onErrorShown = { viewModel.clearErrorState() },
+                        showRetryButton = false,
                     )
                 }
                 else -> {

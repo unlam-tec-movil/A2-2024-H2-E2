@@ -12,19 +12,20 @@ fun ErrorHandler(
     onRetry: () -> Unit,
     snackbarHostState: SnackbarHostState,
     onErrorShown: () -> Unit,
+    showRetryButton: Boolean,
 ) {
     error?.let { errorMessage ->
         LaunchedEffect(errorMessage) {
-            snackbarHostState.showSnackbar(
-                message = errorMessage,
-                actionLabel = "Reintentar",
-                duration = SnackbarDuration.Long,
-            ).let { result ->
-                if (result == SnackbarResult.ActionPerformed) {
-                    onRetry()
-                }
-                onErrorShown()
+            val snackbarResult =
+                    snackbarHostState.showSnackbar(
+                        message = errorMessage,
+                        actionLabel = if (showRetryButton) "Reintentar" else null,
+                        duration = SnackbarDuration.Long,
+                    )
+            if (snackbarResult == SnackbarResult.ActionPerformed && showRetryButton) {
+                onRetry()
             }
+            onErrorShown()
         }
     }
 }

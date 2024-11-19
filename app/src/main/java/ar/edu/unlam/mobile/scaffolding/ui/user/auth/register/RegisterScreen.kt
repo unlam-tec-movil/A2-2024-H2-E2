@@ -68,6 +68,7 @@ fun RegisterScreen(
                         onRetry = { viewModel.register(name, email, password) },
                         snackbarHostState = snackbarHostState,
                         onErrorShown = { viewModel.clearErrorState() },
+                        showRetryButton = false,
                     )
                 }
                 else -> {
