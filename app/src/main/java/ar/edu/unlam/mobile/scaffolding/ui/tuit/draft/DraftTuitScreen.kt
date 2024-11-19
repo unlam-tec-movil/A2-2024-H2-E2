@@ -18,10 +18,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ar.edu.unlam.mobile.scaffolding.R
-import ar.edu.unlam.mobile.scaffolding.domain.model.DraftTuit
 import ar.edu.unlam.mobile.scaffolding.ui.components.TuitDraftFeed
 import ar.edu.unlam.mobile.scaffolding.ui.core.component.loading.LoadingIndicator
-import ar.edu.unlam.mobile.scaffolding.ui.core.state.UIState
 import ar.edu.unlam.mobile.scaffolding.ui.core.state.onLoading
 import ar.edu.unlam.mobile.scaffolding.ui.core.state.onSuccess
 
@@ -31,6 +29,7 @@ fun DraftTuitScreen(
     modifier: Modifier = Modifier,
     viewModel: DraftTuitViewModel = hiltViewModel(),
     onDismissRequest: () -> Unit,
+    onNavigateToCreate: (text: String, draftId: Int) -> Unit,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
 
@@ -53,25 +52,20 @@ fun DraftTuitScreen(
                     .fillMaxSize()
                     .padding(paddingValues),
         ) {
-            DraftTuitContent(
-                state = state.draftTuitState,
-                modifier = Modifier.fillMaxSize(),
-            )
-        }
-    }
-}
-
-@Composable
-private fun DraftTuitContent(
-    state: UIState<List<DraftTuit>>,
-    modifier: Modifier = Modifier,
-) {
-    Box(modifier = modifier.fillMaxSize()) {
-        state.onSuccess { drafts ->
-            TuitDraftFeed(drafts = drafts)
-        }
-            .onLoading {
+            state.draftTuitState.onSuccess { drafts ->
+                TuitDraftFeed(
+                    drafts = drafts,
+                    onDraftClick = { draft ->
+                        onNavigateToCreate(
+                            draft.message,
+                            draft.id,
+                        )
+                    },
+                    modifier = Modifier.fillMaxSize(),
+                )
+            }.onLoading {
                 LoadingIndicator()
             }
+        }
     }
 }

@@ -8,5 +8,5 @@ interface DraftTuitRepository {
 
     suspend fun saveDraft(draftTuit: DraftTuit)
 
-    suspend fun deleteDraft(draftTuitId: DraftTuit)
+    suspend fun deleteDraftById(draftTuitId: Int)
 }
