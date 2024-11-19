@@ -1,8 +1,14 @@
 package ar.edu.unlam.mobile.scaffolding.ui.feed
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -13,9 +19,15 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -31,17 +43,47 @@ import ar.edu.unlam.mobile.scaffolding.ui.core.state.UIState
 import ar.edu.unlam.mobile.scaffolding.ui.core.state.onError
 import ar.edu.unlam.mobile.scaffolding.ui.core.state.onLoading
 import ar.edu.unlam.mobile.scaffolding.ui.core.state.onSuccess
+import ar.edu.unlam.mobile.scaffolding.ui.user.auth.logout.LogoutViewModel
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun FeedScreen(
     modifier: Modifier = Modifier,
     viewModel: FeedViewModel = hiltViewModel(),
+    logoutViewModel: LogoutViewModel = hiltViewModel(),
     onNavigateToCreateTuit: () -> Unit,
     onLogout: () -> Unit,
-    onNavigateToDrafts: () -> Unit,
+    fromCreateTuit: Boolean = false,
+    listState: LazyListState,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+    var isFabVisible by remember { mutableStateOf(true) }
+    val density = LocalDensity.current
+
+    LaunchedEffect(listState) {
+        var lastScrollOfSet = 0
+
+        snapshotFlow { listState.firstVisibleItemScrollOffset }
+            .collect { currentScrollOffset ->
+                with(density) {
+                    val deltaDp = (currentScrollOffset - lastScrollOfSet).toDp()
+                    val sensitivityDp = 4.dp
+
+                    if (deltaDp > sensitivityDp) {
+                        isFabVisible = false
+                    } else if (deltaDp < -sensitivityDp) {
+                        isFabVisible = true
+                    }
+                    lastScrollOfSet = currentScrollOffset
+                }
+            }
+    }
+
+    LaunchedEffect(fromCreateTuit) {
+        if (fromCreateTuit) {
+            viewModel.onRefresh()
+        }
+    }
 
     val pullRefreshState =
         rememberPullRefreshState(
@@ -53,19 +95,27 @@ fun FeedScreen(
         topBar = {
             MainTopAppBar(
                 title = stringResource(R.string.feed_title),
-                onLogout = onLogout,
-                onNavigateToDrafts = onNavigateToDrafts,
+                onLogout = {
+                    logoutViewModel.logout()
+                    onLogout()
+                },
             )
         },
         floatingActionButton = {
-            FloatingActionButton(
-                onClick = { onNavigateToCreateTuit() },
-                modifier = Modifier.padding(16.dp),
+            AnimatedVisibility(
+                visible = isFabVisible,
+                enter = expandVertically(expandFrom = Alignment.Bottom) + fadeIn(),
+                exit = shrinkVertically(shrinkTowards = Alignment.Bottom) + fadeOut(),
             ) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = stringResource(R.string.create_tuit),
-                )
+                FloatingActionButton(
+                    onClick = { onNavigateToCreateTuit() },
+                    modifier = Modifier.padding(16.dp),
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Add,
+                        contentDescription = stringResource(R.string.create_tuit),
+                    )
+                }
             }
         },
     ) { paddingValues ->
@@ -86,6 +136,7 @@ fun FeedScreen(
                 likeAction = { tuitId, isNotLiked -> viewModel.toggleTuitLike(tuitId, isNotLiked) },
                 loadMoreFeed = { viewModel.loadMoreFeed() },
                 isLoadingMoreTuits = viewModel.isLoadingMoreTuits,
+                listState = listState,
             )
             PullRefreshIndicator(
                 refreshing = state.isRefreshing,
@@ -106,6 +157,7 @@ private fun FeedContent(
     likeAction: (tuitId: Int, isNotLiked: Boolean) -> Unit = { _, _ -> },
     loadMoreFeed: () -> Unit,
     isLoadingMoreTuits: Boolean,
+    listState: LazyListState,
     modifier: Modifier = Modifier,
 ) {
     Box(modifier = modifier.fillMaxSize()) {
@@ -119,6 +171,7 @@ private fun FeedContent(
                     onFavoriteClick = onFavoriteClick,
                     loadMoreFeed = loadMoreFeed,
                     isLoadingMoreTuits = isLoadingMoreTuits,
+                    listState = listState,
                 )
             }.onError { message ->
                 ErrorView(

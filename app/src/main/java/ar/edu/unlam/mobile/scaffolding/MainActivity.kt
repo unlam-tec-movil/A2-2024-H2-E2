@@ -3,15 +3,29 @@ package ar.edu.unlam.mobile.scaffolding
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import ar.edu.unlam.mobile.scaffolding.ui.components.BottomNavigationBar
@@ -53,12 +67,45 @@ fun MainScreen() {
             Screen.FavoriteUsers.route,
         )
 
-    val showBottomBar = currentRoute in screenWithBottomBar
+    val normalizedRoute = currentRoute?.substringBefore("?")
+
+    val showBottomBar = normalizedRoute in screenWithBottomBar
+
+    val listState = rememberLazyListState()
+
+    var isBottomBarVisible by remember { mutableStateOf(true) }
+
+    val density = LocalDensity.current
+
+    LaunchedEffect(listState) {
+        var lastScrollOfSet = 0
+
+        snapshotFlow { listState.firstVisibleItemScrollOffset }
+            .collect { currentScrollOffset ->
+                with(density) {
+                    val deltaDp = (currentScrollOffset - lastScrollOfSet).toDp()
+                    val sensitivityDp = 4.dp
+
+                    if (deltaDp > sensitivityDp) {
+                        isBottomBarVisible = false
+                    } else if (deltaDp < -sensitivityDp) {
+                        isBottomBarVisible = true
+                    }
+                    lastScrollOfSet = currentScrollOffset
+                }
+            }
+    }
 
     Scaffold(
         bottomBar = {
             if (showBottomBar) {
-                BottomNavigationBar(controller = navController)
+                AnimatedVisibility(
+                    visible = isBottomBarVisible,
+                    enter = expandVertically(expandFrom = Alignment.Bottom) + fadeIn(),
+                    exit = shrinkVertically(shrinkTowards = Alignment.Bottom) + fadeOut(),
+                ) {
+                    BottomNavigationBar(controller = navController)
+                }
             }
         },
     ) { paddingValues ->
@@ -68,7 +115,7 @@ fun MainScreen() {
                     .fillMaxSize()
                     .padding(paddingValues),
         ) {
-            AppNavigation(navController = navController)
+            AppNavigation(navController = navController, listState = listState)
         }
     }
 }

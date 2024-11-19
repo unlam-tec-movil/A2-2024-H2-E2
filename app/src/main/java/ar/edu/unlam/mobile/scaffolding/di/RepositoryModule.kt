@@ -65,5 +65,6 @@ object RepositoryModule {
     fun provideDraftTuitRepository(
         dao: DraftTuitDao,
         mapper: DraftTuitMapper,
-    ): DraftTuitRepository = LocalDatabaseDraftTuitRepository(dao, mapper)
+        profileRepository: ProfileRepository,
+    ): DraftTuitRepository = LocalDatabaseDraftTuitRepository(dao, mapper, profileRepository)
 }
