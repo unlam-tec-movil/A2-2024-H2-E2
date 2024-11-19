@@ -9,7 +9,7 @@ import ar.edu.unlam.mobile.scaffolding.data.local.entity.FavoriteUserEntity
 
 @Database(
     entities = [FavoriteUserEntity::class, DraftTuitEntity::class],
-    version = 6,
+    version = 7,
     exportSchema = false,
 )
 abstract class AppDatabase : RoomDatabase() {
