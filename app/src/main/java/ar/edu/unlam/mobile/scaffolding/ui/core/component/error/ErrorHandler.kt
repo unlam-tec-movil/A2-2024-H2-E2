@@ -21,8 +21,8 @@ fun ErrorHandler(
                     .showSnackbar(
                         message = errorMessage,
                         actionLabel = if (showRetryButton) "Reintentar" else null,
-                    duration = SnackbarDuration.Long,
-                )
+                        duration = SnackbarDuration.Long,
+                    )
 
             if (snackbarResult == SnackbarResult.ActionPerformed && showRetryButton) {
                 onRetry()
