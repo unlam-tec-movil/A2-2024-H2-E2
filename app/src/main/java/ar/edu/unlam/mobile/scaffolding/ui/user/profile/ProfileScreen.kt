@@ -7,14 +7,20 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -60,7 +66,35 @@ fun ProfileScreen(
                 .onLoading {
                     LoadingIndicator()
                 }.onSuccess { profile ->
-                    ProfileContent(profile)
+                    if (state.isEditing) {
+                        EditProfileContent(
+                            profile = profile,
+                            onSaveChanges = {
+                                    name: String,
+                                    avatarUrl: String,
+                                    password: String,
+                                ->
+                                viewModel.updateProfile(name, avatarUrl, password)
+                            },
+                        )
+                    } else {
+                        ProfileContent(
+                            profile = profile,
+                            onEditProfile = {
+                                viewModel.toggleEditProfile()
+                            },
+                        )
+                    }
+                }.onError { message ->
+                    ErrorView(
+                        message = message,
+                        onRetry = { viewModel.retryLoadUserProfile() },
+                    )
+                }
+
+            state.editProfileState
+                .onLoading {
+                    LoadingIndicator()
                 }.onError { message ->
                     ErrorView(
                         message = message,
@@ -72,8 +106,54 @@ fun ProfileScreen(
 }
 
 @Composable
+fun EditProfileContent(
+    profile: Profile,
+    onSaveChanges: (String, String, String) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    var name by remember { mutableStateOf(profile.name) }
+    var avatarUrl by remember { mutableStateOf(profile.avatarUrl) }
+    var password by remember { mutableStateOf("") }
+
+    Column(
+        modifier =
+            modifier
+                .fillMaxSize()
+                .padding(30.dp),
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        OutlinedTextField(
+            value = name,
+            onValueChange = { name = it },
+            label = { Text(text = "Nombre") },
+        )
+        Spacer(modifier = Modifier.height(10.dp))
+        OutlinedTextField(
+            value = avatarUrl,
+            onValueChange = { avatarUrl = it },
+            label = { Text(text = "Avatar URL") },
+        )
+        Spacer(modifier = Modifier.height(10.dp))
+        OutlinedTextField(
+            value = password,
+            onValueChange = { password = it },
+            label = { Text(text = "Contraseña") },
+            visualTransformation = PasswordVisualTransformation(),
+        )
+        Spacer(modifier = Modifier.height(10.dp))
+        Button(
+            onClick = { onSaveChanges(name, avatarUrl, password) },
+        ) {
+            Text(text = "Guardar cambios")
+        }
+    }
+}
+
+@Composable
 fun ProfileContent(
     profile: Profile,
+    onEditProfile: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -101,6 +181,12 @@ fun ProfileContent(
             style = MaterialTheme.typography.bodyLarge,
             textAlign = TextAlign.Center,
         )
+        Spacer(modifier = Modifier.height(10.dp))
+        Button(
+            onClick = { onEditProfile() },
+        ) {
+            Text(text = "Editar perfil")
+        }
     }
 }
 
@@ -114,5 +200,6 @@ fun ProfileScreenPreview() {
                 avatarUrl = "https://ui-avatars.com/api/?name=Usuario+2",
                 email = "jdprueba@gmail.com",
             ),
+        onEditProfile = { },
     )
 }
